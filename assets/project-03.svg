@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#1a1020"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="50%" stop-color="rgba(138,43,226,0.08)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <filter id="glowBlue">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="neon">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg3)"/>
+  <!-- Audio visualization wave -->
+  <g opacity="0.15" filter="url(#glowBlue)">
+    <rect x="50" y="280" width="4" height="40" rx="2" fill="#8a2be2"/>
+    <rect x="56" y="260" width="4" height="80" rx="2" fill="#8a2be2"/>
+    <rect x="62" y="240" width="4" height="120" rx="2" fill="#8a2be2"/>
+    <rect x="68" y="250" width="4" height="100" rx="2" fill="#8a2be2"/>
+    <rect x="74" y="270" width="4" height="60" rx="2" fill="#8a2be2"/>
+  </g>
+  <g opacity="0.3" filter="url(#glowBlue)">
+    <rect x="80" y="290" width="5" height="20" rx="2" fill="#9370db"/>
+    <rect x="87" y="270" width="5" height="60" rx="2" fill="#9370db"/>
+    <rect x="94" y="250" width="5" height="100" rx="2" fill="#9370db"/>
+    <rect x="101" y="260" width="5" height="80" rx="2" fill="#9370db"/>
+    <rect x="108" y="280" width="5" height="40" rx="2" fill="#9370db"/>
+  </g>
+  <!-- Main visualizer -->
+  <g opacity="0.5">
+    <rect x="120" y="310" width="8" height="30" rx="2" fill="#8a2be2" transform="translate(0,-15)"/>
+    <rect x="132" y="290" width="8" height="70" rx="2" fill="#9370db" transform="translate(0,-35)"/>
+    <rect x="144" y="270" width="8" height="110" rx="2" fill="#ba55d3" transform="translate(0,-55)"/>
+    <rect x="156" y="250" width="8" height="150" rx="2" fill="#dda0dd" transform="translate(0,-75)"/>
+    <rect x="168" y="230" width="8" height="190" rx="2" fill="#e0b0ff" transform="translate(0,-95)"/>
+    <rect x="180" y="240" width="8" height="170" rx="2" fill="#ba55d3" transform="translate(0,-85)"/>
+    <rect x="192" y="260" width="8" height="130" rx="2" fill="#9370db" transform="translate(0,-65)"/>
+    <rect x="204" y="280" width="8" height="90" rx="2" fill="#8a2be2" transform="translate(0,-45)"/>
+    <rect x="216" y="300" width="8" height="50" rx="2" fill="#6a5acd" transform="translate(0,-25)"/>
+  </g>
+  <!-- Audio visualization wave right side -->
+  <g opacity="0.5">
+    <rect x="560" y="310" width="8" height="30" rx="2" fill="#6a5acd" transform="translate(0,-15)"/>
+    <rect x="572" y="290" width="8" height="70" rx="2" fill="#8a2be2" transform="translate(0,-35)"/>
+    <rect x="584" y="270" width="8" height="110" rx="2" fill="#9370db" transform="translate(0,-55)"/>
+    <rect x="596" y="250" width="8" height="150" rx="2" fill="#ba55d3" transform="translate(0,-75)"/>
+    <rect x="608" y="230" width="8" height="190" rx="2" fill="#dda0dd" transform="translate(0,-95)"/>
+    <rect x="620" y="240" width="8" height="170" rx="2" fill="#ba55d3" transform="translate(0,-85)"/>
+    <rect x="632" y="260" width="8" height="130" rx="2" fill="#9370db" transform="translate(0,-65)"/>
+    <rect x="644" y="280" width="8" height="90" rx="2" fill="#8a2be2" transform="translate(0,-45)"/>
+    <rect x="656" y="300" width="8" height="50" rx="2" fill="#6a5acd" transform="translate(0,-25)"/>
+  </g>
+  <!-- Album art area -->
+  <rect x="290" y="100" width="220" height="220" rx="16" fill="#1a1020" stroke="rgba(138,43,226,0.2)" stroke-width="1"/>
+  <!-- Abstract album art -->
+  <circle cx="400" cy="210" r="60" fill="none" stroke="rgba(138,43,226,0.2)" stroke-width="1"/>
+  <circle cx="400" cy="210" r="40" fill="none" stroke="rgba(147,112,219,0.15)" stroke-width="1"/>
+  <circle cx="400" cy="210" r="20" fill="rgba(138,43,226,0.1)"/>
+  <circle cx="400" cy="210" r="8" fill="rgba(221,160,221,0.3)"/>
+  <line x1="400" y1="210" x2="440" y2="180" stroke="rgba(221,160,221,0.4)" stroke-width="1.5"/>
+  <line x1="400" y1="210" x2="370" y2="240" stroke="rgba(221,160,221,0.3)" stroke-width="1"/>
+  <!-- Player controls -->
+  <rect x="290" y="350" width="220" height="20" rx="10" fill="rgba(255,255,255,0.06)"/>
+  <rect x="290" y="350" width="150" height="20" rx="10" fill="rgba(138,43,226,0.4)"/>
+  <circle cx="440" cy="360" r="8" fill="#8a2be2" filter="url(#neon)"/>
+  <!-- Song info -->
+  <text x="305" y="330" fill="#f1f1f1" font-family="sans-serif" font-size="14" font-weight="500">Midnight Waves</text>
+  <text x="305" y="345" fill="rgba(255,255,255,0.3)" font-family="sans-serif" font-size="11">Void Ensemble</text>
+  <!-- Transport controls -->
+  <g transform="translate(330, 400)">
+    <rect x="0" y="0" width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+    <polygon points="16,13 16,27 28,20" fill="rgba(255,255,255,0.5)"/>
+    <rect x="55" y="0" width="40" height="40" rx="20" fill="rgba(138,43,226,0.3)"/>
+    <rect x="67" y="13" width="4" height="14" rx="1" fill="#f1f1f1"/>
+    <rect x="75" y="13" width="4" height="14" rx="1" fill="#f1f1f1"/>
+    <rect x="110" y="0" width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+    <polygon points="126,13 126,27 138,20" fill="rgba(255,255,255,0.5)"/>
+  </g>
+  <!-- Volume -->
+  <rect x="310" y="460" width="180" height="3" rx="1.5" fill="rgba(255,255,255,0.06)"/>
+  <rect x="310" y="460" width="130" height="3" rx="1.5" fill="rgba(138,43,226,0.4)"/>
+  <circle cx="440" cy="461" r="5" fill="#8a2be2"/>
+  <!-- Time -->
+  <text x="310" y="485" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="10">3:42</text>
+  <text x="490" y="485" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="10" text-anchor="end">6:18</text>
+</svg>
