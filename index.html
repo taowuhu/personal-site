@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>吴涛 · AI 产品开发者</title>
+<title>废废 · AI 产品开发者</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -199,9 +199,9 @@ footer p{font-size:10px;color:var(--text3)}
 
 /* Custom cursor */
 .cursor-glow{position:fixed;inset:0;pointer-events:none;z-index:9999}
-.cursor-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--p);box-shadow:0 0 12px rgba(179,136,255,0.6),0 0 30px rgba(179,136,255,0.2);transform:translate(-50%,-50%);transition:opacity 0.15s}
-.cursor-trail{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(179,136,255,0.3);transform:translate(-50%,-50%);animation:trailFade 0.6s ease-out forwards}
-@keyframes trailFade{0%{opacity:0.6;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(0.3)}}
+.cursor-dot{position:absolute;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(179,136,255,0.6);background:transparent;box-shadow:0 0 14px rgba(179,136,255,0.3),0 0 32px rgba(179,136,255,0.1),inset 0 0 6px rgba(179,136,255,0.1);transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,border-color 0.2s,box-shadow 0.2s}
+.cursor-trail{position:absolute;width:6px;height:6px;border-radius:50%;border:1px solid rgba(179,136,255,0.25);background:transparent;transform:translate(-50%,-50%);animation:trailFade 0.7s ease-out forwards}
+@keyframes trailFade{0%{opacity:0.5;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(0.2)}}
 body{cursor:none}
 a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:none}
 
@@ -245,7 +245,7 @@ a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:non
 </div>
 
 <nav id="nav">
-  <div class="logo">吴涛</div>
+  <div class="logo">废废</div>
   <ul class="links">
     <li><a href="#about">关于</a></li>
     <li><a href="#projects">项目</a></li>
@@ -260,7 +260,7 @@ a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:non
     <div class="hero-inner">
       <div class="hero-left">
         <div class="hero-badge r v"><span class="dot"></span> 可合作 · 正在做产品</div>
-        <h1 class="r v">我是 <span class="g">吴涛</span><br>从 0 开始接触 AI 的设计师</h1>
+        <h1 class="r v">我是 <span class="g">废废</span><br>从 0 开始接触 AI 的设计师</h1>
         <p class="sub r v d1">环境设计出身，用 Vibe Coding 把想法变成产品。目前有 5+ 个项目，涵盖 AI 工具、自动化系统、内容创作。</p>
         <div class="hero-actions r v d2">
           <a href="#projects" class="magnetic">看我的作品 ↓</a>
@@ -368,7 +368,7 @@ a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:non
         <div class="p-card" data-project="imgconv">
           <div class="p-top"><div class="ic blue">🖼️</div><h4>图片格式转换</h4></div>
           <p>一键互转 WebP / PNG / JPG / AVIF，保持画质同时智能压缩体积。</p>
-          <div class="ps wip">● 开发中</div>
+          <div class="ps live">● 已上线</div>
           <div class="ft"><a href="#">查看详情 →</a></div>
         </div>
         <div class="p-card" data-project="imgcheck">
@@ -485,7 +485,7 @@ a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:non
 
 <footer>
   <div class="container">
-    <p>© 2026 吴涛 · AI 产品开发者 · 用 Vibe Coding 把想法变成产品</p>
+    <p>© 2026 废废 · AI 产品开发者 · 用 Vibe Coding 把想法变成产品</p>
   </div>
 </footer>
 
@@ -576,8 +576,8 @@ let trailTimer=null,cursorHover=false;
 document.addEventListener('mousemove',e=>{
   cursorDot.style.left=e.clientX+'px';cursorDot.style.top=e.clientY+'px';
   const target=e.target.closest('a,button,[data-project],.p-card,.p-feat,.m-close,.magnetic');
-  if(target&&!cursorHover){cursorHover=true;cursorDot.style.width='16px';cursorDot.style.height='16px';cursorDot.style.background='rgba(179,136,255,0.4)';cursorDot.style.boxShadow='0 0 20px rgba(179,136,255,0.8),0 0 40px rgba(179,136,255,0.3)';cursorDot.style.mixBlendMode='screen'}
-  if(!target&&cursorHover){cursorHover=false;cursorDot.style.width='';cursorDot.style.height='';cursorDot.style.background='';cursorDot.style.boxShadow='';cursorDot.style.mixBlendMode=''}
+  if(target&&!cursorHover){cursorHover=true;cursorDot.style.width='28px';cursorDot.style.height='28px';cursorDot.style.borderColor='rgba(179,136,255,0.9)';cursorDot.style.boxShadow='0 0 20px rgba(179,136,255,0.5),0 0 48px rgba(179,136,255,0.15),inset 0 0 10px rgba(179,136,255,0.15)'}
+  if(!target&&cursorHover){cursorHover=false;cursorDot.style.width='';cursorDot.style.height='';cursorDot.style.borderColor='';cursorDot.style.boxShadow=''}
   if(!trailTimer){
     trailTimer=setTimeout(()=>{trailTimer=null},30);
     const trail=document.createElement('div');trail.className='cursor-trail';
@@ -593,7 +593,7 @@ document.addEventListener('mouseenter',()=>{cursorDot.style.opacity='1'});
 const projectData={
   mohe:{icon:'🏪',title:'墨禾陶瓷 · 订单管理系统',status:'live',statusLabel:'已上线 · 真实付费用户',desc:'为景德镇陶瓷批发商量身定制的订单管理系统。支持产品管理、订单查询、扫码登录、移动端适配。已上线运营，真实商户在使用。',tags:['FastAPI','SQLite','Railway','移动端适配','Session持久化','Python','HTML/CSS/JS'],actions:[{label:'🔗 访问线上版本',url:'https://guming-tea-order-production.up.railway.app',cls:'primary'},{label:'🐙 GitHub',url:'https://github.com/taowuhu/guming-tea-order',cls:'secondary'}]},
   resume:{icon:'📄',title:'AI 简历优化',status:'live',statusLabel:'已上线',desc:'从零生成或优化已有简历，智能匹配岗位需求，支持多模板与 PDF 导出。用 AI 帮人写出更好的简历。',tags:['FastAPI','AI Prompt','PDF生成','多模板','岗位匹配'],actions:[{label:'🔗 使用工具',url:'#',cls:'primary'}]},
-  imgconv:{icon:'🖼️',title:'图片格式转换',status:'wip',statusLabel:'开发中',desc:'一键互转 WebP / PNG / JPG / AVIF，保持画质同时智能压缩体积。支持批量处理，拖拽上传。',tags:['WebP','PNG','JPG','AVIF','批量处理','智能压缩','FastAPI'],actions:[{label:'🚧 开发中',url:'#',cls:'secondary'}]},
+  imgconv:{icon:'🖼️',title:'图片格式转换',status:'live',statusLabel:'已上线',desc:'一键互转 WebP / PNG / JPG / AVIF，保持画质同时智能压缩体积。支持批量处理，拖拽上传。',tags:['WebP','PNG','JPG','AVIF','批量处理','智能压缩','FastAPI'],actions:[{label:'🔗 使用工具',url:'#',cls:'primary'}]},
   imgcheck:{icon:'✅',title:'内容图片质检',status:'proto',statusLabel:'原型阶段',desc:'自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍，避免发布后才发现问题。',tags:['OCR','排版检测','色彩分析','AI视觉','小红书'],actions:[{label:'💡 原型阶段',url:'#',cls:'secondary'}]},
   hanwu:{icon:'🎬',title:'HANWU 视频剪辑生产线',status:'live',statusLabel:'运行中',desc:'基于 ffmpeg 的自动化视频剪辑管线。4K(3840×2160, 50-100fps)素材处理、zoompan动态漫效果、xfade转场、PIL中文字幕合成。全自动出片，命名规范。',tags:['ffmpeg','4K','zoompan','xfade','PIL字幕','H.264','动态漫','自动化'],actions:[{label:'📂 本地项目',url:'#',cls:'secondary'}]},
   ganwu:{icon:'📝',title:'感悟图文工厂',status:'live',statusLabel:'运行中',desc:'AI图文内容自动化生产系统。借鉴陈皮拿铁打法：爆款侦察→选题→脚本→漫画分镜→DALL-E出图→Canva加字。上下图漫画格格式，文案极简+情绪钩子重。',tags:['DALL-E','Canva','漫画格','爆款侦察','选题分析','AI图文','自动化'],actions:[{label:'📂 本地项目',url:'#',cls:'secondary'}]},
@@ -623,7 +623,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 document.querySelectorAll('[data-project]').forEach(el=>{el.addEventListener('click',e=>{if(e.target.tagName==='A')return;openModal(el.dataset.project)})});
 
-console.log('🚀 吴涛 — 个人品牌站 · 5+ 项目 · Vibe Coding');
+console.log('🚀 废废 — 个人品牌站 · 5+ 项目 · Vibe Coding');
 </script>
 </body>
 </html>
