@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>废废 · AI 产品开发者</title>
+<title>废废 · AI 工具箱</title>
+<meta name="description" content="废废的AI工具箱 — 用AI帮普通人解决真实问题。简历优化、图片转换、内容质检，免费试用。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 :root{
-  --bg:#07070a;--surface:rgba(18,18,28,0.5);--border:rgba(255,255,255,0.04);
+  --bg:#07070a;--surface:rgba(18,18,28,0.5);--surface2:rgba(18,18,28,0.7);--border:rgba(255,255,255,0.04);--border2:rgba(255,255,255,0.06);
   --text:#eaeaef;--text2:#888896;--text3:#555566;
   --p:#b388ff;--pi:#818cf8;--b:#38bdf8;--g:#4ade80;--y:#f59e0b;--r:#ef4444;
   --grad:linear-gradient(135deg,#b388ff,#818cf8,#38bdf8);
@@ -32,170 +33,121 @@ nav .links a:hover{color:var(--text);background:rgba(255,255,255,0.03)}
 @media(max-width:640px){nav .links{display:none}}
 
 section{padding:100px 0;position:relative;z-index:2}
+@media(max-width:640px){section{padding:60px 0}}
 
 /* Reveal */
 .r{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.16,1,.3,1)}
 .r.v{opacity:1;transform:translateY(0)}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}.d5{transition-delay:0.5s}
 
-/* Hero */
+/* ===== HERO - Product-first ===== */
 .hero{min-height:100vh;display:flex;align-items:center;padding-top:var(--nav);position:relative;overflow:hidden}
-.hero-inner{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--text3);margin-bottom:20px}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:40px}}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--g);margin-bottom:20px;padding:4px 12px;border-radius:100px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.08)}
 .hero-badge .dot{width:5px;height:5px;border-radius:50%;background:var(--g);box-shadow:0 0 8px rgba(74,222,128,0.3);animation:pd 2s infinite}
 @keyframes pd{0%,100%{opacity:1}50%{opacity:0.3}}
-.hero h1{font-size:clamp(32px,4.5vw,48px);font-weight:700;letter-spacing:-0.03em;line-height:1.08;margin-bottom:14px}
-.hero .g{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1{font-size:clamp(30px,4vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1.08;margin-bottom:12px}
+.hero .hl{color:var(--text2);font-weight:400}
+.hero h1 .g{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero .sub{font-size:13px;color:var(--text2);max-width:420px;line-height:1.7;margin-bottom:28px}
-.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
-.hero-actions a{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:var(--rs);font-size:12px;font-weight:500;text-decoration:none;transition:all 0.3s cubic-bezier(.16,1,.3,1)}
-.hero-actions a:first-child{background:var(--grad2);color:#fff;box-shadow:0 2px 16px rgba(179,136,255,0.12)}
-.hero-actions a:first-child:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(179,136,255,0.2)}
-.hero-actions a:last-child{background:var(--surface);border:1px solid var(--border);color:var(--text2)}
-.hero-actions a:last-child:hover{border-color:rgba(255,255,255,0.06);color:var(--text);transform:translateY(-2px)}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--rs);font-size:14px;font-weight:600;text-decoration:none;background:var(--grad2);color:#fff;box-shadow:0 2px 20px rgba(179,136,255,0.2);transition:all 0.3s cubic-bezier(.16,1,.3,1)}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(179,136,255,0.3)}
+.hero-cta .arrow{transition:transform 0.3s}
+.hero-cta:hover .arrow{transform:translateX(3px)}
+.hero-meta{display:flex;gap:20px;margin-top:24px;font-size:11px;color:var(--text3)}
+.hero-meta span{display:flex;align-items:center;gap:4px}
 
-.stats{display:flex;gap:24px;margin-top:32px}
-.stats .s{display:flex;flex-direction:column}
-.stats .s .n{font-size:20px;font-weight:700;letter-spacing:-0.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stats .s .l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-top:1px}
+/* Hero right - visual */
+.hero-right{display:flex;justify-content:center;align-items:center;position:relative;height:400px}
+@media(max-width:900px){.hero-right{height:260px}}
+.hero-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rad);padding:28px;width:100%;max-width:360px;backdrop-filter:blur(8px);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--grad2);opacity:0.3}
+.hero-card .hc-icon{font-size:32px;margin-bottom:12px}
+.hero-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.hero-card .hc-desc{font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:16px}
+.hero-card .hc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.hero-card .hc-tags span{font-size:9px;padding:3px 8px;border-radius:100px;background:rgba(179,136,255,0.04);border:1px solid rgba(179,136,255,0.06);color:var(--text2)}
+.hero-card .hc-stat{display:flex;gap:16px;padding-top:12px;border-top:1px solid var(--border)}
+.hero-card .hc-stat .hs{display:flex;flex-direction:column}
+.hero-card .hc-stat .hs .hsn{font-size:16px;font-weight:700;color:var(--p)}
+.hero-card .hc-stat .hs .hsl{font-size:9px;color:var(--text3);margin-top:1px}
+.hc-glow{position:absolute;top:-80px;right:-80px;width:200px;height:200px;border-radius:50%;background:rgba(179,136,255,0.04);filter:blur(40px);pointer-events:none}
 
-/* Hero right scene */
-.hero-right{display:flex;justify-content:center;align-items:center;position:relative;height:380px}
-.scene-container{position:relative;width:320px;height:320px}
-.floating-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(179,136,255,0.15),rgba(56,189,248,0.04));border:1px solid rgba(179,136,255,0.06);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);z-index:3;animation:orbFloat 4s ease-in-out infinite;transition:transform 0.05s ease-out}
-@keyframes orbFloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-12px)}}
-.floating-orb span{font-size:30px;font-weight:700;letter-spacing:-0.04em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.orbit-item{position:absolute;width:44px;height:44px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;backdrop-filter:blur(6px);animation:orbitSpin 12s linear infinite;z-index:2}
-.orbit-item:nth-child(2){animation-delay:0s}
-.orbit-item:nth-child(3){animation-delay:-4s}
-.orbit-item:nth-child(4){animation-delay:-8s}
-@keyframes orbitSpin{0%{transform:rotate(0deg) translateX(100px) rotate(0deg)}100%{transform:rotate(360deg) translateX(100px) rotate(-360deg)}}
-.scene-dots{position:absolute;inset:0;pointer-events:none}
-.scene-dots .sd{position:absolute;width:3px;height:3px;border-radius:50%}
-.sd1{top:15%;left:20%;background:var(--p);opacity:0.3;animation:sdPulse 3s ease-in-out infinite}
-.sd2{top:70%;left:80%;background:var(--b);opacity:0.25;animation:sdPulse 3s ease-in-out 1s infinite}
-.sd3{top:80%;left:15%;background:var(--pi);opacity:0.2;animation:sdPulse 3s ease-in-out 2s infinite}
-.sd4{top:20%;left:75%;background:var(--p);opacity:0.2;animation:sdPulse 3s ease-in-out 0.5s infinite}
-@keyframes sdPulse{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:0.5;transform:scale(1.8)}}
-.sparkle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--p);pointer-events:none;z-index:5;opacity:0;transition:opacity 0.3s}
-
-/* Section tag */
-.st{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+/* ===== Section headers ===== */
+.st{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .st span{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3)}
 .st .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+section h2{font-size:clamp(22px,2.5vw,30px);font-weight:600;letter-spacing:-0.02em;line-height:1.12;margin-bottom:8px}
+section .desc{font-size:12px;color:var(--text3);max-width:460px;line-height:1.7;margin-bottom:40px}
 
-section h2{font-size:clamp(24px,2.8vw,34px);font-weight:600;letter-spacing:-0.02em;line-height:1.12;margin-bottom:10px}
-section .desc{font-size:13px;color:var(--text2);max-width:500px;line-height:1.7;margin-bottom:36px}
-
-/* ===== ABOUT ===== */
-.about-grid{display:grid;grid-template-columns:1.3fr 0.7fr;gap:40px}
-.about-text h3{font-size:18px;font-weight:600;margin-bottom:14px}
-.about-text p{font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:12px}
-.about-text p strong{color:var(--text)}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}
-.tags span{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:500;background:rgba(179,136,255,0.03);border:1px solid rgba(179,136,255,0.05);color:var(--text2);transition:all 0.2s}
-.tags span:hover{background:rgba(179,136,255,0.06);color:var(--p);border-color:rgba(179,136,255,0.1)}
-.about-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:24px;backdrop-filter:blur(6px);position:relative;overflow:hidden}
-.about-card::before{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;background:rgba(179,136,255,0.03);pointer-events:none}
-.about-card h4{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:16px}
-.about-card .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
-.about-card .row:last-child{border:none}
-.about-card .row .l{color:var(--text3)}
-.about-card .row .r{font-weight:500;color:var(--text)}
-
-/* ===== PROJECTS ===== */
-.proj-cat{margin-bottom:40px}
-.proj-cat:last-child{margin-bottom:0}
-.proj-cat h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:2px}
-.proj-cat .cat-desc{font-size:10px;color:var(--text3);margin-bottom:16px;opacity:0.7}
+/* ===== PRODUCT GRID ===== */
 .p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:768px){.p-grid{grid-template-columns:1fr}}
-
-.p-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:22px;transition:all 0.4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;display:flex;flex-direction:column}
-.p-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(179,136,255,0.02) 0%,transparent 50%);opacity:0;transition:opacity 0.4s}
-.p-card:hover{transform:translateY(-4px);border-color:rgba(179,136,255,0.06);box-shadow:0 10px 30px rgba(0,0,0,0.15);cursor:pointer}
-.p-card:hover::before{opacity:1}
-.p-card .p-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.p-card .ic{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.p-card .ic.purple{background:rgba(179,136,255,0.06)}
-.p-card .ic.blue{background:rgba(56,189,248,0.06)}
-.p-card .ic.green{background:rgba(74,222,128,0.06)}
-.p-card .ic.amber{background:rgba(245,158,11,0.06)}
-.p-card .ic.red{background:rgba(239,68,68,0.06)}
+.p-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:24px;transition:all 0.35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.p-card:hover{transform:translateY(-3px);border-color:rgba(179,136,255,0.08);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+.p-card.featured{border-color:rgba(179,136,255,0.08);background:var(--surface2)}
+.p-card.featured::before{content:'热门';position:absolute;top:10px;right:10px;font-size:8px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(179,136,255,0.1);color:var(--p)}
+.p-card .p-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.p-card .ic{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.p-card .ic.purple{background:rgba(179,136,255,0.08)}
+.p-card .ic.blue{background:rgba(56,189,248,0.08)}
+.p-card .ic.green{background:rgba(74,222,128,0.08)}
+.p-card .ic.amber{background:rgba(245,158,11,0.08)}
+.p-card .ic.red{background:rgba(239,68,68,0.08)}
 .p-card h4{font-size:13px;font-weight:600;line-height:1.3}
 .p-card p{font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:10px;flex:1}
-.p-card .ps{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;width:fit-content}
+.p-card .ps{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:600;padding:2px 8px;border-radius:100px;width:fit-content;margin-bottom:10px}
 .p-card .ps.live{background:rgba(74,222,128,0.06);color:var(--g)}
 .p-card .ps.wip{background:rgba(56,189,248,0.06);color:var(--b)}
 .p-card .ps.proto{background:rgba(245,158,11,0.06);color:var(--y)}
-.p-card .ft{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
-.p-card .ft a{font-size:10px;color:var(--text3);text-decoration:none;transition:color 0.2s}
+.p-card .ft{padding-top:10px;border-top:1px solid var(--border);display:flex;gap:10px}
+.p-card .ft a{font-size:10px;color:var(--text3);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:4px}
 .p-card .ft a:hover{color:var(--p)}
-.p-card .ft a.live-link{color:var(--g)}
-.p-card .ft a.live-link:hover{color:#6ee7b7}
+.p-card .ft a.go{color:var(--g);font-weight:600}
+.p-card .ft a.go:hover{color:#6ee7b7}
 
-/* Featured project */
-.p-feat{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;overflow:hidden;border-radius:var(--rad);background:var(--surface);border:1px solid var(--border);transition:all 0.4s}
-.p-feat:hover{border-color:rgba(179,136,255,0.06);box-shadow:0 10px 30px rgba(0,0,0,0.15);transform:translateY(-4px)}
-.p-feat .l{padding:30px;display:flex;flex-direction:column;justify-content:center}
-.p-feat .l .fb{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(74,222,128,0.06);color:var(--g);width:fit-content;margin-bottom:8px}
-.p-feat .l h3{font-size:15px;font-weight:700;margin-bottom:6px}
-.p-feat .l p{font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:10px}
-.p-feat .l .tt{display:flex;flex-wrap:wrap;gap:3px}
-.p-feat .l .tt span{font-size:9px;padding:2px 7px;border-radius:100px;background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--text3)}
-.p-feat .r{background:linear-gradient(135deg,rgba(179,136,255,0.02),rgba(56,189,248,0.01));display:flex;align-items:center;justify-content:center;padding:30px;min-height:160px}
+/* ===== TRUST / CASE STUDY ===== */
+.trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:40px}
+@media(max-width:768px){.trust-grid{grid-template-columns:1fr}}
+.trust-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:28px;transition:all 0.35s}
+.trust-card:hover{border-color:var(--border2)}
+.trust-card .tc-icon{font-size:24px;margin-bottom:10px}
+.trust-card h4{font-size:14px;font-weight:600;margin-bottom:6px}
+.trust-card p{font-size:11px;color:var(--text3);line-height:1.6}
+.trust-card .tc-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--g);text-decoration:none;margin-top:10px;font-weight:500;transition:opacity 0.2s}
+.trust-card .tc-link:hover{opacity:0.8}
+
+/* ===== ABOUT ===== */
+.about-grid{display:grid;grid-template-columns:1fr;gap:12px;max-width:680px}
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:24px;backdrop-filter:blur(6px)}
+.about-card p{font-size:12px;color:var(--text2);line-height:1.8}
+.about-card p strong{color:var(--text)}
 
 /* ===== TIMELINE ===== */
-.tl{position:relative}
+.tl{position:relative;max-width:600px}
 .tl::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--border),var(--border),transparent)}
-.tl-item{display:flex;gap:16px;padding:20px 0;position:relative}
+.tl-item{display:flex;gap:16px;padding:18px 0;position:relative}
 .tl-item .dot{width:18px;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
 .tl-item .dot .d{width:6px;height:6px;border-radius:50%;border:1.5px solid rgba(179,136,255,0.3);background:var(--bg);margin-top:4px;position:relative;z-index:1;transition:all 0.3s}
 .tl-item:hover .dot .d{border-color:var(--p);box-shadow:0 0 10px rgba(179,136,255,0.2)}
 .tl-item .c{flex:1}
 .tl-item .c .num{font-size:9px;font-weight:500;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:3px}
 .tl-item .c h4{font-size:14px;font-weight:600;margin-bottom:3px}
-.tl-item .c p{font-size:12px;color:var(--text3);line-height:1.6;max-width:500px}
+.tl-item .c p{font-size:11px;color:var(--text3);line-height:1.6}
 
 /* ===== CONTACT ===== */
 .csec{text-align:center;padding:100px 0}
-.csec h2{font-size:clamp(24px,2.8vw,32px);margin-bottom:10px}
-.csec .cd{font-size:13px;color:var(--text2);max-width:360px;margin:0 auto 24px}
+.csec h2{font-size:clamp(22px,2.5vw,28px);margin-bottom:10px}
+.csec .cd{font-size:12px;color:var(--text3);max-width:360px;margin:0 auto 28px;line-height:1.7}
 .csec .cl{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.csec .cl a{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--rs);font-size:11px;font-weight:500;text-decoration:none;background:var(--surface);border:1px solid var(--border);color:var(--text2);transition:all 0.25s}
+.csec .cl a{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--rs);font-size:12px;font-weight:500;text-decoration:none;background:var(--surface);border:1px solid var(--border);color:var(--text2);transition:all 0.25s}
 .csec .cl a:hover{border-color:rgba(179,136,255,0.08);color:var(--text);transform:translateY(-2px)}
-.csec .cl a.p{background:var(--grad2);border:none;color:#fff;box-shadow:0 2px 12px rgba(179,136,255,0.1)}
-.csec .cl a.p:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(179,136,255,0.15)}
+.csec .cl a.primary{background:var(--grad2);border:none;color:#fff;box-shadow:0 2px 16px rgba(179,136,255,0.15)}
+.csec .cl a.primary:hover{transform:translateY(-2px);box-shadow:0 4px 24px rgba(179,136,255,0.2)}
 
 footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;position:relative;z-index:2}
 footer p{font-size:10px;color:var(--text3)}
-
-.magnetic{transition:transform 0.15s ease-out}
-
-/* ===== MODAL ===== */
-.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
-.modal-overlay.open{opacity:1;pointer-events:auto}
-.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:32px;max-width:540px;width:90vw;max-height:80vh;overflow-y:auto;position:relative;transform:translateY(16px);transition:transform 0.35s cubic-bezier(.16,1,.3,1)}
-.modal-overlay.open .modal-box{transform:translateY(0)}
-.modal-box .m-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.04);border:none;color:var(--text3);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
-.modal-box .m-close:hover{background:rgba(255,255,255,0.06);color:var(--text)}
-.modal-box .m-icon{font-size:28px;margin-bottom:12px}
-.modal-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
-.modal-box .m-status{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;margin-bottom:16px}
-.modal-box .m-status.live{background:rgba(74,222,128,0.06);color:var(--g)}
-.modal-box .m-status.wip{background:rgba(56,189,248,0.06);color:var(--b)}
-.modal-box .m-status.proto{background:rgba(245,158,11,0.06);color:var(--y)}
-.modal-box .m-desc{font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:20px}
-.modal-box .m-section{margin-bottom:16px}
-.modal-box .m-section h4{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px}
-.modal-box .m-tags{display:flex;flex-wrap:wrap;gap:4px}
-.modal-box .m-tags span{font-size:10px;padding:3px 9px;border-radius:100px;background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--text3)}
-.modal-box .m-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
-.modal-box .m-actions a{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:var(--rs);font-size:11px;font-weight:500;text-decoration:none;transition:all 0.25s}
-.modal-box .m-actions a.primary{background:var(--grad2);color:#fff;box-shadow:0 2px 12px rgba(179,136,255,0.1)}
-.modal-box .m-actions a.primary:hover{transform:translateY(-2px);box-shadow:0 4px 18px rgba(179,136,255,0.18)}
-.modal-box .m-actions a.secondary{background:var(--surface);border:1px solid var(--border);color:var(--text2)}
-.modal-box .m-actions a.secondary:hover{border-color:rgba(179,136,255,0.1);color:var(--text)}
 
 /* Custom cursor */
 .cursor-glow{position:fixed;inset:0;pointer-events:none;z-index:9999}
@@ -203,27 +155,34 @@ footer p{font-size:10px;color:var(--text3)}
 .cursor-trail{position:absolute;width:6px;height:6px;border-radius:50%;border:1px solid rgba(179,136,255,0.25);background:transparent;transform:translate(-50%,-50%);animation:trailFade 0.7s ease-out forwards}
 @keyframes trailFade{0%{opacity:0.5;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(0.2)}}
 body{cursor:none}
-a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:none}
+a,button,.p-card,.trust-card,cursor:none
 
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;gap:40px}
-  .hero-right{height:260px}
-  .scene-container{width:240px;height:240px}
-  .floating-orb{width:70px;height:70px}
-  .floating-orb span{font-size:20px}
-  .orbit-item{width:32px;height:32px;font-size:13px}
-  @keyframes orbitSpin{0%{transform:rotate(0deg) translateX(70px) rotate(0deg)}100%{transform:rotate(360deg) translateX(70px) rotate(-360deg)}}
-  .about-grid{grid-template-columns:1fr}
-  .p-grid{grid-template-columns:1fr}
-  .p-feat{grid-template-columns:1fr}
-  .p-feat .r{display:none}
-}
 @media(max-width:640px){
   .hero h1{font-size:26px}
-  section{padding:60px 0}
-  .stats{gap:16px}
-  .stats .s .n{font-size:16px}
+  .hero-meta{flex-wrap:wrap;gap:12px}
 }
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rad);padding:32px;max-width:500px;width:90vw;max-height:80vh;overflow-y:auto;position:relative;transform:translateY(16px);transition:transform 0.35s cubic-bezier(.16,1,.3,1)}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-box .m-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.04);border:none;color:var(--text3);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.modal-box .m-close:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+.modal-box .m-icon{font-size:28px;margin-bottom:12px}
+.modal-box h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.modal-box .m-status{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;margin-bottom:14px}
+.modal-box .m-status.live{background:rgba(74,222,128,0.06);color:var(--g)}
+.modal-box .m-desc{font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:18px}
+.modal-box .m-section{margin-bottom:14px}
+.modal-box .m-section h4{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:8px}
+.modal-box .m-tags{display:flex;flex-wrap:wrap;gap:4px}
+.modal-box .m-tags span{font-size:10px;padding:3px 9px;border-radius:100px;background:rgba(255,255,255,0.02);border:1px solid var(--border);color:var(--text3)}
+.modal-box .m-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.modal-box .m-actions a{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:var(--rs);font-size:11px;font-weight:500;text-decoration:none;transition:all 0.25s}
+.modal-box .m-actions a.primary{background:var(--grad2);color:#fff;box-shadow:0 2px 12px rgba(179,136,255,0.1)}
+.modal-box .m-actions a.primary:hover{transform:translateY(-2px);box-shadow:0 4px 18px rgba(179,136,255,0.18)}
+.modal-box .m-actions a.secondary{background:var(--surface);border:1px solid var(--border);color:var(--text2)}
 </style>
 </head>
 <body>
@@ -247,40 +206,44 @@ a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:non
 <nav id="nav">
   <div class="logo">废废</div>
   <ul class="links">
+    <li><a href="#tools">工具</a></li>
+    <li><a href="#trust">案例</a></li>
     <li><a href="#about">关于</a></li>
-    <li><a href="#projects">项目</a></li>
     <li><a href="#journey">历程</a></li>
     <li><a href="#contact">联系</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ===== HERO ===== -->
 <section class="hero" id="hero">
   <div class="container">
     <div class="hero-inner">
       <div class="hero-left">
-        <div class="hero-badge r v"><span class="dot"></span> 可合作 · 正在做产品</div>
-        <h1 class="r v">我是 <span class="g">废废</span><br>从 0 开始接触 AI 的设计师</h1>
-        <p class="sub r v d1">环境设计出身，用 Vibe Coding 把想法变成产品。目前有 5+ 个项目，涵盖 AI 工具、自动化系统、内容创作。</p>
-        <div class="hero-actions r v d2">
-          <a href="#projects" class="magnetic">看我的作品 ↓</a>
-          <a href="#about" class="magnetic">了解更多</a>
-        </div>
-        <div class="stats r v d3">
-          <div class="s"><span class="n" data-target="5">0</span><span class="l">产品项目</span></div>
-          <div class="s"><span class="n" data-target="1">0</span><span class="l">已上线商用</span></div>
-          <div class="s"><span class="n" data-target="3">0</span><span class="l">自动化系统</span></div>
-          <div class="s"><span class="n" data-target="12">0</span><span class="l">个月蜕变</span></div>
+        <div class="hero-badge r v"><span class="dot"></span> AI 简历优化 · 免费内测中</div>
+        <h1 class="r v">帮普通人<br><span class="g">写出更好的简历</span></h1>
+        <p class="sub r v d1">我是废废，一个从0开始接触AI的设计师。我用AI帮人解决实际问题——第一个工具就是简历优化。上传你的简历，AI帮你改到能拿面试。</p>
+        <a href="https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/" target="_blank" class="hero-cta r v d2">
+          免费试用 <span class="arrow">→</span>
+        </a>
+        <div class="hero-meta r v d3">
+          <span>✅ 免费使用</span>
+          <span>⚡ 30秒出结果</span>
+          <span>📄 支持PDF导出</span>
         </div>
       </div>
       <div class="hero-right r v d2">
-        <div class="scene-container" id="sceneContainer">
-          <div class="orbit-item">🎨</div>
-          <div class="orbit-item">🤖</div>
-          <div class="orbit-item">✨</div>
-          <div class="floating-orb" id="floatingOrb"><span>WT</span></div>
-          <div class="scene-dots">
-            <div class="sd sd1"></div><div class="sd sd2"></div><div class="sd sd3"></div><div class="sd sd4"></div>
+        <div class="hero-card">
+          <div class="hc-glow"></div>
+          <div class="hc-icon">📄</div>
+          <h3>AI 简历优化</h3>
+          <p class="hc-desc">上传现有简历或从零生成，AI智能匹配岗位需求，多模板选择，一键导出PDF。</p>
+          <div class="hc-tags">
+            <span>智能润色</span><span>岗位匹配</span><span>多模板</span><span>PDF导出</span>
+          </div>
+          <div class="hc-stat">
+            <div class="hs"><span class="hsn">30s</span><span class="hsl">出结果</span></div>
+            <div class="hs"><span class="hsn">免费</span><span class="hsl">无限制</span></div>
+            <div class="hs"><span class="hsn">多模板</span><span class="hsl">可切换</span></div>
           </div>
         </div>
       </div>
@@ -288,204 +251,133 @@ a,button,[data-project],.p-card,.p-feat,.modal-box .m-close,.magnetic{cursor:non
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ===== TOOLS ===== -->
+<section id="tools">
+  <div class="container">
+    <div class="st r"><span>AI 工具</span><div class="line"></div></div>
+    <h2 class="r">帮你解决实际问题的工具</h2>
+    <p class="desc r">每个工具都来自真实需求。目前主力在做AI简历优化，更多工具持续上线。</p>
+
+    <div class="p-grid r d1">
+      <div class="p-card featured">
+        <div class="p-top"><div class="ic purple">📄</div><h4>AI 简历优化</h4></div>
+        <p>从零生成或优化已有简历，智能匹配岗位需求，支持多模板与PDF导出。内测中，完全免费。</p>
+        <div class="ps live">● 已上线 · 免费内测</div>
+        <div class="ft">
+          <a href="https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/" target="_blank" class="go">立即使用 →</a>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="p-top"><div class="ic blue">🖼️</div><h4>图片格式转换</h4></div>
+        <p>一键互转WebP/PNG/JPG/AVIF，保持画质同时智能压缩。支持批量处理，拖拽上传。</p>
+        <div class="ps live">● 已上线</div>
+        <div class="ft"><a href="#">即将开放 →</a></div>
+      </div>
+      <div class="p-card">
+        <div class="p-top"><div class="ic green">✅</div><h4>内容图片质检</h4></div>
+        <p>自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍，避免发布后翻车。</p>
+        <div class="ps proto">● 原型阶段</div>
+        <div class="ft"><a href="#">开发中</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST / CASE STUDY ===== -->
+<section id="trust">
+  <div class="container">
+    <div class="st r"><span>案例</span><div class="line"></div></div>
+    <h2 class="r">不是做着玩——已经有人付费在用</h2>
+    <p class="desc r">我做的工具不只给自己用。真实商户在用的生产系统，证明AI产品能解决实际问题。</p>
+
+    <div class="trust-grid r d1">
+      <div class="trust-card">
+        <div class="tc-icon">🏪</div>
+        <h4>墨禾陶瓷 · 订单管理系统</h4>
+        <p>为景德镇陶瓷批发商量身定制。产品管理、订单查询、扫码登录、移动端适配。已上线运营，真实商户在用。</p>
+        <a href="https://guming-tea-order-production.up.railway.app" target="_blank" class="tc-link">访问线上版本 →</a>
+      </div>
+      <div class="trust-card">
+        <div class="tc-icon">🎬</div>
+        <h4>视频剪辑 · 公众号 · 图文</h4>
+        <p>三条自动化生产线在跑：ffmpeg视频剪辑、四Agent公众号写作、DALL-E图文工厂。把重复劳动交给AI。</p>
+      </div>
+    </div>
+
+    <div class="trust-grid r d2" style="grid-template-columns:repeat(4,1fr)">
+      <div class="trust-card" style="text-align:center">
+        <div class="tc-icon">5+</div>
+        <h4>产品项目</h4>
+        <p style="font-size:10px">AI工具 + 自动化 + 商用系统</p>
+      </div>
+      <div class="trust-card" style="text-align:center">
+        <div class="tc-icon">2</div>
+        <h4>已上线商用</h4>
+        <p style="font-size:10px">真实用户在生产环境使用</p>
+      </div>
+      <div class="trust-card" style="text-align:center">
+        <div class="tc-icon">3</div>
+        <h4>自动化系统</h4>
+        <p style="font-size:10px">视频·图文·公众号全自动</p>
+      </div>
+      <div class="trust-card" style="text-align:center">
+        <div class="tc-icon">∞</div>
+        <h4>持续迭代</h4>
+        <p style="font-size:10px">每个工具都在不断升级</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
 <section id="about">
   <div class="container">
     <div class="st r"><span>关于我</span><div class="line"></div></div>
-    <div class="about-grid">
-      <div class="about-text r">
-        <h3>环境设计出身 · AI 产品开发者</h3>
-        <p>我学的是环境设计，有审美的底子。但我好奇 AI 能怎么帮人解决真实问题——于是开始了 <strong>Vibe Coding</strong>：让 AI 写代码，我负责产品方向和设计。</p>
-        <p>从零做出了多个能用的产品：AI 工具、自动化工作流、订单管理系统。同时也运营着自己的自媒体矩阵，记录从设计师到 AI 产品开发者的全过程。</p>
-        <p>目前在系统性学习 <strong>IoT 工业设计 + 结构设计</strong>，同时保持 AI 工具开发和内容输出。</p>
-        <div class="tags">
-          <span>Vibe Coding</span><span>AI 编程</span><span>FastAPI</span><span>ffmpeg</span>
-          <span>ComfyUI</span><span>产品设计</span><span>自动化</span><span>内容创作</span>
-        </div>
-      </div>
-      <div class="about-card r d1">
-        <h4>档案</h4>
-        <div class="row"><span class="l">背景</span><span class="r">环境设计 · AI 产品开发</span></div>
-        <div class="row"><span class="l">已上线</span><span class="r">墨禾陶瓷订单系统</span></div>
-        <div class="row"><span class="l">AI 工具</span><span class="r">简历优化 · 格式转换 · 质检</span></div>
-        <div class="row"><span class="l">自动化</span><span class="r">视频 · 图文 · 公众号</span></div>
-        <div class="row"><span class="l">技术栈</span><span class="r">FastAPI · SQLite · Python</span></div>
-        <div class="row"><span class="l">学习中</span><span class="r">IoT ID+MD · AI 前沿</span></div>
+    <h2 class="r">环境设计出身 · AI产品开发者</h2>
+    <p class="desc r">从设计师到产品开发者——这条路不是规划好的，是做出来的。</p>
+    <div class="about-grid r d1">
+      <div class="about-card">
+        <p>我学的是<strong>环境设计</strong>，有审美的底子。但我不满足于只画图——我好奇<strong>AI能怎么帮普通人解决真实问题</strong>。</p>
+        <p>于是我开始了 <strong>Vibe Coding</strong>：让AI写代码，我负责产品方向、设计和体验。从第一个工具开始，一个接一个做出来。</p>
+        <p>同时在学习<strong>IoT工业设计+结构设计</strong>，保持AI工具开发、自媒体内容输出。输入和输出并行。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="st r"><span>项目</span><div class="line"></div></div>
-    <h2 class="r">我做的产品</h2>
-    <p class="desc r">每个项目都来自真实需求——要么是自己的痛点，要么是客户的生意。</p>
-
-    <!-- 已上线商用 -->
-    <div class="proj-cat r">
-      <h3>🚀 已上线商用</h3>
-      <div class="cat-desc">真实商户在用的生产系统</div>
-      <div class="p-grid">
-        <div class="p-feat" data-project="mohe">
-          <div class="l">
-            <div class="fb">🏆 已上线 · 真实付费用户</div>
-            <h3>墨禾陶瓷 · 订单管理系统</h3>
-            <p>为景德镇陶瓷批发商量身定制。产品管理、订单查询、扫码登录、移动端适配，已上线运营。支持订单号搜索、客户手机号匹配、登录态持久化。</p>
-            <div class="tt"><span>FastAPI</span><span>SQLite</span><span>Railway</span><span>移动端适配</span><span>Session 持久化</span></div>
-            <div class="ft" style="border:none;padding:0;margin-top:12px"><a href="https://guming-tea-order-production.up.railway.app" target="_blank" class="live-link">🔗 访问线上版本 →</a></div>
-          </div>
-          <div class="r">
-            <svg viewBox="0 0 240 150" fill="none">
-              <rect x="8" y="12" width="224" height="126" rx="8" fill="rgba(179,136,255,0.02)" stroke="rgba(179,136,255,0.04)" stroke-width="0.5"/>
-              <circle cx="22" cy="26" r="2" fill="#ef4444" opacity="0.3"/><circle cx="30" cy="26" r="2" fill="#eab308" opacity="0.3"/><circle cx="38" cy="26" r="2" fill="#22c55e" opacity="0.3"/>
-              <line x1="8" y1="34" x2="232" y2="34" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
-              <rect x="18" y="44" width="60" height="10" rx="2" fill="rgba(255,255,255,0.015)"/>
-              <rect x="18" y="58" width="140" height="5" rx="2" fill="rgba(255,255,255,0.015)"/>
-              <rect x="18" y="66" width="100" height="5" rx="2" fill="rgba(255,255,255,0.015)"/>
-              <rect x="18" y="74" width="120" height="5" rx="2" fill="rgba(255,255,255,0.015)"/>
-              <circle cx="208" cy="50" r="16" stroke="rgba(179,136,255,0.06)" stroke-width="3" fill="none" stroke-dasharray="40" stroke-dashoffset="8" opacity="0.4"/>
-              <circle cx="208" cy="50" r="5" fill="rgba(179,136,255,0.08)"/>
-              <text x="120" y="120" text-anchor="middle" fill="rgba(255,255,255,0.06)" font-size="7" font-family="monospace">guming-tea-order</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AI 工具 -->
-    <div class="proj-cat r d1">
-      <h3>🛠️ AI 工具</h3>
-      <div class="cat-desc">用 AI 能力做出来的实用工具</div>
-      <div class="p-grid">
-        <div class="p-card" data-project="resume">
-          <div class="p-top"><div class="ic purple">📄</div><h4>AI 简历优化</h4></div>
-          <p>从零生成或优化已有简历，智能匹配岗位需求，支持多模板与 PDF 导出。</p>
-          <div class="ps live">● 已上线</div>
-          <div class="ft"><a href="#">查看详情 →</a></div>
-        </div>
-        <div class="p-card" data-project="imgconv">
-          <div class="p-top"><div class="ic blue">🖼️</div><h4>图片格式转换</h4></div>
-          <p>一键互转 WebP / PNG / JPG / AVIF，保持画质同时智能压缩体积。</p>
-          <div class="ps live">● 已上线</div>
-          <div class="ft"><a href="#">查看详情 →</a></div>
-        </div>
-        <div class="p-card" data-project="imgcheck">
-          <div class="p-top"><div class="ic green">✅</div><h4>内容图片质检</h4></div>
-          <p>自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍。</p>
-          <div class="ps proto">● 原型阶段</div>
-          <div class="ft"><a href="#">查看详情 →</a></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 自动化系统 -->
-    <div class="proj-cat r d2">
-      <h3>⚡ 自动化生产线</h3>
-      <div class="cat-desc">把重复劳动交给脚本，我只负责创意</div>
-      <div class="p-grid">
-        <div class="p-card" data-project="hanwu">
-          <div class="p-top"><div class="ic purple">🎬</div><h4>HANWU 视频剪辑</h4></div>
-          <p>ffmpeg 自动化剪辑生产线。4K 素材处理、zoompan 动态漫、xfade 转场、中文字幕合成，全自动出片。</p>
-          <div class="ps live">● 运行中</div>
-          <div class="ft"><a href="#">ffmpeg · 4K · 高级风格</a></div>
-        </div>
-        <div class="p-card" data-project="ganwu">
-          <div class="p-top"><div class="ic green">📝</div><h4>感悟图文工厂</h4></div>
-          <p>AI 图文内容自动化：爆款侦察→选题→脚本→漫画分镜→DALL-E 出图→Canva 加字。对标陈皮拿铁。</p>
-          <div class="ps live">● 运行中</div>
-          <div class="ft"><a href="#">DALL-E · Canva · 漫画格</a></div>
-        </div>
-        <div class="p-card" data-project="gzh">
-          <div class="p-top"><div class="ic blue">✍️</div><h4>公众号写作管线</h4></div>
-          <p>四 Agent 协作管线：实时热点采集 → 选题分析 → AI 写作 → 质量检查。全自动流水线生产深度文章。</p>
-          <div class="ps live">● 运行中</div>
-          <div class="ft"><a href="#">4 Agent · 实时热点 · 质检</a></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 学习系统 -->
-    <div class="proj-cat r d3">
-      <h3>📚 学习与内容</h3>
-      <div class="cat-desc">持续输入，持续输出</div>
-      <div class="p-grid">
-        <div class="p-card" data-project="iot">
-          <div class="p-top"><div class="ic amber">🎓</div><h4>IoT ID+MD 双修</h4></div>
-          <p>从零系统学习工业设计+结构设计。Obsidian 知识库，每课独立笔记+自测题，已完基础阶段 12 课。</p>
-          <div class="ps wip">● 进行中</div>
-          <div class="ft"><a href="#">Obsidian · 知识库 · 系统学习</a></div>
-        </div>
-        <div class="p-card" data-project="ailearn">
-          <div class="p-top"><div class="ic purple">🤖</div><h4>AI 知识学习</h4></div>
-          <p>每日追踪 AI 工具、Vibe Coding、AI 产品思维前沿动态。早上 9:00 学习计划 + AI 动态简报。</p>
-          <div class="ps live">● 每日</div>
-          <div class="ft"><a href="#">AI 前沿 · 产品思维 · 工具</a></div>
-        </div>
-        <div class="p-card" data-project="zimeiti">
-          <div class="p-top"><div class="ic red">📱</div><h4>AI 自媒体矩阵</h4></div>
-          <p>小红书 + 抖音 + 视频号 + B站 + 公众号。日更学习记录，分享从设计师到 AI 产品开发者的真实路径。</p>
-          <div class="ps live">● 日更</div>
-          <div class="ft"><a href="#">小红书 · 抖音 · 公众号 · B站</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- JOURNEY -->
+<!-- ===== JOURNEY ===== -->
 <section id="journey">
   <div class="container">
     <div class="st r"><span>历程</span><div class="line"></div></div>
     <h2 class="r">从想法到产品</h2>
-    <p class="desc r">这条路不是一步到位的。每一阶段都有新认知，每个工具都迭代了好几个版本。</p>
+    <p class="desc r">每个阶段都有新认知，每个工具都迭代了好几个版本。</p>
     <div class="tl">
-      <div class="tl-item r">
-        <div class="dot"><div class="d"></div></div>
-        <div class="c"><div class="num">01</div><h4>学环境设计，有了设计底子</h4><p>科班出身，审美和设计能力是基本功。但觉得传统设计的边界太窄，想探索更多可能性。</p></div>
-      </div>
-      <div class="tl-item r d1">
-        <div class="dot"><div class="d"></div></div>
-        <div class="c"><div class="num">02</div><h4>接触 AI，发现新世界</h4><p>发现"不会代码也能做产品"。Vibe Coding 让设计师也能自己实现想法。</p></div>
-      </div>
-      <div class="tl-item r d2">
-        <div class="dot"><div class="d"></div></div>
-        <div class="c"><div class="num">03</div><h4>从"要是有个工具就好了"开始</h4><p>自己遇到痛点——简历没工具、转格式麻烦、发图老出错。用 AI 辅助编程一个一个做出来。</p></div>
-      </div>
-      <div class="tl-item r d3">
-        <div class="dot"><div class="d"></div></div>
-        <div class="c"><div class="num">04</div><h4>真实项目落地：墨禾陶瓷</h4><p>给景德镇的陶瓷批发商做了订单管理系统。真实的商家在用——从"做着玩"到"真能挣钱"的质变。</p></div>
-      </div>
-      <div class="tl-item r d4">
-        <div class="dot"><div class="d"></div></div>
-        <div class="c"><div class="num">05</div><h4>搭建自动化生产线</h4><p>视频剪辑、图文内容、公众号写作——三条自动化管线，把重复劳动交给 AI，自己专注创意和方向。</p></div>
-      </div>
-      <div class="tl-item r d5">
-        <div class="dot"><div class="d"></div></div>
-        <div class="c"><div class="num">06</div><h4>系统性学习 + 内容输出</h4><p>开始 IoT ID+MD 双修课程，同时保持 AI 学习和自媒体日更。输入和输出并行，让成长被看见。</p></div>
-      </div>
+      <div class="tl-item r"><div class="dot"><div class="d"></div></div><div class="c"><div class="num">01</div><h4>环境设计出身</h4><p>科班设计底子，审美在线。但觉得传统设计边界太窄，想探索更多可能性。</p></div></div>
+      <div class="tl-item r d1"><div class="dot"><div class="d"></div></div><div class="c"><div class="num">02</div><h4>接触AI，发现新世界</h4><p>发现"不会代码也能做产品"。Vibe Coding让设计师也能自己实现想法。</p></div></div>
+      <div class="tl-item r d2"><div class="dot"><div class="d"></div></div><div class="c"><div class="num">03</div><h4>从"要是有个工具就好了"开始</h4><p>简历没工具优化、转格式麻烦、发图老出错。用AI辅助编程一个一个解决。</p></div></div>
+      <div class="tl-item r d3"><div class="dot"><div class="d"></div></div><div class="c"><div class="num">04</div><h4>真实项目落地</h4><p>给景德镇陶瓷批发商做了订单管理系统。从"做着玩"到"真能挣钱"的质变。</p></div></div>
+      <div class="tl-item r d4"><div class="dot"><div class="d"></div></div><div class="c"><div class="num">05</div><h4>搭建自动化生产线</h4><p>视频剪辑、图文内容、公众号写作——三条自动化管线，AI负责执行，我负责创意。</p></div></div>
+      <div class="tl-item r d5"><div class="dot"><div class="d"></div></div><div class="c"><div class="num">06</div><h4>系统性学习 + 持续输出</h4><p>IoT ID+MD双修 + AI工具开发 + 自媒体日更。让成长被看见。</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ===== CONTACT ===== -->
 <section id="contact" class="csec">
   <div class="container">
-    <h2 class="r">想合作？随时聊</h2>
-    <p class="cd r">有工具需求、想合作做项目、或者聊聊 AI 产品开发，欢迎联系我。</p>
+    <h2 class="r">有需求？随时聊</h2>
+    <p class="cd r">想定制工具、合作项目、或者用AI帮你解决一个具体问题——直接联系我。</p>
     <div class="cl r d1">
-      <a href="#" class="p">📧 联系我</a>
+      <a href="https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/" target="_blank" class="primary">✨ 试试简历优化</a>
       <a href="https://github.com/taowuhu" target="_blank">🐙 GitHub</a>
-      <a href="#">📕 公众号</a>
-      <a href="#">📸 小红书</a>
+      <a href="mailto:taowuhu@gmail.com">📧 邮件联系</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    <p>© 2026 废废 · AI 产品开发者 · 用 Vibe Coding 把想法变成产品</p>
+    <p>© 2026 废废 · AI工具箱 · 用 Vibe Coding 把想法变成产品</p>
   </div>
 </footer>
 
@@ -498,132 +390,69 @@ function initThree(){
   const s=new THREE.Scene();s.fog=new THREE.FogExp2(0x07070a,0.0005);
   const cam=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);cam.position.z=60;
   const r=new THREE.WebGLRenderer({alpha:true,antialias:true});
-  r.setSize(window.innerWidth,window.innerHeight);r.setPixelRatio(Math.min(window.devicePixelRatio,2));r.setClearColor(0x07070a,0);
+  r.setSize(window.innerWidth,window.innerHeight);r.setPixelRatio(Math.min(window.devicePixelRatio,2));
   c.appendChild(r.domElement);
-  const n=600,p=new Float32Array(n*3),cl=new Float32Array(n*3);
-  const c1=new THREE.Color(0xb388ff),c2=new THREE.Color(0x818cf8),c3=new THREE.Color(0x38bdf8);
-  for(let i=0;i<n;i++){p[i*3]=(Math.random()-0.5)*160;p[i*3+1]=(Math.random()-0.5)*130;p[i*3+2]=(Math.random()-0.5)*100;const col=Math.random()<0.33?c1:Math.random()<0.66?c2:c3;cl[i*3]=col.r;cl[i*3+1]=col.g;cl[i*3+2]=col.b}
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(cl,3));
-  const m=new THREE.PointsMaterial({size:0.1,vertexColors:true,transparent:true,opacity:0.35,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
-  const pt=new THREE.Points(g,m);s.add(pt);
-  const meshes=[],types=[new THREE.OctahedronGeometry(0.6),new THREE.TetrahedronGeometry(0.8)];
-  for(let i=0;i<3;i++){const mesh=new THREE.Mesh(types[i%types.length],new THREE.MeshBasicMaterial({color:new THREE.Color().setHSL(0.75+Math.random()*0.1,0.4,0.35+Math.random()*0.15),transparent:true,opacity:0.025}));mesh.position.set((Math.random()-0.5)*90,(Math.random()-0.5)*70,(Math.random()-0.5)*70-40);const sc=3+Math.random()*5;mesh.scale.set(sc,sc,sc);mesh.userData={rx:(Math.random()-0.5)*0.006,ry:(Math.random()-0.5)*0.01,fs:0.002+Math.random()*0.006,fa:0.2+Math.random()*0.4,by:mesh.position.y};s.add(mesh);meshes.push(mesh)}
-  let mx=0,my=0;
-  document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth)*2-1;my=(e.clientY/window.innerHeight)*2-1});
+  const g=new THREE.BufferGeometry();
+  const n=1200;const p=new Float32Array(n*3);
+  for(let i=0;i<n*3;i+=3){p[i]=(Math.random()-0.5)*100;p[i+1]=(Math.random()-0.5)*60;p[i+2]=(Math.random()-0.5)*80}
+  g.setAttribute('position',new THREE.BufferAttribute(p,3));
+  const m=new THREE.PointsMaterial({color:0xb388ff,size:0.08,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false});
+  const pts=new THREE.Points(g,m);s.add(pts);
+  function anim(){requestAnimationFrame(anim);pts.rotation.y+=0.0003;pts.rotation.x+=0.0001;r.render(s,cam)}
+  anim();
   window.addEventListener('resize',()=>{cam.aspect=window.innerWidth/window.innerHeight;cam.updateProjectionMatrix();r.setSize(window.innerWidth,window.innerHeight)});
-  let clk=new THREE.Clock();
-  function anim(){requestAnimationFrame(anim);const t=clk.getElapsedTime();pt.rotation.y+=0.0002;pt.rotation.x+=0.00006;let trx=0,tryy=0;trx+=(my*0.06-trx)*0.01;tryy+=(mx*0.1-tryy)*0.01;pt.rotation.x+=trx*0.00015;pt.rotation.y+=tryy*0.0003;for(const mesh of meshes){mesh.rotation.x+=mesh.userData.rx;mesh.rotation.y+=mesh.userData.ry;mesh.position.y=mesh.userData.by+Math.sin(t*mesh.userData.fs)*mesh.userData.fa}cam.position.x+=(mx*2-cam.position.x)*0.006;cam.position.y+=(-my*2-cam.position.y)*0.006;cam.lookAt(s.position);r.render(s,cam)}
-  anim()
 }
 initThree();
 
-// ===== Number animation =====
-function animateNums(){
-  document.querySelectorAll('.stats .n').forEach(el=>{
-    const target=parseInt(el.dataset.target);let cur=0;const step=Math.max(1,Math.ceil(target/25));
-    const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=cur},30)
-  })
+// ===== Custom cursor =====
+const glow=document.getElementById('cursorGlow');
+let mx=0,my=0,trails=[];
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;
+  const d=document.createElement('div');d.className='cursor-trail';d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';glow.appendChild(d);
+  trails.push(d);if(trails.length>20){const old=trails.shift();old.remove()}
+  setTimeout(()=>{d.remove();trails=trails.filter(t=>t!==d)},700);
+});
+function updateCursor(){
+  const dot=glow.querySelector('.cursor-dot');
+  if(!dot){const d=document.createElement('div');d.className='cursor-dot';glow.appendChild(d)}
+  const cd=glow.querySelector('.cursor-dot');
+  cd.style.left=mx+'px';cd.style.top=my+'px';
+  requestAnimationFrame(updateCursor);
 }
-const numObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){animateNums();numObs.unobserve(en.target)}})},{threshold:0.5});
-const statsEl=document.querySelector('.stats');if(statsEl)numObs.observe(statsEl);
-
-// ===== Scroll reveal =====
-const ro=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('v')})},{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
-document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+updateCursor();
 
 // ===== Nav scroll =====
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40)});
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
 
-// ===== Magnetic buttons =====
-document.querySelectorAll('.magnetic').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const dx=e.clientX-r.left-r.width/2;const dy=e.clientY-r.top-r.height/2;
-    btn.style.transform=`translate(${dx*0.25}px,${dy*0.25}px)`
-  });
-  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)'})
-});
-
-// ===== Floating orb parallax =====
-const orb=document.getElementById('floatingOrb');
-const sc=document.getElementById('sceneContainer');
-if(orb&&sc){
-  sc.addEventListener('mousemove',e=>{
-    const r=sc.getBoundingClientRect();
-    const dx=(e.clientX-r.left-r.width/2)/12;const dy=(e.clientY-r.top-r.height/2)/12;
-    orb.style.transform=`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`
-  });
-  sc.addEventListener('mouseleave',()=>{orb.style.transform='translate(-50%,-50%)'})
-}
-
-// ===== Sparkle trail =====
-const heroRight=document.querySelector('.hero-right');
-heroRight.addEventListener('mousemove',e=>{
-  const sp=document.createElement('div');sp.className='sparkle';
-  sp.style.left=(e.clientX-heroRight.getBoundingClientRect().left)+'px';
-  sp.style.top=(e.clientY-heroRight.getBoundingClientRect().top)+'px';
-  sp.style.opacity='0.6';
-  heroRight.appendChild(sp);
-  setTimeout(()=>{sp.style.opacity='0';setTimeout(()=>sp.remove(),300)},100)
-})
-
-// ===== Custom cursor =====
-const cursorGlow=document.getElementById('cursorGlow');
-const cursorDot=document.createElement('div');cursorDot.className='cursor-dot';cursorGlow.appendChild(cursorDot);
-let trailTimer=null,cursorHover=false;
-document.addEventListener('mousemove',e=>{
-  cursorDot.style.left=e.clientX+'px';cursorDot.style.top=e.clientY+'px';
-  const target=e.target.closest('a,button,[data-project],.p-card,.p-feat,.m-close,.magnetic');
-  if(target&&!cursorHover){cursorHover=true;cursorDot.style.width='28px';cursorDot.style.height='28px';cursorDot.style.borderColor='rgba(179,136,255,0.9)';cursorDot.style.boxShadow='0 0 20px rgba(179,136,255,0.5),0 0 48px rgba(179,136,255,0.15),inset 0 0 10px rgba(179,136,255,0.15)'}
-  if(!target&&cursorHover){cursorHover=false;cursorDot.style.width='';cursorDot.style.height='';cursorDot.style.borderColor='';cursorDot.style.boxShadow=''}
-  if(!trailTimer){
-    trailTimer=setTimeout(()=>{trailTimer=null},30);
-    const trail=document.createElement('div');trail.className='cursor-trail';
-    trail.style.left=e.clientX+'px';trail.style.top=e.clientY+'px';
-    cursorGlow.appendChild(trail);
-    setTimeout(()=>trail.remove(),600)
-  }
-});
-document.addEventListener('mouseleave',()=>{cursorDot.style.opacity='0'});
-document.addEventListener('mouseenter',()=>{cursorDot.style.opacity='1'});
+// ===== Reveal on scroll =====
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')})},{threshold:0.1});
+document.querySelectorAll('.r').forEach(el=>observer.observe(el));
+document.querySelectorAll('.r.v').forEach(el=>el.classList.add('v'));
 
 // ===== Modal system =====
-const projectData={
-  mohe:{icon:'🏪',title:'墨禾陶瓷 · 订单管理系统',status:'live',statusLabel:'已上线 · 真实付费用户',desc:'为景德镇陶瓷批发商量身定制的订单管理系统。支持产品管理、订单查询、扫码登录、移动端适配。已上线运营，真实商户在使用。',tags:['FastAPI','SQLite','Railway','移动端适配','Session持久化','Python','HTML/CSS/JS'],actions:[{label:'🔗 访问线上版本',url:'https://guming-tea-order-production.up.railway.app',cls:'primary'},{label:'🐙 GitHub',url:'https://github.com/taowuhu/guming-tea-order',cls:'secondary'}]},
-  resume:{icon:'📄',title:'AI 简历优化',status:'live',statusLabel:'已上线',desc:'从零生成或优化已有简历，智能匹配岗位需求，支持多模板与 PDF 导出。用 AI 帮人写出更好的简历。',tags:['FastAPI','AI Prompt','PDF生成','多模板','岗位匹配'],actions:[{label:'🔗 使用工具',url:'#',cls:'primary'}]},
-  imgconv:{icon:'🖼️',title:'图片格式转换',status:'live',statusLabel:'已上线',desc:'一键互转 WebP / PNG / JPG / AVIF，保持画质同时智能压缩体积。支持批量处理，拖拽上传。',tags:['WebP','PNG','JPG','AVIF','批量处理','智能压缩','FastAPI'],actions:[{label:'🔗 使用工具',url:'#',cls:'primary'}]},
-  imgcheck:{icon:'✅',title:'内容图片质检',status:'proto',statusLabel:'原型阶段',desc:'自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍，避免发布后才发现问题。',tags:['OCR','排版检测','色彩分析','AI视觉','小红书'],actions:[{label:'💡 原型阶段',url:'#',cls:'secondary'}]},
-  hanwu:{icon:'🎬',title:'HANWU 视频剪辑生产线',status:'live',statusLabel:'运行中',desc:'基于 ffmpeg 的自动化视频剪辑管线。4K(3840×2160, 50-100fps)素材处理、zoompan动态漫效果、xfade转场、PIL中文字幕合成。全自动出片，命名规范。',tags:['ffmpeg','4K','zoompan','xfade','PIL字幕','H.264','动态漫','自动化'],actions:[{label:'📂 本地项目',url:'#',cls:'secondary'}]},
-  ganwu:{icon:'📝',title:'感悟图文工厂',status:'live',statusLabel:'运行中',desc:'AI图文内容自动化生产系统。借鉴陈皮拿铁打法：爆款侦察→选题→脚本→漫画分镜→DALL-E出图→Canva加字。上下图漫画格格式，文案极简+情绪钩子重。',tags:['DALL-E','Canva','漫画格','爆款侦察','选题分析','AI图文','自动化'],actions:[{label:'📂 本地项目',url:'#',cls:'secondary'}]},
-  gzh:{icon:'✍️',title:'公众号写作管线',status:'live',statusLabel:'运行中',desc:'四Agent协作管线：Agent1实时热点采集→Agent2选题分析→Agent3AI写作→Agent4质量检查。全自动流水线生产深度公众号文章。严格遵循：热点先给用户看再选方向。',tags:['4 Agent','实时热点','选题分析','AI写作','质检','Python','自动化'],actions:[{label:'📂 本地项目',url:'#',cls:'secondary'}]},
-  iot:{icon:'🎓',title:'IoT ID+MD 双修课程',status:'wip',statusLabel:'进行中',desc:'从零系统学习工业设计+结构设计。Obsidian知识库管理，每课独立笔记+前后链接，5道自测题逐题点评。已完成基础阶段12课深度版。教学铁律：每知识点极深讲解，理解后才进下一课。',tags:['工业设计','结构设计','Obsidian','知识库','系统学习','教学'],actions:[{label:'📂 Obsidian 知识库',url:'#',cls:'secondary'}]},
-  ailearn:{icon:'🤖',title:'AI 知识学习',status:'live',statusLabel:'每日',desc:'每日AI前沿追踪。9:00学习计划+AI动态简报+学习伙伴思考。覆盖AI工具、Vibe Coding、AI产品思维。把每天学到的东西记录下来，变成自己的知识体系。',tags:['AI工具','Vibe Coding','AI产品思维','每日学习','前沿追踪'],actions:[{label:'📅 每日学习',url:'#',cls:'secondary'}]},
-  zimeiti:{icon:'📱',title:'AI 自媒体矩阵',status:'live',statusLabel:'日更',desc:'小红书+抖音+视频号+B站+公众号，多平台日更。内容方向：记录从设计师到AI产品开发者的真实路径，分享学习过程和工具使用心得。21:00定时发布。',tags:['小红书','抖音','视频号','B站','公众号','日更','内容创作'],actions:[{label:'📕 公众号',url:'#',cls:'primary'},{label:'📸 小红书',url:'#',cls:'secondary'}]}
-};
-
 const modalOverlay=document.getElementById('modalOverlay');
 const modalClose=document.getElementById('modalClose');
-
+const projectData={
+  resume:{icon:'📄',title:'AI 简历优化',status:'live',statusLabel:'已上线 · 免费内测',desc:'从零生成或优化已有简历，智能匹配岗位需求，支持多模板与PDF导出。用AI帮人写出更好的简历。',tags:['FastAPI','AI Prompt','PDF生成','多模板','岗位匹配'],actions:[{label:'🔗 立即使用',url:'https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/',cls:'primary'}]},
+  imgconv:{icon:'🖼️',title:'图片格式转换',status:'live',statusLabel:'已上线',desc:'一键互转WebP/PNG/JPG/AVIF，保持画质同时智能压缩体积。支持批量处理，拖拽上传。',tags:['WebP','PNG','JPG','AVIF','批量处理','智能压缩','FastAPI'],actions:[{label:'即将开放',url:'#',cls:'secondary'}]},
+  imgcheck:{icon:'✅',title:'内容图片质检',status:'proto',statusLabel:'原型阶段',desc:'自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍，避免发布后才发现问题。',tags:['OCR','排版检测','色彩分析','AI视觉','小红书'],actions:[{label:'💡 原型阶段',url:'#',cls:'secondary'}]}
+};
 function openModal(pid){
   const d=projectData[pid];if(!d)return;
   document.getElementById('mIcon').textContent=d.icon;
   document.getElementById('mTitle').textContent=d.title;
-  const st=document.getElementById('mStatus');st.textContent='● '+d.statusLabel;st.className='m-status '+d.status;
+  const ms=document.getElementById('mStatus');ms.textContent='● '+d.statusLabel;ms.className='m-status '+d.status;
   document.getElementById('mDesc').textContent=d.desc;
-  const tags=document.getElementById('mTags');tags.innerHTML=d.tags.map(t=>'<span>'+t+'</span>').join('');
-  const actions=document.getElementById('mActions');actions.innerHTML=d.actions.map(a=>'<a href="'+a.url+'" target="_blank" class="'+a.cls+'">'+a.label+'</a>').join('');
-  modalOverlay.classList.add('open');document.body.style.overflow='hidden';
+  document.getElementById('mTags').innerHTML=d.tags.map(t=>'<span>'+t+'</span>').join('');
+  document.getElementById('mActions').innerHTML=d.actions.map(a=>'<a href="'+a.url+'" target="_blank" class="'+a.cls+'">'+a.label+'</a>').join('');
+  modalOverlay.classList.add('open');
 }
-function closeModal(){modalOverlay.classList.remove('open');document.body.style.overflow=''}
-modalClose.addEventListener('click',closeModal);
-modalOverlay.addEventListener('click',e=>{if(e.target===modalOverlay)closeModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+modalClose.addEventListener('click',()=>modalOverlay.classList.remove('open'));
+modalOverlay.addEventListener('click',e=>{if(e.target===modalOverlay)modalOverlay.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')modalOverlay.classList.remove('open')});
+document.querySelectorAll('.p-card').forEach(el=>{el.addEventListener('click',e=>{if(e.target.tagName==='A')return;const pid=el.dataset.project||Object.keys(projectData).find(k=>el.querySelector('h4')&&el.querySelector('h4').textContent.includes(projectData[k].title));if(el.dataset.project)openModal(el.dataset.project)})});
 
-document.querySelectorAll('[data-project]').forEach(el=>{el.addEventListener('click',e=>{if(e.target.tagName==='A')return;openModal(el.dataset.project)})});
-
-console.log('🚀 废废 — 个人品牌站 · 5+ 项目 · Vibe Coding');
+console.log('🚀 废废 · AI工具箱 · Vibe Coding');
 </script>
 </body>
 </html>
