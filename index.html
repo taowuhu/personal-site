@@ -55,6 +55,8 @@ section{padding:100px 0;position:relative;z-index:2}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(179,136,255,0.3)}
 .hero-cta .arrow{transition:transform 0.3s}
 .hero-cta:hover .arrow{transform:translateX(3px)}
+.hero-cta-secondary{display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border-radius:var(--rs);font-size:13px;font-weight:500;text-decoration:none;background:var(--surface);border:1px solid var(--border2);color:var(--text2);transition:all 0.3s cubic-bezier(.16,1,.3,1)}
+.hero-cta-secondary:hover{border-color:rgba(179,136,255,0.1);color:var(--text);transform:translateY(-2px)}
 .hero-meta{display:flex;gap:20px;margin-top:24px;font-size:11px;color:var(--text3)}
 .hero-meta span{display:flex;align-items:center;gap:4px}
 
@@ -219,16 +221,12 @@ a,button,.p-card,.trust-card,cursor:none
   <div class="container">
     <div class="hero-inner">
       <div class="hero-left">
-        <div class="hero-badge r v"><span class="dot"></span> AI 简历优化 · 免费内测中</div>
-        <h1 class="r v">帮普通人<br><span class="g">写出更好的简历</span></h1>
-        <p class="sub r v d1">我是废废，一个从0开始接触AI的设计师。我用AI帮人解决实际问题——第一个工具就是简历优化。上传你的简历，AI帮你改到能拿面试。</p>
-        <a href="https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/" target="_blank" class="hero-cta r v d2">
-          免费试用 <span class="arrow">→</span>
-        </a>
-        <div class="hero-meta r v d3">
-          <span>✅ 免费使用</span>
-          <span>⚡ 30秒出结果</span>
-          <span>📄 支持PDF导出</span>
+        <div class="hero-badge r v"><span class="dot"></span> 可合作 · 正在做产品</div>
+        <h1 class="r v">我是 <span class="g">废废</span><br><span class="hl">一个把想法做成产品的设计师</span></h1>
+        <p class="sub r v d1">环境设计出身，用 Vibe Coding 把想法变成产品。AI 工具、自动化系统、商用订单管理——每个都来自真实需求。</p>
+        <div class="hero-actions r v d2">
+          <a href="#tools" class="hero-cta">看我的作品 <span class="arrow">↓</span></a>
+          <a href="https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/" target="_blank" class="hero-cta-secondary">✨ 试用简历优化</a>
         </div>
       </div>
       <div class="hero-right r v d2">
