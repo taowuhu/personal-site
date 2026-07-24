@@ -273,9 +273,9 @@ a,button,.p-card,.trust-card,cursor:none
         <div class="p-top"><div class="ic blue">🖼️</div><h4>图片格式转换</h4></div>
         <p>一键互转WebP/PNG/JPG/AVIF，保持画质同时智能压缩。支持批量处理，拖拽上传。</p>
         <div class="ps live">● 已上线</div>
-        <div class="ft"><a href="#">即将开放 →</a></div>
-      </div>
-      <div class="p-card">
+        <div class="ft"><a href="img-convert.html" class="go">立即使用 →</a></div>
+        </div>
+        <div class="p-card">
         <div class="p-top"><div class="ic green">✅</div><h4>内容图片质检</h4></div>
         <p>自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍，避免发布后翻车。</p>
         <div class="ps proto">● 原型阶段</div>
@@ -416,7 +416,7 @@ const modalClose=document.getElementById('modalClose');
 const projectData={
   resume:{icon:'📄',title:'AI 简历优化',status:'live',statusLabel:'已上线 · 免费内测',desc:'从零生成或优化已有简历，智能匹配岗位需求，支持多模板与PDF导出。用AI帮人写出更好的简历。',tags:['FastAPI','AI Prompt','PDF生成','多模板','岗位匹配'],actions:[{label:'🔗 立即使用',url:'https://ai-resume-optimizer-281869-6-1453710292.sh.run.tcloudbase.com/',cls:'primary'}]},
   mohe:{icon:'🏪',title:'墨禾陶瓷 · 订单系统',status:'live',statusLabel:'已上线 · 真实付费用户',desc:'为景德镇陶瓷批发商量身定制。产品管理、订单查询、扫码登录、移动端适配。已上线运营，真实商户在用。',tags:['FastAPI','SQLite','Railway','移动端','Session持久化'],actions:[{label:'🔗 访问线上版本',url:'https://guming-tea-order-production.up.railway.app',cls:'primary'},{label:'🐙 GitHub',url:'https://github.com/taowuhu/guming-tea-order',cls:'secondary'}]},
-  imgconv:{icon:'🖼️',title:'图片格式转换',status:'live',statusLabel:'已上线',desc:'一键互转WebP/PNG/JPG/AVIF，保持画质同时智能压缩体积。支持批量处理，拖拽上传。',tags:['WebP','PNG','JPG','AVIF','批量处理','智能压缩','FastAPI'],actions:[{label:'即将开放',url:'#',cls:'secondary'}]},
+  imgconv:{icon:'🖼️',title:'图片格式转换',status:'live',statusLabel:'已上线',desc:'一键互转WebP/PNG/JPG/AVIF，保持画质同时智能压缩体积。支持批量处理，拖拽上传。',tags:['WebP','PNG','JPG','AVIF','批量处理','智能压缩','FastAPI'],actions:[{label:'🔗 立即使用',url:'img-convert.html',cls:'primary'}]},
   imgcheck:{icon:'✅',title:'内容图片质检',status:'proto',statusLabel:'原型阶段',desc:'自动检测图片中的文字错误、排版偏移、色彩偏差。发小红书前扫一遍，避免发布后才发现问题。',tags:['OCR','排版检测','色彩分析','AI视觉','小红书'],actions:[{label:'💡 原型阶段',url:'#',cls:'secondary'}]}
 };
 function openModal(pid){
