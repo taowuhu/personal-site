@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书封面生成器 · Brand Style</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0a0a0f;color:#eaeaef;min-height:100vh}
+.c{max-width:900px;margin:0 auto;padding:30px 20px}
+h1{font-size:28px;text-align:center;background:linear-gradient(135deg,#0071e3,#a259ff,#ff385c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.sub{text-align:center;color:#555;font-size:13px;margin-bottom:30px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:24px;margin-bottom:20px}
+label{display:block;font-size:12px;color:#777;margin-bottom:6px;font-weight:600}
+input[type=text]{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#fff;font-size:15px;outline:none}
+input[type=text]:focus{border-color:rgba(0,113,227,.3)}
+.brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+@media(max-width:640px){.brand-grid{grid-template-columns:repeat(3,1fr)}}
+.brand-btn{padding:10px 6px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;color:#888;font-size:11px;cursor:pointer;transition:all .15s;text-align:center}
+.brand-btn:hover{border-color:rgba(255,255,255,.1);color:#ccc}
+.brand-btn.on{border-color:#0071e3;background:rgba(0,113,227,.08);color:#0071e3;font-weight:700}
+.gen{width:100%;padding:15px;background:linear-gradient(135deg,#0071e3,#a259ff);color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .2s}
+.gen:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,113,227,.15)}
+.gen:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.result{margin-top:20px;text-align:center}
+.result img{max-width:320px;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.3)}
+.dl-btn{display:inline-block;margin-top:14px;padding:10px 28px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:8px;color:#34d399;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer}
+.loading{display:none;text-align:center;padding:30px;color:#666}.loading.show{display:block}
+.spin{width:36px;height:36px;border:3px solid rgba(255,255,255,.08);border-top-color:#0071e3;border-radius:50%;animation:s .7s linear infinite;margin:0 auto 14px}
+@keyframes s{to{transform:rotate(360deg)}}
+.ft{text-align:center;padding:30px;color:#333;font-size:11px}.ft a{color:#555}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>🎨 小红书封面生成器</h1>
+<p class="sub">12 大品牌设计风格 · 纯浏览器渲染 · 无需服务器</p>
+
+<div class="card">
+<label>📝 封面标题</label>
+<input type="text" id="titleInput" placeholder="比如：普通人用AI赚钱的5个野路子" maxlength="30">
+<label style="margin-top:16px">✏️ 副标题（可选）</label>
+<input type="text" id="subtitleInput" placeholder="比如：第3个我每天都在用" maxlength="20">
+</div>
+
+<div class="card">
+<label>🎨 品牌风格</label>
+<div class="brand-grid" id="brandGrid"></div>
+</div>
+
+<button class="gen" id="genBtn" onclick="generate()">✨ 生成封面</button>
+
+<div class="loading" id="loading"><div class="spin"></div><p>生成中...</p></div>
+<div class="result" id="result"></div>
+</div>
+
+<div class="ft">MIT 开源 · <a href="https://github.com/taowuhu/xhs-cover-gen">GitHub</a> · 纯前端 · 数据不上传</div>
+
+<div id="renderArea" style="position:fixed;left:-9999px;top:0;z-index:-1"></div>
+
+<script>
+const BRANDS = [
+  {key:'apple',name:'Apple 极简白',bg:'#f5f5f7',tc:'#1d1d1f',accent:'#0071e3',decor:'clean'},
+  {key:'claude',name:'Claude 温暖橙',bg:'#faf7f2',tc:'#1a1a1a',accent:'#d97706',decor:'warm'},
+  {key:'figma',name:'Figma 霓虹紫',bg:'#0d0d0d',tc:'#ffffff',accent:'#a259ff',decor:'neon'},
+  {key:'notion',name:'Notion 黑白',bg:'#ffffff',tc:'#37352f',accent:'#e16259',decor:'minimal'},
+  {key:'tesla',name:'Tesla 科技红',bg:'#000000',tc:'#ffffff',accent:'#e82127',decor:'bold'},
+  {key:'airbnb',name:'Airbnb 珊瑚粉',bg:'#ffffff',tc:'#222222',accent:'#ff385c',decor:'soft'},
+  {key:'stripe',name:'Stripe 科技蓝',bg:'#0a0a23',tc:'#ffffff',accent:'#635bff',decor:'gradient'},
+  {key:'github',name:'GitHub 暗黑绿',bg:'#0d1117',tc:'#e6edf3',accent:'#2da44e',decor:'mono'},
+  {key:'spotify',name:'Spotify 音乐绿',bg:'#191414',tc:'#ffffff',accent:'#1db954',decor:'vibrant'},
+  {key:'discord',name:'Discord 模糊紫',bg:'#313338',tc:'#f2f3f5',accent:'#5865f2',decor:'blurple'},
+  {key:'linear',name:'Linear 极简黑',bg:'#000000',tc:'#f7f8f8',accent:'#5e6ad2',decor:'sharp'},
+  {key:'vercel',name:'Vercel 三角黑',bg:'#000000',tc:'#fafafa',accent:'#ffffff',decor:'geo'},
+];
+let selected = BRANDS[0];
+
+function renderBrands(){
+  document.getElementById('brandGrid').innerHTML = BRANDS.map((b,i)=>
+    `<button class="brand-btn${i?'':' on'}" data-k="${b.key}">${b.name}</button>`
+  ).join('');
+  document.querySelectorAll('.brand-btn').forEach(btn=>btn.onclick=()=>{
+    document.querySelectorAll('.brand-btn').forEach(q=>q.classList.remove('on'));
+    btn.classList.add('on');
+    selected=BRANDS.find(b=>b.key===btn.dataset.k);
+  });
+}
+
+function coverHTML(b,t,st){
+  const{bg,tc,accent,name,decor}=b;
+  const fs=t.length<=4?80:t.length<=6?64:t.length<=8?52:t.length<=12?42:t.length<=16?34:28;
+  let tag=`color:${accent};font-size:20px;letter-spacing:6px;margin-bottom:60px;`;
+  let te='',deco='';
+  if(decor==='neon'){tag=`color:${accent};font-size:16px;letter-spacing:8px;text-shadow:0 0 20px ${accent}44;margin-bottom:40px;`;te=`text-shadow:0 0 40px ${accent}33;`;}
+  else if(decor==='bold'){tag=`color:${accent};font-size:24px;font-weight:700;margin-bottom:30px;`;te='font-weight:900;';}
+  else if(decor==='soft'){tag=`color:${accent};font-size:18px;border-radius:20px;padding:8px 24px;background:${accent}11;display:inline-block;margin-bottom:70px;`;}
+  else if(decor==='gradient'){te=`background:linear-gradient(135deg,${tc},${accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;`;}
+  else if(decor==='mono'){tag=`color:${accent};font-size:16px;font-family:monospace;margin-bottom:40px;`;te='font-family:monospace;';}
+  else if(decor==='geo'){deco=`<div style="position:absolute;bottom:140px;right:100px;width:0;height:0;border-left:50px solid transparent;border-right:50px solid transparent;border-bottom:90px solid ${accent}15;"></div>`;}
+  const sh=st?`<div style="font-size:28px;color:${accent};margin-top:24px;font-weight:600;opacity:.8;">${st}</div>`:'';
+  return `<div style="width:1080px;height:1440px;background:${bg};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;"><div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,${accent}15,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>${deco}<div style="position:absolute;top:60px;left:0;right:0;text-align:center;font-size:16px;color:${accent};opacity:.4;letter-spacing:8px;">XIAOHONGSHU COVER</div><div style="position:absolute;bottom:50px;left:0;right:0;text-align:center;font-size:18px;color:${accent};opacity:.25;letter-spacing:4px;">AI Generated · Brand Style</div><div style="text-align:center;padding:80px 90px;z-index:2;max-width:960px;"><div style="${tag}">${name}</div><div style="font-size:${fs}px;font-weight:800;color:${tc};max-width:900px;word-break:break-word;line-height:1.15;letter-spacing:-1px;${te}">${t}</div>${sh}</div></div>`;
+}
+
+async function generate(){
+  const t=document.getElementById('titleInput').value.trim();
+  if(!t)return alert('输入标题');
+  const st=document.getElementById('subtitleInput').value.trim();
+  const btn=document.getElementById('genBtn'),l=document.getElementById('loading'),r=document.getElementById('result'),ra=document.getElementById('renderArea');
+  btn.disabled=true;l.classList.add('show');r.innerHTML='';
+  ra.innerHTML=coverHTML(selected,t,st);
+  try{
+    const c=await html2canvas(ra.firstElementChild,{width:1080,height:1440,scale:1,useCORS:true,allowTaint:true,backgroundColor:null});
+    const u=c.toDataURL('image/png');
+    l.classList.remove('show');
+    r.innerHTML=`<img src="${u}" style="max-width:320px;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.3)"><br><a class="dl-btn" href="${u}" download="xhs-${selected.key}.png">⬇ 下载封面 (1080×1440)</a>`;
+  }catch(e){l.classList.remove('show');r.innerHTML=`<p style="color:#ef4444">失败: ${e.message}</p>`;}
+  ra.innerHTML='';btn.disabled=false;
+}
+document.getElementById('titleInput').addEventListener('keydown',e=>{if(e.key==='Enter')generate()});
+renderBrands();
+</script>
+</body>
+</html>
