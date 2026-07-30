@@ -171,13 +171,16 @@ async function generate(){
   const btn=document.getElementById('genBtn'),l=document.getElementById('loading'),r=document.getElementById('result'),ra=document.getElementById('renderArea');
   btn.disabled=true;l.classList.add('show');r.innerHTML='';
   ra.innerHTML=buildHTML(brand);
+  ra.style.left='0';ra.style.zIndex='99999';
+  // Wait for fonts
+  await new Promise(resolve=>setTimeout(resolve,800));
   try{
-    const c=await html2canvas(ra.firstElementChild,{width:1500,height:2000,scale:1,useCORS:true,allowTaint:true,backgroundColor:null});
+    const c=await html2canvas(ra.querySelector('.frame'),{width:1500,height:2000,scale:1,useCORS:true,allowTaint:true,backgroundColor:null});
     const u=c.toDataURL('image/png');
     l.classList.remove('show');
     r.innerHTML=`<img src="${u}" style="max-width:340px"><br><a class="dl-btn" href="${u}" download="xhs-${brand.k}.png">⬇ 下载封面 (1500×2000)</a>`;
   }catch(e){l.classList.remove('show');r.innerHTML=`<p style="color:#ef4444">失败: ${e.message}</p>`}
-  ra.innerHTML='';btn.disabled=false;
+  ra.style.left='-9999px';ra.style.zIndex='-1';ra.innerHTML='';btn.disabled=false;
 }
 renderBrands();
 </script>
