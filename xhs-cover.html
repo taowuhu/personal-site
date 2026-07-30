@@ -3,45 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小红书封面生成器 · Brand Style</title>
+<title>小红书封面生成器 · 大厂设计语言</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0a0a0f;color:#eaeaef;min-height:100vh}
+body{font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;background:#0a0a0f;color:#eaeaef;min-height:100vh}
 .c{max-width:900px;margin:0 auto;padding:30px 20px}
-h1{font-size:28px;text-align:center;background:linear-gradient(135deg,#0071e3,#a259ff,#ff385c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
-.sub{text-align:center;color:#555;font-size:13px;margin-bottom:30px}
-.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:24px;margin-bottom:20px}
-label{display:block;font-size:12px;color:#777;margin-bottom:6px;font-weight:600}
-input[type=text]{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#fff;font-size:15px;outline:none}
-input[type=text]:focus{border-color:rgba(0,113,227,.3)}
-.brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
-@media(max-width:640px){.brand-grid{grid-template-columns:repeat(3,1fr)}}
-.brand-btn{padding:10px 6px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;color:#888;font-size:11px;cursor:pointer;transition:all .15s;text-align:center}
+h1{font-size:24px;text-align:center;background:linear-gradient(135deg,#0071e3,#a259ff,#ff385c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#555;font-size:13px;margin:6px 0 28px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px;margin-bottom:16px}
+label{display:block;font-size:12px;color:#777;margin-bottom:5px;font-weight:600}
+input[type=text]{width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#fff;font-size:14px;outline:none;margin-bottom:10px}
+input:focus{border-color:rgba(0,113,227,.3)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.fcard{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;padding:12px}
+.fcard input{margin-bottom:6px;font-size:12px;padding:8px 10px}
+.brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:640px){.brand-grid{grid-template-columns:repeat(3,1fr)}.row,.row3{grid-template-columns:1fr}}
+.brand-btn{padding:10px 6px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;color:#888;font-size:11px;cursor:pointer;text-align:center}
 .brand-btn:hover{border-color:rgba(255,255,255,.1);color:#ccc}
 .brand-btn.on{border-color:#0071e3;background:rgba(0,113,227,.08);color:#0071e3;font-weight:700}
-.gen{width:100%;padding:15px;background:linear-gradient(135deg,#0071e3,#a259ff);color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:all .2s}
+.gen{width:100%;padding:15px;background:linear-gradient(135deg,#0071e3,#a259ff);color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer}
 .gen:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,113,227,.15)}
-.gen:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.gen:disabled{opacity:.3;transform:none}
 .result{margin-top:20px;text-align:center}
-.result img{max-width:320px;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.3)}
+.result img{max-width:340px;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.3)}
 .dl-btn{display:inline-block;margin-top:14px;padding:10px 28px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:8px;color:#34d399;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer}
 .loading{display:none;text-align:center;padding:30px;color:#666}.loading.show{display:block}
 .spin{width:36px;height:36px;border:3px solid rgba(255,255,255,.08);border-top-color:#0071e3;border-radius:50%;animation:s .7s linear infinite;margin:0 auto 14px}
 @keyframes s{to{transform:rotate(360deg)}}
 .ft{text-align:center;padding:30px;color:#333;font-size:11px}.ft a{color:#555}
+details{margin-top:8px}summary{font-size:11px;color:#666;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="c">
 <h1>🎨 小红书封面生成器</h1>
-<p class="sub">12 大品牌设计风格 · 纯浏览器渲染 · 无需服务器</p>
+<p class="sub">大厂设计语言系列 · 拆解品牌设计DNA做封面</p>
 
 <div class="card">
-<label>📝 封面标题</label>
-<input type="text" id="titleInput" placeholder="比如：普通人用AI赚钱的5个野路子" maxlength="30">
-<label style="margin-top:16px">✏️ 副标题（可选）</label>
-<input type="text" id="subtitleInput" placeholder="比如：第3个我每天都在用" maxlength="20">
+<label>📝 封面大标题</label>
+<input type="text" id="headline" value="用 Apple 的设计语言做封面" maxlength="40">
+<div class="row">
+<div><label>系列标签</label><input type="text" id="series" value="大厂设计语言 · Vol.01" maxlength="20"></div>
+<div><label>副标题</label><input type="text" id="subhead" value="拆解苹果官网设计规范，直接套用到你的小红书图文" maxlength="60"></div>
+</div>
+<div class="row">
+<div><label>作者名</label><input type="text" id="author" value="废废" maxlength="10"></div>
+<div><label>作者简介</label><input type="text" id="authorDesc" value="设计师 · AI工具创作者" maxlength="20"></div>
+</div>
+</div>
+
+<div class="card">
+<label>🎯 三个亮点卡片</label>
+<div class="row3">
+<div class="fcard"><input type="text" id="f1icon" value="🎨" maxlength="4" placeholder="图标"><input type="text" id="f1title" value="极致黑白" maxlength="8"><input type="text" id="f1desc" value="#000 与 #f5f5f7 交替的电影感节奏" maxlength="30"></div>
+<div class="fcard"><input type="text" id="f2icon" value="✦" maxlength="4"><input type="text" id="f2title" value="唯一蓝色" maxlength="8"><input type="text" id="f2desc" value="#0071e3 全站仅一个强调色" maxlength="30"></div>
+<div class="fcard"><input type="text" id="f3icon" value="Aa" maxlength="4"><input type="text" id="f3title" value="SF Pro" maxlength="8"><input type="text" id="f3desc" value="负字距 · 1.07行高 标题紧凑如机械切割" maxlength="30"></div>
+</div>
 </div>
 
 <div class="card">
@@ -50,74 +71,114 @@ input[type=text]:focus{border-color:rgba(0,113,227,.3)}
 </div>
 
 <button class="gen" id="genBtn" onclick="generate()">✨ 生成封面</button>
-
-<div class="loading" id="loading"><div class="spin"></div><p>生成中...</p></div>
+<div class="loading" id="loading"><div class="spin"></div><p>渲染中...</p></div>
 <div class="result" id="result"></div>
 </div>
-
-<div class="ft">MIT 开源 · <a href="https://github.com/taowuhu/xhs-cover-gen">GitHub</a> · 纯前端 · 数据不上传</div>
-
+<div class="ft">MIT · <a href="https://github.com/taowuhu/xhs-cover-gen">GitHub</a> · 纯前端 · html2canvas</div>
 <div id="renderArea" style="position:fixed;left:-9999px;top:0;z-index:-1"></div>
 
 <script>
 const BRANDS = [
-  {key:'apple',name:'Apple 极简白',bg:'#f5f5f7',tc:'#1d1d1f',accent:'#0071e3',decor:'clean'},
-  {key:'claude',name:'Claude 温暖橙',bg:'#faf7f2',tc:'#1a1a1a',accent:'#d97706',decor:'warm'},
-  {key:'figma',name:'Figma 霓虹紫',bg:'#0d0d0d',tc:'#ffffff',accent:'#a259ff',decor:'neon'},
-  {key:'notion',name:'Notion 黑白',bg:'#ffffff',tc:'#37352f',accent:'#e16259',decor:'minimal'},
-  {key:'tesla',name:'Tesla 科技红',bg:'#000000',tc:'#ffffff',accent:'#e82127',decor:'bold'},
-  {key:'airbnb',name:'Airbnb 珊瑚粉',bg:'#ffffff',tc:'#222222',accent:'#ff385c',decor:'soft'},
-  {key:'stripe',name:'Stripe 科技蓝',bg:'#0a0a23',tc:'#ffffff',accent:'#635bff',decor:'gradient'},
-  {key:'github',name:'GitHub 暗黑绿',bg:'#0d1117',tc:'#e6edf3',accent:'#2da44e',decor:'mono'},
-  {key:'spotify',name:'Spotify 音乐绿',bg:'#191414',tc:'#ffffff',accent:'#1db954',decor:'vibrant'},
-  {key:'discord',name:'Discord 模糊紫',bg:'#313338',tc:'#f2f3f5',accent:'#5865f2',decor:'blurple'},
-  {key:'linear',name:'Linear 极简黑',bg:'#000000',tc:'#f7f8f8',accent:'#5e6ad2',decor:'sharp'},
-  {key:'vercel',name:'Vercel 三角黑',bg:'#000000',tc:'#fafafa',accent:'#ffffff',decor:'geo'},
+  {k:'apple',n:'Apple',bg:'#000',fg:'#fff',ac:'#0071e3',font:'Inter,Noto Sans SC',cardBg:'#1d1d1f',cardBorder:'none',glow:'rgba(0,113,227,0.06)',tags:[{n:'Apple',a:1},{n:'Stripe'},{n:'Linear'},{n:'Vercel'},{n:'Notion'}],overline:'DESIGN SYSTEM BREAKDOWN',overlineFont:'Inter',overlineStyle:'normal',overlineColor:'rgba(255,255,255,0.4)',headlineW:900,headlineColor:'#fff',headlineGrad:'linear-gradient(180deg,#fff 40%,rgba(255,255,255,0.55))',subColor:'rgba(255,255,255,0.6)',ctaBg:'#0071e3',ctaFg:'#fff',cta2Color:'#2997ff',cta2Border:'rgba(41,151,255,0.5)',tagBg:'#1d1d1f',tagBorder:'none',tagColor:'rgba(255,255,255,0.3)',tagActiveColor:'#2997ff',tagActiveBorder:'rgba(41,151,255,0.25)',dividerColor:'rgba(255,255,255,0.06)',seriesBg:'transparent',seriesBd:'rgba(41,151,255,0.35)',seriesColor:'#2997ff',avatarBg:'linear-gradient(135deg,#0071e3,#2997ff)',authorColor:'rgba(255,255,255,0.9)',authorDescColor:'rgba(255,255,255,0.4)',cardTitleColor:'#fff',cardDescColor:'rgba(255,255,255,0.45)'},
+  {k:'claude',n:'Claude',bg:'#f5f4ed',fg:'#141413',ac:'#c96442',font:'Noto Serif SC,Georgia,serif',cardBg:'#faf9f5',cardBorder:'0 0 0 1px rgba(0,0,0,0.06)',glow:'none',tags:[{n:'Apple'},{n:'Claude',a:1},{n:'Figma'},{n:'Notion'},{n:'Tesla'}],overline:'DESIGN SYSTEM BREAKDOWN',overlineFont:'Inter',overlineStyle:'normal',overlineColor:'#87867f',headlineW:900,headlineColor:'#141413',headlineGrad:'none',subColor:'#5e5d59',ctaBg:'#c96442',ctaFg:'#fff',cta2Color:'#c96442',cta2Border:'rgba(201,100,66,0.4)',tagBg:'transparent',tagBorder:'1px solid #e8e6dc',tagColor:'#87867f',tagActiveColor:'#c96442',tagActiveBorder:'rgba(201,100,66,0.3)',dividerColor:'#e8e6dc',seriesBg:'transparent',seriesBd:'rgba(201,100,66,0.3)',seriesColor:'#c96442',avatarBg:'linear-gradient(135deg,#c96442,#d97757)',authorColor:'#141413',authorDescColor:'#87867f',cardTitleColor:'#141413',cardDescColor:'#87867f'},
+  {k:'figma',n:'Figma',bg:'#fff',fg:'#000',ac:'#000',font:'Inter,Noto Sans SC',cardBg:'#fff',cardBorder:'2px solid rgba(0,0,0,0.06)',glow:'linear-gradient(135deg,#0ACF83,#A259FF,#F24E1E,#FF7262,#1ABCFE)',tags:[{n:'Apple'},{n:'Claude'},{n:'Figma',a:1},{n:'Notion'},{n:'Tesla'}],overline:'DESIGN SYSTEM BREAKDOWN',overlineFont:'monospace',overlineStyle:'uppercase',overlineColor:'rgba(0,0,0,0.35)',headlineW:300,headlineColor:'#000',headlineGrad:'none',subColor:'rgba(0,0,0,0.5)',ctaBg:'#000',ctaFg:'#fff',cta2Color:'#000',cta2Border:'rgba(0,0,0,0.15)',tagBg:'transparent',tagBorder:'1px solid rgba(0,0,0,0.08)',tagColor:'rgba(0,0,0,0.3)',tagActiveColor:'#000',tagActiveBorder:'#000',dividerColor:'rgba(0,0,0,0.06)',seriesBg:'transparent',seriesBd:'#000',seriesColor:'#000',avatarBg:'#000',authorColor:'#000',authorDescColor:'rgba(0,0,0,0.4)',cardTitleColor:'#000',cardDescColor:'rgba(0,0,0,0.4)'},
+  {k:'notion',n:'Notion',bg:'#fff',fg:'#37352f',ac:'#e16259',font:'Inter,Noto Sans SC',cardBg:'#f7f6f3',cardBorder:'none',glow:'none',tags:[{n:'Apple'},{n:'Claude'},{n:'Figma'},{n:'Notion',a:1},{n:'Tesla'}],overline:'DESIGN SYSTEM BREAKDOWN',overlineFont:'Inter',overlineStyle:'normal',overlineColor:'rgba(55,53,47,0.4)',headlineW:700,headlineColor:'#37352f',headlineGrad:'none',subColor:'rgba(55,53,47,0.5)',ctaBg:'#37352f',ctaFg:'#fff',cta2Color:'#37352f',cta2Border:'rgba(55,53,47,0.2)',tagBg:'transparent',tagBorder:'1px solid rgba(55,53,47,0.08)',tagColor:'rgba(55,53,47,0.35)',tagActiveColor:'#e16259',tagActiveBorder:'rgba(225,98,89,0.3)',dividerColor:'rgba(55,53,47,0.06)',seriesBg:'transparent',seriesBd:'rgba(225,98,89,0.35)',seriesColor:'#e16259',avatarBg:'linear-gradient(135deg,#e16259,#f08080)',authorColor:'#37352f',authorDescColor:'rgba(55,53,47,0.4)',cardTitleColor:'#37352f',cardDescColor:'rgba(55,53,47,0.5)'},
+  {k:'tesla',n:'Tesla',bg:'#000',fg:'#fff',ac:'#e82127',font:'Inter,Noto Sans SC',cardBg:'#111',cardBorder:'none',glow:'rgba(232,33,39,0.05)',tags:[{n:'Apple'},{n:'Claude'},{n:'Figma'},{n:'Notion'},{n:'Tesla',a:1}],overline:'DESIGN SYSTEM BREAKDOWN',overlineFont:'Inter',overlineStyle:'normal',overlineColor:'rgba(255,255,255,0.35)',headlineW:900,headlineColor:'#fff',headlineGrad:'none',subColor:'rgba(255,255,255,0.5)',ctaBg:'#e82127',ctaFg:'#fff',cta2Color:'#e82127',cta2Border:'rgba(232,33,39,0.4)',tagBg:'transparent',tagBorder:'1px solid rgba(255,255,255,0.08)',tagColor:'rgba(255,255,255,0.3)',tagActiveColor:'#e82127',tagActiveBorder:'rgba(232,33,39,0.3)',dividerColor:'rgba(255,255,255,0.06)',seriesBg:'transparent',seriesBd:'rgba(232,33,39,0.35)',seriesColor:'#e82127',avatarBg:'linear-gradient(135deg,#e82127,#ff4444)',authorColor:'rgba(255,255,255,0.9)',authorDescColor:'rgba(255,255,255,0.4)',cardTitleColor:'#fff',cardDescColor:'rgba(255,255,255,0.45)'},
+  {k:'stripe',n:'Stripe',bg:'#0a0a23',fg:'#fff',ac:'#635bff',font:'Inter,Noto Sans SC',cardBg:'#111133',cardBorder:'none',glow:'rgba(99,91,255,0.06)',tags:[{n:'Stripe',a:1},{n:'Apple'},{n:'Figma'},{n:'Linear'},{n:'Vercel'}],overline:'DESIGN SYSTEM BREAKDOWN',overlineFont:'Inter',overlineStyle:'normal',overlineColor:'rgba(255,255,255,0.35)',headlineW:900,headlineColor:'#fff',headlineGrad:'none',subColor:'rgba(255,255,255,0.5)',ctaBg:'#635bff',ctaFg:'#fff',cta2Color:'#635bff',cta2Border:'rgba(99,91,255,0.4)',tagBg:'transparent',tagBorder:'1px solid rgba(255,255,255,0.08)',tagColor:'rgba(255,255,255,0.3)',tagActiveColor:'#635bff',tagActiveBorder:'rgba(99,91,255,0.3)',dividerColor:'rgba(255,255,255,0.06)',seriesBg:'transparent',seriesBd:'rgba(99,91,255,0.35)',seriesColor:'#635bff',avatarBg:'linear-gradient(135deg,#635bff,#8b83ff)',authorColor:'rgba(255,255,255,0.9)',authorDescColor:'rgba(255,255,255,0.4)',cardTitleColor:'#fff',cardDescColor:'rgba(255,255,255,0.45)'},
 ];
-let selected = BRANDS[0];
+let brand=BRANDS[0];
 
 function renderBrands(){
-  document.getElementById('brandGrid').innerHTML = BRANDS.map((b,i)=>
-    `<button class="brand-btn${i?'':' on'}" data-k="${b.key}">${b.name}</button>`
-  ).join('');
+  document.getElementById('brandGrid').innerHTML=BRANDS.map((b,i)=>`<button class="brand-btn${i?'':' on'}" data-k="${b.k}">${b.n}</button>`).join('');
   document.querySelectorAll('.brand-btn').forEach(btn=>btn.onclick=()=>{
     document.querySelectorAll('.brand-btn').forEach(q=>q.classList.remove('on'));
-    btn.classList.add('on');
-    selected=BRANDS.find(b=>b.key===btn.dataset.k);
+    btn.classList.add('on');brand=BRANDS.find(b=>b.k===btn.dataset.k);
+    applyBrandDefaults();
   });
 }
+function applyBrandDefaults(){
+  const presets={
+    apple:{s:'大厂设计语言 · Vol.01',h:'用 Apple 的设计语言做封面',sh:'拆解苹果官网设计规范，直接套用到你的小红书图文',f1i:'🎨',f1t:'极致黑白',f1d:'#000 与 #f5f5f7 交替的电影感节奏',f2i:'✦',f2t:'唯一蓝色',f2d:'#0071e3 全站仅一个强调色',f3i:'Aa',f3t:'SF Pro',f3d:'负字距 · 1.07行高 标题紧凑如机械切割'},
+    claude:{s:'大厂设计语言 · Vol.02',h:'用 Claude 的设计语言做封面',sh:'赤陶色 × 羊皮纸底色 × 衬线字体，最有书卷气的 AI 品牌',f1i:'📜',f1t:'羊皮纸底色',f1d:'#f5f4ed 暖调米色 像纸张不是屏幕',f2i:'🧱',f2t:'赤陶强调色',f2d:'#c96442 温暖泥土感 反科技美学',f3i:'Aa',f3t:'衬线字体',f3d:'Anthropic Serif 每个标题像一本书名'},
+    figma:{s:'大厂设计语言 · Vol.04',h:'用 Figma 的设计语言做封面',sh:'纯黑白界面 × 超轻字重 × 虹彩渐变光晕，设计工具界的白色画廊',f1i:'⚫',f1t:'纯黑白',f1d:'界面只有 #000 和 #fff 色彩留给作品本身',f2i:'🪶',f2t:'超轻字重',f2d:'weight 320-340 比 Regular 更轻的空灵感',f3i:'🌈',f3t:'虹彩渐变',f3d:'绿·紫·橙·蓝·粉 Figma 五色光谱'},
+    notion:{s:'大厂设计语言 · Vol.03',h:'用 Notion 的设计语言做封面',sh:'纯白底板 × 小红点强调 × 手绘感图标，知识管理工具的设计哲学',f1i:'📄',f1t:'纯白底板',f1d:'#fff 让内容成为唯一主角',f2i:'🔴',f2t:'小红点',f2d:'#e16259 全站唯一彩色 像老师批改',f3i:'✏️',f3t:'手绘图标',f3d:'铅笔线条风格 不是矢量图是人画的'},
+    tesla:{s:'大厂设计语言 · Vol.05',h:'用 Tesla 的设计语言做封面',sh:'全黑背景 × 红字强调 × 极致留白，科技产品也懂克制',f1i:'⬛',f1t:'全黑背景',f1d:'#000 不解释 就是黑',f2i:'🔴',f2t:'唯一红色',f2d:'#e82127 全站一个强调色 够用',f3i:'🔲',f3t:'极致留白',f3d:'内容间距大到奢侈 但看起来对'},
+    stripe:{s:'大厂设计语言 · Vol.06',h:'用 Stripe 的设计语言做封面',sh:'深蓝底色 × 紫蓝渐变 × 开发工具也能有审美',f1i:'🌌',f1t:'深蓝底色',f1d:'#0a0a23 不是黑 是深到接近黑的蓝',f2i:'💜',f2t:'紫蓝渐变',f2d:'从蓝到紫 代码编辑器的浪漫',f3i:'🧩',f3t:'组件化思维',f3d:'每个元素可复用 设计即系统'},
+  };
+  const p=presets[brand.k];if(!p)return;
+  document.getElementById('series').value=p.s;
+  document.getElementById('headline').value=p.h;
+  document.getElementById('subhead').value=p.sh;
+  document.getElementById('f1icon').value=p.f1i;document.getElementById('f1title').value=p.f1t;document.getElementById('f1desc').value=p.f1d;
+  document.getElementById('f2icon').value=p.f2i;document.getElementById('f2title').value=p.f2t;document.getElementById('f2desc').value=p.f2d;
+  document.getElementById('f3icon').value=p.f3i;document.getElementById('f3title').value=p.f3t;document.getElementById('f3desc').value=p.f3d;
+}
 
-function coverHTML(b,t,st){
-  const{bg,tc,accent,name,decor}=b;
-  const fs=t.length<=4?80:t.length<=6?64:t.length<=8?52:t.length<=12?42:t.length<=16?34:28;
-  let tag=`color:${accent};font-size:20px;letter-spacing:6px;margin-bottom:60px;`;
-  let te='',deco='';
-  if(decor==='neon'){tag=`color:${accent};font-size:16px;letter-spacing:8px;text-shadow:0 0 20px ${accent}44;margin-bottom:40px;`;te=`text-shadow:0 0 40px ${accent}33;`;}
-  else if(decor==='bold'){tag=`color:${accent};font-size:24px;font-weight:700;margin-bottom:30px;`;te='font-weight:900;';}
-  else if(decor==='soft'){tag=`color:${accent};font-size:18px;border-radius:20px;padding:8px 24px;background:${accent}11;display:inline-block;margin-bottom:70px;`;}
-  else if(decor==='gradient'){te=`background:linear-gradient(135deg,${tc},${accent});-webkit-background-clip:text;-webkit-text-fill-color:transparent;`;}
-  else if(decor==='mono'){tag=`color:${accent};font-size:16px;font-family:monospace;margin-bottom:40px;`;te='font-family:monospace;';}
-  else if(decor==='geo'){deco=`<div style="position:absolute;bottom:140px;right:100px;width:0;height:0;border-left:50px solid transparent;border-right:50px solid transparent;border-bottom:90px solid ${accent}15;"></div>`;}
-  const sh=st?`<div style="font-size:28px;color:${accent};margin-top:24px;font-weight:600;opacity:.8;">${st}</div>`:'';
-  return `<div style="width:1080px;height:1440px;background:${bg};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;"><div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,${accent}15,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>${deco}<div style="position:absolute;top:60px;left:0;right:0;text-align:center;font-size:16px;color:${accent};opacity:.4;letter-spacing:8px;">XIAOHONGSHU COVER</div><div style="position:absolute;bottom:50px;left:0;right:0;text-align:center;font-size:18px;color:${accent};opacity:.25;letter-spacing:4px;">AI Generated · Brand Style</div><div style="text-align:center;padding:80px 90px;z-index:2;max-width:960px;"><div style="${tag}">${name}</div><div style="font-size:${fs}px;font-weight:800;color:${tc};max-width:900px;word-break:break-word;line-height:1.15;letter-spacing:-1px;${te}">${t}</div>${sh}</div></div>`;
+function buildHTML(b){
+  const a=document.getElementById('author').value||'废废';
+  const ad=document.getElementById('authorDesc').value||'设计师 · AI工具创作者';
+  const s=document.getElementById('series').value||'大厂设计语言';
+  const h=document.getElementById('headline').value||'用设计语言做封面';
+  const sh=document.getElementById('subhead').value||'';
+  const ai=a.charAt(0);
+  
+  const f1i=document.getElementById('f1icon').value,f1t=document.getElementById('f1title').value,f1d=document.getElementById('f1desc').value;
+  const f2i=document.getElementById('f2icon').value,f2t=document.getElementById('f2title').value,f2d=document.getElementById('f2desc').value;
+  const f3i=document.getElementById('f3icon').value,f3t=document.getElementById('f3title').value,f3d=document.getElementById('f3desc').value;
+  
+  const glowCSS=b.glow==='none'?'':b.glow.startsWith('linear')?`background:${b.glow};filter:blur(120px);opacity:0.15;top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none;border-radius:50%;`:`background:radial-gradient(circle,${b.glow} 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-55%);pointer-events:none;`;
+  
+  const tagsHTML=b.tags.map(t=>`<span class="tag${t.a?' active':''}">${t.n}</span>`).join('');
+  
+  const hl = h.length>12 ? h.replace(/做封面$/,'<br>做封面').replace(/设计语言$/,'<br>设计语言') : h;
+  
+  return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet"><style>
+html,body{margin:0;padding:0;-webkit-font-smoothing:antialiased;background:${b.bg};overflow:hidden}
+.frame{width:1500px;height:2000px;background:${b.bg};color:${b.fg};font-family:'${b.font}',-apple-system,sans-serif;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.top-bar{width:100%;padding:48px 80px 0;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box;flex-shrink:0}
+.series-tag{font-family:'Inter','Noto Sans SC',sans-serif;font-size:28px;font-weight:600;color:${b.seriesColor};padding:12px 32px;border:2px solid ${b.seriesBd};border-radius:980px;background:${b.seriesBg}}
+.author-info{display:flex;align-items:center;gap:14px}
+.author-avatar{width:64px;height:64px;border-radius:50%;background:${b.avatarBg};display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#fff;font-family:'Noto Sans SC',sans-serif}
+.author-text{display:flex;flex-direction:column;gap:4px}
+.author-name{font-family:'Inter','Noto Sans SC',sans-serif;font-size:28px;font-weight:600;color:${b.authorColor}}
+.author-desc{font-family:'Inter','Noto Sans SC',sans-serif;font-size:22px;font-weight:400;color:${b.authorDescColor}}
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px;position:relative}
+.hero::before{content:'';position:absolute;width:1000px;height:1000px;${glowCSS}}
+.overline{font-size:20px;font-weight:500;letter-spacing:4px;color:${b.overlineColor};margin-bottom:32px;text-transform:${b.overlineStyle};font-family:${b.overlineFont}}
+.headline{font-size:128px;font-weight:${b.headlineW};line-height:1.0;letter-spacing:-4px;margin:0 0 36px 0;color:${b.headlineColor};font-family:'Noto Sans SC','Inter',sans-serif;position:relative;${b.headlineGrad!=='none'?`background:${b.headlineGrad};-webkit-background-clip:text;-webkit-text-fill-color:transparent;`:''}}
+.subheadline{font-size:34px;font-weight:300;line-height:1.4;color:${b.subColor};margin:0 0 52px 0;max-width:1000px;letter-spacing:-0.3px}
+.cta-row{display:flex;gap:20px}
+.cta-primary{background:${b.ctaBg};color:${b.ctaFg};font-family:'Inter',sans-serif;font-size:22px;font-weight:500;padding:18px 42px;border-radius:980px;border:none}
+.cta-secondary{background:transparent;color:${b.cta2Color};font-family:'Inter',sans-serif;font-size:22px;font-weight:400;padding:18px 42px;border-radius:980px;border:2px solid ${b.cta2Border}}
+.features{padding:0 80px 64px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;flex-shrink:0}
+.feature-card{background:${b.cardBg};border-radius:24px;padding:48px 36px 44px;text-align:center;${b.cardBorder!=='none'?`box-shadow:${b.cardBorder};`:''}}
+.feature-icon{font-size:52px;margin-bottom:20px;line-height:1}
+.feature-title{font-family:'Noto Sans SC',sans-serif;font-size:28px;font-weight:700;line-height:1.2;margin:0 0 12px 0;color:${b.cardTitleColor}}
+.feature-desc{font-family:'Noto Sans SC',sans-serif;font-size:20px;font-weight:300;line-height:1.5;color:${b.cardDescColor};margin:0}
+.bottom-strip{height:72px;padding:0 80px;display:flex;align-items:center;justify-content:center;gap:14px;border-top:1px solid ${b.dividerColor};flex-shrink:0}
+.tag{font-family:'Inter',sans-serif;font-size:17px;font-weight:500;color:${b.tagColor};padding:7px 20px;border:${b.tagBorder};border-radius:980px;background:${b.tagBg}}
+.tag.active{color:${b.tagActiveColor};border-color:${b.tagActiveBorder}}
+</style></head><body><div class="frame">
+<div class="top-bar"><span class="series-tag">${s}</span><div class="author-info"><div class="author-avatar">${ai}</div><div class="author-text"><span class="author-name">${a}</span><span class="author-desc">${ad}</span></div></div></div>
+<div class="hero"><div class="overline">DESIGN SYSTEM BREAKDOWN</div><h1 class="headline">${hl}</h1><p class="subheadline">${sh}</p><div class="cta-row"><button class="cta-primary">获取模板 →</button><button class="cta-secondary">了解更多</button></div></div>
+<div class="features"><div class="feature-card"><div class="feature-icon">${f1i}</div><h3 class="feature-title">${f1t}</h3><p class="feature-desc">${f1d}</p></div><div class="feature-card"><div class="feature-icon">${f2i}</div><h3 class="feature-title">${f2t}</h3><p class="feature-desc">${f2d}</p></div><div class="feature-card"><div class="feature-icon">${f3i}</div><h3 class="feature-title">${f3t}</h3><p class="feature-desc">${f3d}</p></div></div>
+<div class="bottom-strip">${tagsHTML}</div>
+</div></body></html>`;
 }
 
 async function generate(){
-  const t=document.getElementById('titleInput').value.trim();
-  if(!t)return alert('输入标题');
-  const st=document.getElementById('subtitleInput').value.trim();
+  const h=document.getElementById('headline').value.trim();if(!h)return alert('输入标题');
   const btn=document.getElementById('genBtn'),l=document.getElementById('loading'),r=document.getElementById('result'),ra=document.getElementById('renderArea');
   btn.disabled=true;l.classList.add('show');r.innerHTML='';
-  ra.innerHTML=coverHTML(selected,t,st);
+  ra.innerHTML=buildHTML(brand);
   try{
-    const c=await html2canvas(ra.firstElementChild,{width:1080,height:1440,scale:1,useCORS:true,allowTaint:true,backgroundColor:null});
+    const c=await html2canvas(ra.firstElementChild,{width:1500,height:2000,scale:1,useCORS:true,allowTaint:true,backgroundColor:null});
     const u=c.toDataURL('image/png');
     l.classList.remove('show');
-    r.innerHTML=`<img src="${u}" style="max-width:320px;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.3)"><br><a class="dl-btn" href="${u}" download="xhs-${selected.key}.png">⬇ 下载封面 (1080×1440)</a>`;
-  }catch(e){l.classList.remove('show');r.innerHTML=`<p style="color:#ef4444">失败: ${e.message}</p>`;}
+    r.innerHTML=`<img src="${u}" style="max-width:340px"><br><a class="dl-btn" href="${u}" download="xhs-${brand.k}.png">⬇ 下载封面 (1500×2000)</a>`;
+  }catch(e){l.classList.remove('show');r.innerHTML=`<p style="color:#ef4444">失败: ${e.message}</p>`}
   ra.innerHTML='';btn.disabled=false;
 }
-document.getElementById('titleInput').addEventListener('keydown',e=>{if(e.key==='Enter')generate()});
 renderBrands();
 </script>
 </body>
