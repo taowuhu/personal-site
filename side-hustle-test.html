@@ -741,123 +741,123 @@
 // ===== DATA =====
 const questions = [
   {
-    q: "周末你通常会做什么？",
-    icons: ["📱","🛒","🔧","👀"],
+    q: "深夜刷到一条「靠副业月入3万」的帖子，你第一反应是？",
+    icons: ["🔍","💰","🤔","🙄"],
     options: [
-      { text: "刷短视频、看文章、研究新东西", scores: { content: 2, knowledge: 1 } },
-      { text: "逛淘宝/闲鱼，研究什么东西好卖", scores: { ecommerce: 2, traffic: 1 } },
-      { text: "学新技能、折腾各种工具", scores: { skill: 2, aitool: 1 } },
-      { text: "约朋友、观察别人在做什么", scores: { traffic: 2, ecommerce: 1 } }
+      { text: "点进去研究他到底怎么做的", scores: { traffic: 2, aitool: 1 } },
+      { text: "算了一下，我要是也做能赚多少", scores: { ecommerce: 2, traffic: 1 } },
+      { text: "截图保存，明天好好研究", scores: { knowledge: 2, skill: 1 } },
+      { text: "划走——这种标题都是割韭菜的", scores: { skill: 1, content: 1 } }
     ]
   },
   {
-    q: "你对赚钱的态度是？",
-    icons: ["💤","⚡","🎓","🔮"],
+    q: "朋友让你帮忙做一件你从没做过的事，你会？",
+    icons: ["🧪","📖","🤝","💬"],
     options: [
-      { text: "希望被动收入，做一次持续有回报", scores: { content: 2, knowledge: 2 } },
-      { text: "喜欢快速看到结果，当天做当天赚", scores: { ecommerce: 2, traffic: 1 } },
-      { text: "愿意花时间打磨技能，赚技术钱", scores: { skill: 2, aitool: 1 } },
-      { text: "喜欢研究趋势，赚认知差的钱", scores: { traffic: 2, aitool: 1 } }
+      { text: "先试试再说，边做边学", scores: { aitool: 2, ecommerce: 1 } },
+      { text: "先找教程、问AI，搞清楚再动手", scores: { skill: 2, aitool: 2 } },
+      { text: "拉上有经验的人一起弄", scores: { traffic: 2, knowledge: 1 } },
+      { text: "帮朋友把需求写清楚，转发给合适的人", scores: { content: 2, traffic: 1 } }
     ]
   },
   {
-    q: "接到陌生任务时，你的第一反应是？",
-    icons: ["👥","🏃","🔍","🤔"],
+    q: "老板突然说「下周一你来给大家做个分享」，你的内心是？",
+    icons: ["🎤","📝","😰","🤷"],
     options: [
-      { text: "先看别人怎么做的，找参考", scores: { content: 1, knowledge: 2 } },
-      { text: "直接动手试，边做边调", scores: { ecommerce: 2, traffic: 1 } },
-      { text: "先研究工具和方法，找最优解", scores: { skill: 2, aitool: 2 } },
-      { text: "先想清楚为什么、值不值得", scores: { knowledge: 2, traffic: 1 } }
+      { text: "太好了，终于有机会展示了", scores: { content: 3, knowledge: 1 } },
+      { text: "开始盘算讲什么数据最有说服力", scores: { traffic: 2, knowledge: 1 } },
+      { text: "紧张但会认真准备，做PPT和演示", scores: { skill: 2, aitool: 1 } },
+      { text: "快速做几页，讲的时候临场发挥", scores: { ecommerce: 2, aitool: 1 } }
     ]
   },
   {
-    q: "以下哪种描述最像你？",
-    icons: ["🗣️","🤲","📊","🚀"],
+    q: "逛商场看到排长队的店，你脑子里想的是？",
+    icons: ["🧠","📊","📱","😐"],
     options: [
-      { text: "喜欢表达，有分享欲", scores: { content: 3, knowledge: 1 } },
-      { text: "手巧务实，喜欢做具体的事", scores: { skill: 3 } },
-      { text: "数字敏感，喜欢分析数据", scores: { traffic: 2, ecommerce: 2 } },
-      { text: "好奇心强，喜欢尝试新东西", scores: { aitool: 3 } }
+      { text: "这店为什么火？商业模式是什么？", scores: { traffic: 2, knowledge: 2 } },
+      { text: "排队的人都是什么画像？我也去发个小红书", scores: { content: 2, traffic: 1 } },
+      { text: "算算客单价×排队人数，一天流水多少", scores: { ecommerce: 3 } },
+      { text: "看上去不错，下次人少了再来", scores: { skill: 1, aitool: 1 } }
     ]
   },
   {
-    q: "如果让你选一个「超能力」，你选？",
-    icons: ["✍️","💥","🧠","👁️"],
+    q: "如果要你花1000块钱投资自己，你会怎么花？",
+    icons: ["📚","🛠️","💼","🚀"],
     options: [
-      { text: "写什么火什么", scores: { content: 3, knowledge: 1 } },
-      { text: "卖什么爆什么", scores: { ecommerce: 3, traffic: 1 } },
-      { text: "学什么会什么", scores: { skill: 3, aitool: 1 } },
-      { text: "看什么懂什么", scores: { knowledge: 2, traffic: 2 } }
+      { text: "买课程、加入付费社群学习", scores: { knowledge: 3, content: 1 } },
+      { text: "买个付费工具提高效率", scores: { aitool: 3, skill: 1 } },
+      { text: "进货/投流试一个小的商业想法", scores: { ecommerce: 3, traffic: 1 } },
+      { text: "请行业前辈喝咖啡聊一次", scores: { traffic: 2, knowledge: 1 } }
     ]
   },
   {
-    q: "你能接受从0到赚第一笔钱的时间是？",
-    icons: ["🏎️","🚴","🏋️","🧘"],
+    q: "你最受不了以下哪种情况？",
+    icons: ["😤","😴","🤯","😑"],
     options: [
-      { text: "一个月以内，越快越好", scores: { ecommerce: 2, aitool: 1 } },
-      { text: "1-3个月，可以接受前期积累", scores: { content: 2, aitool: 1 } },
-      { text: "3-6个月，值得花时间学习", scores: { skill: 2, knowledge: 1 } },
-      { text: "多久都行，只要方向对", scores: { knowledge: 2, content: 1 } }
+      { text: "做重复的事情，没有成长空间", scores: { aitool: 2, content: 1 } },
+      { text: "辛辛苦苦做了东西没人看", scores: { content: 2, traffic: 2 } },
+      { text: "有人在你领域里瞎搞还赚得比你多", scores: { ecommerce: 2, traffic: 1 } },
+      { text: "花了很多时间但收入没变化", scores: { skill: 2, ecommerce: 1 } }
     ]
   },
   {
-    q: "面对AI浪潮，你的态度是？",
-    icons: ["🤖","📖","☕","😐"],
+    q: "朋友聚会聊到搞钱话题，你通常？",
+    icons: ["🗣️","👂","📋","💡"],
     options: [
-      { text: "已经在用AI提升效率", scores: { aitool: 3, content: 1 } },
-      { text: "想学但不知道怎么开始", scores: { skill: 2, knowledge: 1 } },
-      { text: "关注趋势但不焦虑", scores: { traffic: 2, ecommerce: 1 } },
-      { text: "觉得AI跟自己关系不大", scores: { skill: 1, ecommerce: 1 } }
+      { text: "主动分享最近看到的机会和方法", scores: { content: 2, knowledge: 2 } },
+      { text: "听别人说什么，在心里默默评估", scores: { traffic: 2, ecommerce: 1 } },
+      { text: "拿出手机查一下他们说的数据真假", scores: { aitool: 2, skill: 1 } },
+      { text: "把大家的想法串起来，提出一个整合方案", scores: { knowledge: 2, traffic: 1 } }
     ]
   },
   {
-    q: "你的社交风格是？",
-    icons: ["📣","🎯","😊","👁️"],
+    q: "AI工具突然能替代你主业80%的工作，你的第一反应是？",
+    icons: ["🤩","🧐","😨","✊"],
     options: [
-      { text: "喜欢分享，朋友圈发文频率高", scores: { content: 3, knowledge: 1 } },
-      { text: "精准社交，只跟有价值的人聊", scores: { traffic: 2, knowledge: 2 } },
-      { text: "不太主动，但聊起来也能聊", scores: { skill: 2, aitool: 1 } },
-      { text: "喜欢观察，不爱发但爱看", scores: { ecommerce: 2, traffic: 1 } }
+      { text: "兴奋！这意味着我可以腾出时间做副业", scores: { aitool: 3, content: 1 } },
+      { text: "研究AI工具的边界在哪，找到人优于AI的点", scores: { skill: 2, traffic: 1 } },
+      { text: "焦虑，但马上开始学怎么用AI武装自己", scores: { knowledge: 2, aitool: 1 } },
+      { text: "赶紧想想怎么靠这个信息差赚钱", scores: { ecommerce: 2, traffic: 1 } }
     ]
   },
   {
-    q: "以下哪种工作方式让你最舒服？",
-    icons: ["🧘","🤝","🔬","🎪"],
+    q: "给你一个完全自由的周末，没有任何任务，你会？",
+    icons: ["🎨","🏃","🔬","📱"],
     options: [
-      { text: "一个人安静产出", scores: { content: 2, skill: 2, aitool: 1 } },
-      { text: "和人打交道，聊天成交", scores: { ecommerce: 2, traffic: 2 } },
-      { text: "研究分析，找规律", scores: { knowledge: 2, traffic: 1 } },
-      { text: "多任务切换，不无聊就行", scores: { aitool: 2, ecommerce: 1 } }
+      { text: "写点东西、拍点东西、创作点什么", scores: { content: 3, knowledge: 1 } },
+      { text: "逛逛线上线下，看看有什么新东西", scores: { ecommerce: 2, aitool: 1 } },
+      { text: "学一个一直想学的技能或工具", scores: { skill: 2, aitool: 2 } },
+      { text: "整理一下最近的想法和计划", scores: { knowledge: 2, traffic: 1 } }
     ]
   },
   {
-    q: "你每天有多少可支配时间？",
-    icons: ["⏰","🌙","☀️","🎢"],
+    q: "一件事做了两周还没看到结果，你会？",
+    icons: ["🔄","📊","🧘","💪"],
     options: [
-      { text: "1-2小时，碎片时间", scores: { ecommerce: 2, aitool: 1 } },
-      { text: "2-4小时，晚上和周末", scores: { content: 2, aitool: 2 } },
-      { text: "4小时以上，有整块时间", scores: { skill: 2, knowledge: 2 } },
-      { text: "不稳定，时多时少", scores: { ecommerce: 1, aitool: 2 } }
+      { text: "换一个方向试试，快速试错", scores: { ecommerce: 2, aitool: 1 } },
+      { text: "看数据，分析问题出在哪再优化", scores: { traffic: 2, knowledge: 1 } },
+      { text: "继续坚持，量变会到质变", scores: { content: 2, skill: 1 } },
+      { text: "调整方法但不放弃方向，找新思路", scores: { skill: 2, aitool: 2 } }
     ]
   },
   {
-    q: "你对风险的态度？",
-    icons: ["🛡️","🎲","📈","🚀"],
+    q: "如果现在辞职只能靠副业活，你最大的底气来自？",
+    icons: ["🧠","🤝","⚡","🎯"],
     options: [
-      { text: "零风险最好，亏不起", scores: { skill: 2, content: 1 } },
-      { text: "可以接受小投入试错", scores: { ecommerce: 2, aitool: 2 } },
-      { text: "愿意投入大量时间精力", scores: { knowledge: 2, content: 2 } },
-      { text: "高回报愿意承担高风险", scores: { traffic: 2, ecommerce: 1 } }
+      { text: "我脑子里有一套完整的商业逻辑", scores: { knowledge: 3, traffic: 1 } },
+      { text: "我认识很多人，资源可以快速变现", scores: { traffic: 3, ecommerce: 1 } },
+      { text: "我学东西快，什么都能快速上手", scores: { skill: 2, aitool: 2 } },
+      { text: "我对某个领域有独特的理解", scores: { content: 3, knowledge: 1 } }
     ]
   },
   {
-    q: "你理想中的副业状态是？",
-    icons: ["🏖️","💰","🎯","🕊️"],
+    q: "一年后回看现在，你希望自己完成了什么？",
+    icons: ["🌟","💰","🛠️","📈"],
     options: [
-      { text: "躺着赚钱，被动收入", scores: { content: 2, knowledge: 2 } },
-      { text: "做一单赚一单，踏实稳定", scores: { skill: 2, ecommerce: 2 } },
-      { text: "有挑战性，不断成长", scores: { aitool: 2, traffic: 2 } },
-      { text: "自由自在，不受约束", scores: { content: 1, aitool: 2 } }
+      { text: "打造了一个有影响力的个人品牌", scores: { content: 3, traffic: 1 } },
+      { text: "跑通了一个稳定赚钱的生意模型", scores: { ecommerce: 3, knowledge: 1 } },
+      { text: "掌握了一项高价值的硬技能", scores: { skill: 3, aitool: 1 } },
+      { text: "做出了几个能自动运转的产品", scores: { aitool: 3, content: 1 } }
     ]
   }
 ];
@@ -871,17 +871,18 @@ const resultTypes = {
     grad: "linear-gradient(135deg, #FF6B6B, #ee5a24)",
     subtitle: "你的表达欲和创造力，就是最好的副业资本",
     detail: `
-      <h3>🧬 基因优势</h3>
-      <p>你有强烈的表达欲和分享欲，擅长把复杂的事情讲得简单有趣。你对热点敏感，知道什么内容能引发共鸣。</p>
-      <h3>💰 推荐方向</h3>
+      <h3>🧬 为什么是你？</h3>
+      <p>测试显示你有强烈的<strong>表达欲和对热点的敏感度</strong>。你不是那种「闷头做事」的人——你天然想把看到的东西分享出去，而且知道怎么讲别人才爱听。这是做内容最稀缺的天赋。</p>
+      <h3>💰 最适合你的3个方向</h3>
       <ul>
-        <li>小红书/公众号图文创作</li>
-        <li>短视频口播 / 知识分享</li>
-        <li>AI辅助写作（效率提升10倍）</li>
-        <li>付费专栏 / Newsletter</li>
+        <li><strong>小红书图文</strong>——选题+封面+文案，你的审美和表达在这里变现最快</li>
+        <li><strong>公众号长文</strong>——如果你喜欢深度输出，公众号的用户粘性和变现天花板都很高</li>
+        <li><strong>短视频口播</strong>——走到镜头前，你的表达力在视频时代是降维打击</li>
       </ul>
-      <h3>🚀 起步建议</h3>
-      <p>选定一个细分领域，连续发30天，不要完美主义。用AI工具辅助写作，你负责选题和观点。先完成再完美。</p>
+      <h3>⚡ AI加速策略</h3>
+      <p>用Claude/DeepSeek辅助写作，你负责选题和观点，AI处理结构和润色。效率提升10倍，日更不是梦。</p>
+      <h3>🚀 第一步</h3>
+      <p>选定一个细分领域（建议从你正在做的事情切入），连发30天。不要完美主义——<strong>先完成再完美，你的前10篇大概率没人看，但第11篇可能爆。</strong></p>
     `
   },
   ecommerce: {
@@ -890,19 +891,20 @@ const resultTypes = {
     emoji: "🛍️",
     color: "#FFA726",
     grad: "linear-gradient(135deg, #FFA726, #fb8c00)",
-    subtitle: "你对市场有天生的嗅觉，赚钱对你来说像呼吸一样自然",
+    subtitle: "你对市场有天生的嗅觉，赚钱对你来说是本能反应",
     detail: `
-      <h3>🧬 基因优势</h3>
-      <p>你对价格敏感，对市场机会反应快。你喜欢看到即时反馈，务实且执行力强。</p>
-      <h3>💰 推荐方向</h3>
+      <h3>🧬 为什么是你？</h3>
+      <p>测试显示你对<strong>价格和机会极其敏感</strong>。你不是那种「先学三年再出手」的人——你看到机会就想马上验证，赚到钱才安心。这种执行力在副业赛道是最稀缺的品质。</p>
+      <h3>💰 最适合你的3个方向</h3>
       <ul>
-        <li>闲鱼卖货（AI工具 / 虚拟产品）</li>
-        <li>小红书店铺（虚拟商品）</li>
-        <li>拼多多/1688选品带货</li>
-        <li>跨境电商（TikTok Shop等）</li>
+        <li><strong>闲鱼虚拟产品</strong>——0成本起步，AI工具/模板/资料都可以卖，跑通一个品就复制</li>
+        <li><strong>小红书店铺</strong>——选一个细分品类，用AI批量做内容，挂商品链接自动成交</li>
+        <li><strong>1688选品+内容带货</strong>——找低价好货→做内容→赚差价，传统但永远有效</li>
       </ul>
-      <h3>🚀 起步建议</h3>
-      <p>从闲鱼开始，0成本，用AI生成的虚拟产品试水。跑通一个品再复制，用数据驱动选品决策。</p>
+      <h3>⚡ AI加速策略</h3>
+      <p>用AI批量生成商品图、文案、标题。测试显示你适合<strong>「短平快」模式</strong>——快速测品，数据好的加码，不好的马上换。</p>
+      <h3>🚀 第一步</h3>
+      <p>打开闲鱼，搜索「副业」「AI」，看别人在卖什么。找一个你已经懂的品类，<strong>48小时内上架第一个商品。</strong></p>
     `
   },
   skill: {
@@ -911,19 +913,20 @@ const resultTypes = {
     emoji: "🛠️",
     color: "#66BB6A",
     grad: "linear-gradient(135deg, #66BB6A, #43a047)",
-    subtitle: "你的双手和大脑，就是最好的赚钱工具",
+    subtitle: "你的双手和大脑就是最好的赚钱工具，信任是你最大的资产",
     detail: `
-      <h3>🧬 基因优势</h3>
-      <p>你喜欢打磨技能，享受从不会到会的过程。做事认真靠谱，追求质量而非数量。客户信任你，复购率高。</p>
-      <h3>💰 推荐方向</h3>
+      <h3>🧬 为什么是你？</h3>
+      <p>测试显示你是典型的<strong>「匠人型」选手</strong>——做事认真、追求质量、喜欢从不会到会的过程。你不急于求成，但每一步都走得很稳。客户一旦跟你合作，就很难换人。</p>
+      <h3>💰 最适合你的3个方向</h3>
       <ul>
-        <li>AI辅助设计 / PPT制作</li>
-        <li>编程接单 / 小程序开发</li>
-        <li>翻译 / 文案代写</li>
-        <li>数据标注 / AI训练服务</li>
+        <li><strong>AI辅助设计/PPT</strong>——你的审美+AI效率=高客单价服务</li>
+        <li><strong>编程接单/工具开发</strong>——Vibe Coding时代，需求暴增，供给不足</li>
+        <li><strong>翻译/文案/配音</strong>——标准化服务，AI辅助后单人产能翻3倍</li>
       </ul>
-      <h3>🚀 起步建议</h3>
-      <p>把技能打包成标准化产品，在闲鱼/猪八戒/Upwork接单。用AI工具加速交付，压低成本，提高利润。</p>
+      <h3>⚡ AI加速策略</h3>
+      <p>你的优势不是比AI做得好，而是<strong>「AI做不到的判断和审美」</strong>。把脏活累活丢给AI，你负责品控和客户沟通。</p>
+      <h3>🚀 第一步</h3>
+      <p>把你的技能打包成一个标准产品（如「100元做一套PPT」），上架闲鱼或朋友圈。<strong>先有第一个客户，再谈优化。</strong></p>
     `
   },
   aitool: {
@@ -932,19 +935,20 @@ const resultTypes = {
     emoji: "🤖",
     color: "#7C4DFF",
     grad: "linear-gradient(135deg, #7C4DFF, #651fff)",
-    subtitle: "你不是被AI取代的人，你是用AI改变规则的人",
+    subtitle: "你不是被AI取代的人——你是用AI改变游戏规则的人",
     detail: `
-      <h3>🧬 基因优势</h3>
-      <p>你对新技术的敏感度极高，喜欢探索工具、优化流程。别人看到的是技术，你看到的是"怎么用它赚钱"。</p>
-      <h3>💰 推荐方向</h3>
+      <h3>🧬 为什么是你？</h3>
+      <p>测试显示你对新技术有<strong>极高的敏感度和应用能力</strong>。别人看到「AI来了」会焦虑，你看到的是「工具又多了」。你天然会把技术翻译成商业机会——这在2026年是最值钱的能力。</p>
+      <h3>💰 最适合你的3个方向</h3>
       <ul>
-        <li>AI工具开发（测试/效率工具）</li>
-        <li>提示词工程 / 自动化工作流</li>
-        <li>AI+内容批量生产</li>
-        <li>AI工具分销 / 代理</li>
+        <li><strong>AI工具开发</strong>——用Vibe Coding快速做测试/效率/自动化工具，部署即产品</li>
+        <li><strong>提示词工程/自动化工作流</strong>——帮企业或个人搭建AI流水线，按项目收费</li>
+        <li><strong>AI+内容批量生产</strong>——搭管线，一个人产出10个人的内容量</li>
       </ul>
-      <h3>🚀 起步建议</h3>
-      <p>用Vibe Coding快速开发工具型产品，部署到GitHub Pages，在小红书/闲鱼双平台销售。别人花2000外包的开发，你10分钟搞定。</p>
+      <h3>⚡ AI加速策略</h3>
+      <p>你已经走在正确的路上。关键是<strong>「产品化思维」</strong>——不要做定制，做标准化产品。别人2000外包的开发，你10分钟搞定，这就是你的利润。</p>
+      <h3>🚀 第一步</h3>
+      <p>你已经在做了。下一个工具做完之后，<strong>48小时内上架闲鱼或小红书</strong>。不要打磨到完美才开始卖。</p>
     `
   },
   knowledge: {
@@ -953,19 +957,20 @@ const resultTypes = {
     emoji: "📚",
     color: "#42A5F5",
     grad: "linear-gradient(135deg, #42A5F5, #1e88e5)",
-    subtitle: "你的思考和洞察，值得被定价",
+    subtitle: "你的思考值得被定价——把脑子里的东西变成别人愿意付费的产品",
     detail: `
-      <h3>🧬 基因优势</h3>
-      <p>你善于深度思考，能把碎片信息整合成体系。你喜欢"授人以渔"，帮助别人成长让你有成就感。</p>
-      <h3>💰 推荐方向</h3>
+      <h3>🧬 为什么是你？</h3>
+      <p>测试显示你善于<strong>深度思考和体系化输出</strong>。别人看碎片信息，你天然会把它整合成系统。你享受「授人以渔」的成就感——这种特质在知识付费赛道就是核心竞争力。</p>
+      <h3>💰 最适合你的3个方向</h3>
       <ul>
-        <li>付费社群 / 知识星球</li>
-        <li>在线课程 / 训练营</li>
-        <li>1对1咨询 / 陪跑服务</li>
-        <li>电子书 / 付费专栏</li>
+        <li><strong>付费社群/知识星球</strong>——持续输出你的思考和资源，按月/年收费</li>
+        <li><strong>在线课程/训练营</strong>——把你掌握的技能做成体系化课程，一次录制反复卖</li>
+        <li><strong>1对1咨询</strong>——高客单价，深度服务，积累案例后涨价</li>
       </ul>
-      <h3>🚀 起步建议</h3>
-      <p>从免费内容开始建立信任，积累100个忠实粉丝后推出付费产品。先做低价产品验证需求，再做高价服务。</p>
+      <h3>⚡ AI加速策略</h3>
+      <p>用AI做课程大纲、逐字稿、PPT、宣传文案。你负责<strong>框架和洞察</strong>——这两样AI替代不了。</p>
+      <h3>🚀 第一步</h3>
+      <p>从免费内容开始建立信任。写10篇公众号/小红书，<strong>积累100个忠实读者后推第一个付费产品。</strong>定价从9.9元起步，验证需求再提价。</p>
     `
   },
   traffic: {
@@ -974,19 +979,20 @@ const resultTypes = {
     emoji: "📈",
     color: "#EF5350",
     grad: "linear-gradient(135deg, #EF5350, #e53935)",
-    subtitle: "你看得懂数据背后的逻辑，流量就是你的印钞机",
+    subtitle: "数据是你的眼睛，流量是你的杠杆——你看得懂别人看不到的规律",
     detail: `
-      <h3>🧬 基因优势</h3>
-      <p>你对数据敏感，能从数字中看到规律。你了解人性，知道怎么吸引注意力。你不止做执行，更擅长策略。</p>
-      <h3>💰 推荐方向</h3>
+      <h3>🧬 为什么是你？</h3>
+      <p>测试显示你对<strong>数据和人性有双重敏感</strong>。你不只看表面的热闹，你会想「这条为什么爆」「这个转化率多少」。这种能力让你在任何平台都能快速找到增长密码。</p>
+      <h3>💰 最适合你的3个方向</h3>
       <ul>
-        <li>小红书/抖音账号代运营</li>
-        <li>私域流量操盘</li>
-        <li>SEO/SEM优化服务</li>
-        <li>矩阵账号运营</li>
+        <li><strong>小红书/抖音代运营</strong>——帮别人做号，一个客户几千到几万月费</li>
+        <li><strong>私域流量操盘</strong>——帮品牌搭建私域体系，从引流到成交全链路</li>
+        <li><strong>矩阵号运营</strong>——自己批量做号，每个号都是流量入口</li>
       </ul>
-      <h3>🚀 起步建议</h3>
-      <p>先用一个账号跑出数据，总结成SOP，然后用这套方法论接客户或批量做号。你的核心竞争力是可复制的增长系统。</p>
+      <h3>⚡ AI加速策略</h3>
+      <p>用AI批量生成内容、分析数据、优化标题。你负责<strong>策略和方向</strong>，AI负责执行。一人管理10个号不是梦。</p>
+      <h3>🚀 第一步</h3>
+      <p>先用一个自己的号跑出数据，把方法论总结成SOP。<strong>有了案例之后，代运营报价可以翻三倍。</strong></p>
     `
   }
 };
