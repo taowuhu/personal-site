@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>你适合什么副业？</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  .container {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    overflow: hidden;
+    position: relative;
+    min-height: 600px;
+  }
+
+  /* ====== COVER PAGE ====== */
+  .cover {
+    padding: 48px 32px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 560px;
+  }
+  .cover-emoji { font-size: 64px; margin-bottom: 20px; }
+  .cover h1 {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: #1d1d1f;
+  }
+  .cover .subtitle {
+    font-size: 15px;
+    color: #86868b;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 280px;
+  }
+  .cover .stats {
+    font-size: 13px;
+    color: #aeaeb2;
+    margin-bottom: 24px;
+  }
+  .btn-start {
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    padding: 14px 48px;
+    border-radius: 28px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    max-width: 260px;
+  }
+  .btn-start:hover { background: #0077ed; transform: translateY(-1px); }
+  .btn-start:active { transform: scale(0.98); }
+
+  /* ====== QUIZ PAGE ====== */
+  .quiz { padding: 32px 24px 36px; display: none; }
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .quiz-count {
+    font-size: 13px;
+    color: #86868b;
+    font-weight: 500;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e8e8ed;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0071e3, #40c8ff);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .question {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 28px;
+    color: #1d1d1f;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 16px 18px;
+    border: 2px solid #e8e8ed;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #1d1d1f;
+    background: #fff;
+  }
+  .option:hover { border-color: #0071e3; background: #f5f9ff; }
+  .option.selected {
+    border-color: #0071e3;
+    background: #f0f6ff;
+  }
+  .option-letter {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-right: 14px;
+    flex-shrink: 0;
+    color: #86868b;
+    transition: all 0.2s;
+  }
+  .option.selected .option-letter {
+    background: #0071e3;
+    color: #fff;
+  }
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+  }
+  .btn-back {
+    background: none;
+    border: 2px solid #e8e8ed;
+    color: #86868b;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 500;
+    visibility: hidden;
+  }
+  .btn-back.visible { visibility: visible; }
+  .btn-next {
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all 0.2s;
+    pointer-events: none;
+  }
+  .btn-next.active { opacity: 1; pointer-events: auto; }
+  .btn-next:hover.active { background: #0077ed; }
+
+  /* ====== RESULT PAGE ====== */
+  .result { padding: 40px 24px 36px; display: none; text-align: center; }
+  .result-emoji { font-size: 72px; margin-bottom: 16px; }
+  .result-type-tag {
+    display: inline-block;
+    background: #f0f6ff;
+    color: #0071e3;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .result h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .result .result-subtitle {
+    font-size: 15px;
+    color: #86868b;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* score bars */
+  .score-section { text-align: left; margin-bottom: 28px; }
+  .score-section h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #1d1d1f;
+  }
+  .score-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .score-label {
+    width: 80px;
+    flex-shrink: 0;
+    color: #1d1d1f;
+    font-weight: 500;
+  }
+  .score-track {
+    flex: 1;
+    height: 8px;
+    background: #e8e8ed;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 10px;
+  }
+  .score-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+  .score-value { width: 32px; text-align: right; color: #86868b; font-weight: 500; flex-shrink: 0; }
+
+  /* detail */
+  .result-detail {
+    text-align: left;
+    background: #f5f5f7;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .result-detail h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 16px;
+    color: #1d1d1f;
+  }
+  .result-detail h3:first-child { margin-top: 0; }
+  .result-detail p {
+    font-size: 14px;
+    color: #515154;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .result-detail ul {
+    padding-left: 18px;
+    font-size: 14px;
+    color: #515154;
+    line-height: 1.8;
+  }
+
+  /* CTA */
+  .result-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .btn-share {
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+  }
+  .btn-share:hover { background: #0077ed; }
+  .btn-retry {
+    background: none;
+    border: 2px solid #e8e8ed;
+    color: #515154;
+    padding: 12px;
+    border-radius: 28px;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-retry:hover { background: #f5f5f7; }
+
+  .disclaimer {
+    font-size: 11px;
+    color: #aeaeb2;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ====== SHARE OVERLAY ====== */
+  .share-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+  }
+  .share-overlay.show { display: flex; }
+  .share-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 24px;
+    text-align: center;
+    max-width: 320px;
+    width: 100%;
+  }
+  .share-card .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #86868b;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+  }
+  .share-result-preview {
+    background: #f5f5f7;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 16px 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  .share-tip {
+    font-size: 13px;
+    color: #86868b;
+    margin-top: 12px;
+  }
+
+  /* animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeInUp 0.5s ease forwards; }
+</style>
+</head>
+<body>
+<div class="container" id="app">
+
+  <!-- COVER -->
+  <div class="cover" id="coverPage">
+    <div class="cover-emoji">💼</div>
+    <h1>你适合<br>什么副业？</h1>
+    <p class="subtitle">12道题，测出最适合你的副业方向。基于你的性格、能力和时间偏好，给出专属建议。</p>
+    <p class="stats">已有 12,847 人完成测试</p>
+    <button class="btn-start" onclick="startQuiz()">开始测试</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz" id="quizPage">
+    <div class="quiz-header">
+      <span class="quiz-count" id="quizCount">1/12</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="question" id="questionText"></div>
+    <div class="options" id="optionsContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-back" id="btnBack" onclick="prevQuestion()">上一题</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()">下一题</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="resultPage">
+    <div class="result-emoji" id="resultEmoji"></div>
+    <div class="result-type-tag" id="resultTag"></div>
+    <h2 id="resultTitle"></h2>
+    <p class="result-subtitle" id="resultSubtitle"></p>
+
+    <div class="score-section">
+      <h3>📊 你的副业基因图谱</h3>
+      <div id="scoreBars"></div>
+    </div>
+
+    <div class="result-detail" id="resultDetail"></div>
+
+    <div class="result-cta">
+      <button class="btn-share" onclick="showShare()">📤 分享我的结果</button>
+      <button class="btn-retry" onclick="retryQuiz()">🔄 重新测试</button>
+    </div>
+    <p class="disclaimer">* 本测试仅供娱乐参考，不作为职业建议</p>
+  </div>
+
+  <!-- SHARE OVERLAY -->
+  <div class="share-overlay" id="shareOverlay" onclick="hideShare(event)">
+    <div class="share-card" onclick="event.stopPropagation()" style="position:relative">
+      <button class="close-btn" onclick="hideShare()" style="position:absolute;top:8px;right:12px">&times;</button>
+      <p style="font-size:14px;color:#86868b">我的副业基因是——</p>
+      <div class="share-result-preview" id="shareResultText"></div>
+      <p style="font-size:13px;color:#515154">你也来测测？👉</p>
+      <p style="font-size:11px;color:#aeaeb2;margin-top:8px">长按截图分享给朋友</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const questions = [
+  {
+    q: "周末你通常会做什么？",
+    options: [
+      { text: "刷短视频、看文章、研究新东西", scores: { content: 2, knowledge: 1 } },
+      { text: "逛淘宝/闲鱼，研究什么东西好卖", scores: { ecommerce: 2, traffic: 1 } },
+      { text: "学新技能、折腾各种工具", scores: { skill: 2, aitool: 1 } },
+      { text: "约朋友、观察别人在做什么", scores: { traffic: 2, ecommerce: 1 } }
+    ]
+  },
+  {
+    q: "你对赚钱的态度是？",
+    options: [
+      { text: "希望被动收入，做一次持续有回报", scores: { content: 2, knowledge: 2 } },
+      { text: "喜欢快速看到结果，当天做当天赚", scores: { ecommerce: 2, traffic: 1 } },
+      { text: "愿意花时间打磨技能，赚技术钱", scores: { skill: 2, aitool: 1 } },
+      { text: "喜欢研究趋势机会，赚认知差的钱", scores: { traffic: 2, aitool: 1 } }
+    ]
+  },
+  {
+    q: "接到陌生任务时，你的第一反应是？",
+    options: [
+      { text: "先看别人怎么做的，找参考", scores: { content: 1, knowledge: 2 } },
+      { text: "直接动手试，边做边调", scores: { ecommerce: 2, traffic: 1 } },
+      { text: "先研究工具和方法，找最优解", scores: { skill: 2, aitool: 2 } },
+      { text: "先想清楚为什么做、值不值得", scores: { knowledge: 2, traffic: 1 } }
+    ]
+  },
+  {
+    q: "以下哪种描述最像你？",
+    options: [
+      { text: "喜欢表达，有分享欲", scores: { content: 3, knowledge: 1 } },
+      { text: "手巧务实，喜欢做具体的事", scores: { skill: 3 } },
+      { text: "数字敏感，喜欢分析数据", scores: { traffic: 2, ecommerce: 2 } },
+      { text: "好奇心强，喜欢尝试新东西", scores: { aitool: 3 } }
+    ]
+  },
+  {
+    q: "如果让你选一个「超能力」，你选？",
+    options: [
+      { text: "写什么火什么", scores: { content: 3, knowledge: 1 } },
+      { text: "卖什么爆什么", scores: { ecommerce: 3, traffic: 1 } },
+      { text: "学什么会什么", scores: { skill: 3, aitool: 1 } },
+      { text: "看什么懂什么", scores: { knowledge: 2, traffic: 2 } }
+    ]
+  },
+  {
+    q: "你能接受从0到赚第一笔钱的时间是？",
+    options: [
+      { text: "一个月以内，越快越好", scores: { ecommerce: 2, aitool: 1 } },
+      { text: "1-3个月，可以接受前期积累", scores: { content: 2, aitool: 1 } },
+      { text: "3-6个月，值得花时间学习", scores: { skill: 2, knowledge: 1 } },
+      { text: "多久都行，只要方向对", scores: { knowledge: 2, content: 1 } }
+    ]
+  },
+  {
+    q: "面对AI浪潮，你的态度是？",
+    options: [
+      { text: "已经在用AI提升效率", scores: { aitool: 3, content: 1 } },
+      { text: "想学但不知道怎么开始", scores: { skill: 2, knowledge: 1 } },
+      { text: "关注趋势但不焦虑", scores: { traffic: 2, ecommerce: 1 } },
+      { text: "觉得AI跟自己关系不大", scores: { skill: 1, ecommerce: 1 } }
+    ]
+  },
+  {
+    q: "你的社交风格是？",
+    options: [
+      { text: "喜欢分享，朋友圈发文频率高", scores: { content: 3, knowledge: 1 } },
+      { text: "精准社交，只跟有价值的人聊", scores: { traffic: 2, knowledge: 2 } },
+      { text: "不太主动，但聊起来也能聊", scores: { skill: 2, aitool: 1 } },
+      { text: "喜欢观察，不爱发但爱看", scores: { ecommerce: 2, traffic: 1 } }
+    ]
+  },
+  {
+    q: "以下哪种工作方式让你最舒服？",
+    options: [
+      { text: "一个人安静产出", scores: { content: 2, skill: 2, aitool: 1 } },
+      { text: "和人打交道，聊天成交", scores: { ecommerce: 2, traffic: 2 } },
+      { text: "研究分析，找规律", scores: { knowledge: 2, traffic: 1 } },
+      { text: "多任务切换，不无聊就行", scores: { aitool: 2, ecommerce: 1 } }
+    ]
+  },
+  {
+    q: "你每天有多少可支配时间？",
+    options: [
+      { text: "1-2小时，碎片时间", scores: { ecommerce: 2, aitool: 1 } },
+      { text: "2-4小时，晚上和周末", scores: { content: 2, aitool: 2 } },
+      { text: "4小时以上，有整块时间", scores: { skill: 2, knowledge: 2 } },
+      { text: "不稳定，时多时少", scores: { ecommerce: 1, aitool: 2 } }
+    ]
+  },
+  {
+    q: "你对风险的态度？",
+    options: [
+      { text: "零风险最好，亏不起", scores: { skill: 2, content: 1 } },
+      { text: "可以接受小投入试错", scores: { ecommerce: 2, aitool: 2 } },
+      { text: "愿意投入大量时间精力", scores: { knowledge: 2, content: 2 } },
+      { text: "高回报愿意承担高风险", scores: { traffic: 2, ecommerce: 1 } }
+    ]
+  },
+  {
+    q: "你理想中的副业状态是？",
+    options: [
+      { text: "躺着赚钱，被动收入", scores: { content: 2, knowledge: 2 } },
+      { text: "做一单赚一单，踏实稳定", scores: { skill: 2, ecommerce: 2 } },
+      { text: "有挑战性，不断成长", scores: { aitool: 2, traffic: 2 } },
+      { text: "自由自在，不受约束", scores: { content: 1, aitool: 2 } }
+    ]
+  }
+];
+
+const resultTypes = {
+  content: {
+    name: "内容创作型",
+    tag: "🎨 自媒体/内容",
+    emoji: "✍️",
+    color: "#FF6B6B",
+    subtitle: "你的表达欲和创造力，就是最好的副业资本",
+    detail: `
+      <h3>🧬 你的基因优势</h3>
+      <p>你有强烈的表达欲和分享欲，擅长把复杂的事情讲得简单有趣。你对热点敏感，知道什么内容能引发共鸣。</p>
+      <h3>💰 推荐副业方向</h3>
+      <ul>
+        <li>小红书/公众号图文创作</li>
+        <li>短视频口播/知识分享</li>
+        <li>AI辅助写作（效率提升10倍）</li>
+        <li>付费专栏/Newsletter</li>
+      </ul>
+      <h3>🚀 起步建议</h3>
+      <p>选定一个细分领域（比如AI工具测评），连续发30天，不要完美主义——先完成再完美。用AI工具（Claude/DeepSeek）辅助写作，你负责选题和观点。</p>
+    `
+  },
+  ecommerce: {
+    name: "电商卖货型",
+    tag: "🛒 电商/卖货",
+    emoji: "🛍️",
+    color: "#FFA726",
+    subtitle: "你对市场有天生的嗅觉，赚钱对你来说像呼吸一样自然",
+    detail: `
+      <h3>🧬 你的基因优势</h3>
+      <p>你对价格敏感，对市场机会反应快。你喜欢看到即时反馈——今天做了什么今天就有效果。你务实、执行力强。</p>
+      <h3>💰 推荐副业方向</h3>
+      <ul>
+        <li>闲鱼卖货（AI工具/虚拟产品）</li>
+        <li>小红书店铺（虚拟商品）</li>
+        <li>拼多多/1688选品带货</li>
+        <li>跨境电商（TikTok Shop等）</li>
+      </ul>
+      <h3>🚀 起步建议</h3>
+      <p>从闲鱼开始，0成本，用AI生成的虚拟产品试水（比如测试工具、模板、电子资料）。跑通一个品再复制。</p>
+    `
+  },
+  skill: {
+    name: "技能服务型",
+    tag: "💻 技能/服务",
+    emoji: "🛠️",
+    color: "#66BB6A",
+    subtitle: "你的双手和大脑，就是最好的赚钱工具",
+    detail: `
+      <h3>🧬 你的基因优势</h3>
+      <p>你喜欢打磨技能，享受从不会到会的过程。你做事情认真靠谱，追求质量而非数量。客户信任你，复购率高。</p>
+      <h3>💰 推荐副业方向</h3>
+      <ul>
+        <li>AI辅助设计/PPT制作</li>
+        <li>编程接单/小程序开发</li>
+        <li>翻译/文案代写</li>
+        <li>数据标注/AI训练服务</li>
+      </ul>
+      <h3>🚀 起步建议</h3>
+      <p>把你的技能打包成标准化产品（比如"100元做一套小红书封面"），在闲鱼/猪八戒/Upwork上接单。用AI工具加速交付，压低成本。</p>
+    `
+  },
+  aitool: {
+    name: "AI工具型",
+    tag: "🤖 AI工具/自动化",
+    emoji: "🤖",
+    color: "#7C4DFF",
+    subtitle: "你不是被AI取代的人，你是用AI改变规则的人",
+    detail: `
+      <h3>🧬 你的基因优势</h3>
+      <p>你对新技术的敏感度极高，喜欢探索工具、优化流程。别人看到的是技术，你看到的是"怎么用它赚钱"。</p>
+      <h3>💰 推荐副业方向</h3>
+      <ul>
+        <li>AI工具开发（测试工具/效率工具）</li>
+        <li>提示词工程/自动化工作流</li>
+        <li>AI+内容批量生产</li>
+        <li>AI工具分销/代理</li>
+      </ul>
+      <h3>🚀 起步建议</h3>
+      <p>你走对了方向。用Claude Code/Vibe Coding快速开发工具型产品，部署到GitHub Pages，在小红书/闲鱼双平台销售。你的优势就是：别人花2000外包的开发，你10分钟搞定。</p>
+    `
+  },
+  knowledge: {
+    name: "知识付费型",
+    tag: "🧠 知识/课程",
+    emoji: "📚",
+    color: "#42A5F5",
+    subtitle: "你的思考和洞察，值得被定价",
+    detail: `
+      <h3>🧬 你的基因优势</h3>
+      <p>你善于深度思考，能把碎片信息整合成体系。你喜欢"授人以渔"，帮助别人成长让你有成就感。</p>
+      <h3>💰 推荐副业方向</h3>
+      <ul>
+        <li>付费社群/知识星球</li>
+        <li>在线课程/训练营</li>
+        <li>1对1咨询/陪跑服务</li>
+        <li>电子书/付费专栏</li>
+      </ul>
+      <h3>🚀 起步建议</h3>
+      <p>从免费内容开始建立信任（公众号/小红书），积累100个忠实粉丝后推出付费产品。先做低价产品（9.9元电子书/模板）验证需求，再做高价服务。</p>
+    `
+  },
+  traffic: {
+    name: "流量操盘型",
+    tag: "🎯 流量/运营",
+    emoji: "📈",
+    color: "#EF5350",
+    subtitle: "你看得懂数据背后的逻辑，流量就是你的印钞机",
+    detail: `
+      <h3>🧬 你的基因优势</h3>
+      <p>你对数据敏感，能从数字中看到规律。你了解人性，知道怎么吸引注意力。你不止做执行，更擅长策略。</p>
+      <h3>💰 推荐副业方向</h3>
+      <ul>
+        <li>小红书/抖音账号代运营</li>
+        <li>私域流量操盘</li>
+        <li>SEO/SEM优化服务</li>
+        <li>矩阵账号运营</li>
+      </ul>
+      <h3>🚀 起步建议</h3>
+      <p>先用一个账号跑出数据，把方法论总结成SOP，然后用这套SOP接代运营客户或自己批量做号。你的核心竞争力不是单条爆款，而是可复制的增长系统。</p>
+    `
+  }
+};
+
+// ===== STATE =====
+let currentQuestion = 0;
+let answers = [];
+let selectedOption = null;
+const totalQuestions = questions.length;
+
+// ===== FUNCTIONS =====
+function startQuiz() {
+  document.getElementById('coverPage').style.display = 'none';
+  document.getElementById('quizPage').style.display = 'block';
+  document.getElementById('resultPage').style.display = 'none';
+  currentQuestion = 0;
+  answers = new Array(totalQuestions).fill(null);
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQuestion];
+  document.getElementById('quizCount').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+  document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / totalQuestions) * 100}%`;
+  document.getElementById('questionText').textContent = q.q;
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  selectedOption = answers[currentQuestion];
+
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (selectedOption === i ? ' selected' : '');
+    div.innerHTML = `<span class="option-letter">${letters[i]}</span>${opt.text}`;
+    div.onclick = () => selectOption(i);
+    container.appendChild(div);
+  });
+
+  // back button
+  const btnBack = document.getElementById('btnBack');
+  if (currentQuestion === 0) {
+    btnBack.classList.remove('visible');
+  } else {
+    btnBack.classList.add('visible');
+  }
+
+  // next button
+  updateNextButton();
+
+  // animate
+  document.getElementById('quizPage').classList.remove('fade-in');
+  void document.getElementById('quizPage').offsetWidth;
+  document.getElementById('quizPage').classList.add('fade-in');
+}
+
+function selectOption(i) {
+  selectedOption = i;
+  answers[currentQuestion] = i;
+  const options = document.querySelectorAll('.option');
+  options.forEach((opt, idx) => {
+    opt.classList.toggle('selected', idx === i);
+  });
+  updateNextButton();
+
+  // auto-advance after short delay
+  setTimeout(() => {
+    if (answers[currentQuestion] === i && currentQuestion < totalQuestions - 1) {
+      nextQuestion();
+    }
+  }, 400);
+}
+
+function updateNextButton() {
+  const btn = document.getElementById('btnNext');
+  if (answers[currentQuestion] !== null) {
+    btn.classList.add('active');
+    btn.textContent = currentQuestion === totalQuestions - 1 ? '查看结果' : '下一题';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '下一题';
+  }
+}
+
+function nextQuestion() {
+  if (answers[currentQuestion] === null) return;
+  if (currentQuestion < totalQuestions - 1) {
+    currentQuestion++;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+  }
+}
+
+function calculateScores() {
+  const scores = { content: 0, ecommerce: 0, skill: 0, aitool: 0, knowledge: 0, traffic: 0 };
+  answers.forEach((ansIdx, qIdx) => {
+    if (ansIdx !== null) {
+      const chosen = questions[qIdx].options[ansIdx].scores;
+      for (const [key, val] of Object.entries(chosen)) {
+        scores[key] = (scores[key] || 0) + val;
+      }
+    }
+  });
+  return scores;
+}
+
+function showResult() {
+  document.getElementById('quizPage').style.display = 'none';
+  document.getElementById('resultPage').style.display = 'block';
+
+  const scores = calculateScores();
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const topType = sorted[0][0];
+  const result = resultTypes[topType];
+
+  document.getElementById('resultEmoji').textContent = result.emoji;
+  document.getElementById('resultTag').textContent = result.tag;
+  document.getElementById('resultTitle').textContent = result.name;
+  document.getElementById('resultSubtitle').textContent = result.subtitle;
+
+  // score bars
+  const maxScore = Math.max(...Object.values(scores), 1);
+  const colors = {
+    content: '#FF6B6B', ecommerce: '#FFA726', skill: '#66BB6A',
+    aitool: '#7C4DFF', knowledge: '#42A5F5', traffic: '#EF5350'
+  };
+  const names = {
+    content: '内容创作', ecommerce: '电商卖货', skill: '技能服务',
+    aitool: 'AI工具', knowledge: '知识付费', traffic: '流量操盘'
+  };
+  const barsHtml = sorted.map(([key, val]) => {
+    const pct = Math.round((val / maxScore) * 100);
+    return `
+      <div class="score-item">
+        <span class="score-label">${names[key]}</span>
+        <div class="score-track"><div class="score-fill" style="width:${pct}%;background:${colors[key]}"></div></div>
+        <span class="score-value">${pct}%</span>
+      </div>`;
+  }).join('');
+  document.getElementById('scoreBars').innerHTML = barsHtml;
+
+  document.getElementById('resultDetail').innerHTML = result.detail;
+
+  // animate bars
+  setTimeout(() => {
+    document.querySelectorAll('.score-fill').forEach(el => {
+      el.style.width = el.style.width;
+    });
+  }, 100);
+
+  document.getElementById('resultPage').classList.remove('fade-in');
+  void document.getElementById('resultPage').offsetWidth;
+  document.getElementById('resultPage').classList.add('fade-in');
+}
+
+function retryQuiz() {
+  document.getElementById('resultPage').style.display = 'none';
+  document.getElementById('coverPage').style.display = 'flex';
+  document.getElementById('coverPage').classList.remove('fade-in');
+  void document.getElementById('coverPage').offsetWidth;
+  document.getElementById('coverPage').classList.add('fade-in');
+  answers = new Array(totalQuestions).fill(null);
+  currentQuestion = 0;
+}
+
+function showShare() {
+  const scores = calculateScores();
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const result = resultTypes[sorted[0][0]];
+  document.getElementById('shareResultText').innerHTML = `${result.emoji} ${result.name}<br><span style="font-size:14px;font-weight:400;color:#86868b">${result.subtitle}</span>`;
+  document.getElementById('shareOverlay').classList.add('show');
+}
+
+function hideShare(e) {
+  if (!e || e.target === document.getElementById('shareOverlay')) {
+    document.getElementById('shareOverlay').classList.remove('show');
+  }
+}
+</script>
+</body>
+</html>
