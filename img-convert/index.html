@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>图片格式转换 · 墨煜工具箱</title>
-<meta name="description" content="免费在线批量图片格式转换，支持 WebP/PNG/JPG，浏览器本地处理，隐私安全。">
+<meta name="description" content="免费在线批量图片格式转换，支持 WebP/PNG/JPG，支持 HEIC 导入，浏览器本地处理，隐私安全。">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -205,18 +205,18 @@ a,button,.btn,.thumb,.drop-zone,.theme-toggle{cursor:none}
 <header>
   <div class="badge"><span class="dot"></span> 100% 本地处理 · 隐私安全</div>
   <h1>图片<span>格式转换</span></h1>
-  <p class="sub">批量 WebP / PNG / JPG 转换 · 智能压缩 · 浏览器本地运行</p>
+  <p class="sub">批量 WebP / PNG / JPG 转换 · 支持 HEIC 导入 · 智能压缩 · 浏览器本地运行</p>
 </header>
 
 <div class="container">
-  <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.gif,.bmp,.tiff,.tif,.webp,image/png,image/jpeg,image/gif,image/bmp,image/tiff,image/webp" multiple style="display:none">
+  <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.gif,.bmp,.tiff,.tif,.webp,.heic,.heif,image/png,image/jpeg,image/gif,image/bmp,image/tiff,image/webp,image/heic,image/heif" multiple style="display:none">
   <input type="file" id="folderInput" webkitdirectory style="display:none">
 
   <div class="upload-section">
     <div class="drop-zone" id="dropZone">
       <div class="dz-icon">🖼️</div>
       <h3>拖拽图片或文件夹到这里</h3>
-      <p>支持 PNG、JPG、GIF、BMP、TIFF、WebP</p>
+      <p>支持 PNG、JPG、GIF、BMP、TIFF、WebP、HEIC</p>
       <div class="dz-btns">
         <button class="btn btn-secondary" id="selectFileBtn">选择文件</button>
         <button class="btn btn-primary" id="selectFolderBtn">选择文件夹</button>
@@ -297,6 +297,7 @@ a,button,.btn,.thumb,.drop-zone,.theme-toggle{cursor:none}
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 <script>
 // ===== Theme Toggle =====
 var SCHEMA_VERSION = 1;
@@ -364,7 +365,8 @@ document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;
 (function update(){var dot=glowEl.querySelector('.cursor-dot');if(!dot){var d=document.createElement('div');d.className='cursor-dot';glowEl.appendChild(d)}var cd=glowEl.querySelector('.cursor-dot');cd.style.left=mx+'px';cd.style.top=my+'px';requestAnimationFrame(update)})();
 
 // ===== File Converter Logic =====
-var SUPPORTED_FORMATS={'image/png':'PNG','image/jpeg':'JPG','image/gif':'GIF','image/bmp':'BMP','image/tiff':'TIFF','image/webp':'WebP'};
+var SUPPORTED_FORMATS={'image/png':'PNG','image/jpeg':'JPG','image/gif':'GIF','image/bmp':'BMP','image/tiff':'TIFF','image/webp':'WebP','image/heic':'HEIC','image/heif':'HEIC'};
+var HEIC_EXTENSIONS=['heic','heif'];
 var LOSSY_FORMATS=['webp','jpg'];
 var folders=[],outputFormat='webp',sizeLimitEnabled=true,sizeLimitKB=500,mode='lossless',quality=80,folderIdCounter=0;
 
@@ -406,7 +408,8 @@ function updateModeUI(){
   document.getElementById('qualitySlider').style.display=showSlider?'block':'none';
 }
 
-function isImage(file){var ext=file.name.toLowerCase().split('.').pop();return SUPPORTED_FORMATS[file.type]||['png','jpg','jpeg','gif','bmp','tiff','tif','webp'].indexOf(ext)>=0}
+function isImage(file){var ext=file.name.toLowerCase().split('.').pop();return SUPPORTED_FORMATS[file.type]||['png','jpg','jpeg','gif','bmp','tiff','tif','webp','heic','heif'].indexOf(ext)>=0}
+function isHEIC(file){var ext=file.name.toLowerCase().split('.').pop();return HEIC_EXTENSIONS.indexOf(ext)>=0||file.type==='image/heic'||file.type==='image/heif'}
 function fmtLabel(file){return SUPPORTED_FORMATS[file.type]||file.name.split('.').pop().toUpperCase()}
 
 function handleFiles(fileList,folderName){
@@ -436,21 +439,37 @@ function getMimeAndExt(){
   return{mime:'image/webp',ext:'.webp'};
 }
 
+// HEIC decode: use heic2any to get a blob the browser can natively read
+function decodeHEIC(file){
+  return heic2any({blob:file,toType:'image/png'}).then(function(result){
+    // result is a Blob (single) or Blob[] (multi-frame)
+    return Array.isArray(result)?result[0]:result;
+  });
+}
+
 function convertItem(item,qOverride){
   return new Promise(function(resolve,reject){
-    var img=new Image();
-    var reader=new FileReader();
-    reader.onload=function(e){img.onload=function(){
-      var canvas=document.createElement('canvas');canvas.width=img.width;canvas.height=img.height;
-      var ctx=canvas.getContext('2d');
-      if(outputFormat==='jpg'){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height)}
-      ctx.drawImage(img,0,0);
-      var me=getMimeAndExt();
-      var q=qOverride!==undefined?qOverride:getQuality();
-      canvas.toBlob(function(blob){if(blob)resolve({blob:blob,url:URL.createObjectURL(blob),size:blob.size,filename:item.file.name.replace(/\.[^.]+$/i,me.ext)});else reject(new Error('fail'))},me.mime,q);
-    };img.src=e.target.result};
-    reader.onerror=function(){reject(new Error('read error'))};
-    reader.readAsDataURL(item.file);
+    function doConvert(blob){
+      var img=new Image();
+      var url=URL.createObjectURL(blob);
+      img.onload=function(){
+        URL.revokeObjectURL(url);
+        var canvas=document.createElement('canvas');canvas.width=img.width;canvas.height=img.height;
+        var ctx=canvas.getContext('2d');
+        if(outputFormat==='jpg'){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height)}
+        ctx.drawImage(img,0,0);
+        var me=getMimeAndExt();
+        var q=qOverride!==undefined?qOverride:getQuality();
+        canvas.toBlob(function(b){if(b)resolve({blob:b,url:URL.createObjectURL(b),size:b.size,filename:item.file.name.replace(/\.[^.]+$/i,me.ext)});else reject(new Error('fail'))},me.mime,q);
+      };
+      img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('load error'))};
+      img.src=url;
+    }
+    if(isHEIC(item.file)){
+      decodeHEIC(item.file).then(doConvert).catch(function(e){reject(new Error('heic decode error'))});
+    }else{
+      doConvert(item.file);
+    }
   });
 }
 
