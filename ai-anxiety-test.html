@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI焦虑等级测试</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #f0f2f5 0%, #e8ecf1 30%, #f5f3f7 60%, #f0f4f8 100%);
+    color: #1d1d1f;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03);
+    overflow: hidden;
+    position: relative;
+    min-height: 580px;
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  /* ====== COVER PAGE ====== */
+  .cover {
+    padding: 52px 32px 44px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 560px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(255,149,0,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(142,68,173,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #FF9500, #FF3B30);
+    border-radius: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px; margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(255,149,0,0.3);
+    position: relative; z-index: 1;
+  }
+  .cover-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,149,0,0.1); color: #FF9500;
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 20px; position: relative; z-index: 1;
+  }
+  .cover-badge .dot {
+    width: 6px; height: 6px;
+    background: #FF9500; border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .cover h1 {
+    font-size: 28px; font-weight: 700; line-height: 1.35;
+    margin-bottom: 10px; color: #1d1d1f;
+    letter-spacing: -0.3px; position: relative; z-index: 1;
+  }
+  .cover h1 .hl {
+    background: linear-gradient(135deg, #FF9500, #FF3B30);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .cover .subtitle {
+    font-size: 14px; color: #86868b; line-height: 1.6;
+    margin-bottom: 32px; max-width: 290px;
+    position: relative; z-index: 1;
+  }
+  .cover .features {
+    display: flex; gap: 20px; margin-bottom: 28px;
+    position: relative; z-index: 1;
+  }
+  .cover .feat {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .cover .feat-icon {
+    font-size: 22px; width: 44px; height: 44px;
+    background: rgba(255,149,0,0.08); border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cover .feat-label { font-size: 11px; color: #86868b; font-weight: 500; }
+  .cover .stats {
+    font-size: 13px; color: #aeaeb2; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 6px;
+    position: relative; z-index: 1;
+  }
+  .btn-start {
+    background: linear-gradient(135deg, #FF9500, #FF6B00);
+    color: #fff; border: none; padding: 15px 52px;
+    border-radius: 26px; font-size: 17px; font-weight: 600;
+    cursor: pointer; width: 100%; max-width: 260px;
+    box-shadow: 0 6px 20px rgba(255,149,0,0.35);
+    position: relative; z-index: 1;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,149,0,0.45); }
+  .btn-start:active { transform: scale(0.97); }
+
+  /* ====== QUIZ PAGE ====== */
+  .quiz { padding: 28px 24px 32px; display: none; }
+  .quiz-meta {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+  }
+  .quiz-category {
+    font-size: 12px; color: #FF9500; font-weight: 600;
+    background: rgba(255,149,0,0.08); padding: 4px 12px; border-radius: 12px;
+  }
+  .quiz-count { font-size: 13px; color: #86868b; font-weight: 500; }
+  .quiz-count span { color: #1d1d1f; font-weight: 700; }
+  .progress-wrap { margin-bottom: 24px; }
+  .progress-bar {
+    width: 100%; height: 6px;
+    background: rgba(0,0,0,0.05); border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF9500, #FF3B30, #8E44AD);
+    background-size: 200% 100%;
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    width: 0%;
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .question {
+    font-size: 21px; font-weight: 700; line-height: 1.45;
+    margin-bottom: 24px; color: #1d1d1f; letter-spacing: -0.2px;
+  }
+  .options { display: flex; flex-direction: column; gap: 9px; }
+  .option {
+    display: flex; align-items: center;
+    padding: 15px 16px;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+    font-size: 14.5px; line-height: 1.45; color: #1d1d1f;
+    background: rgba(0,0,0,0.025);
+    position: relative; overflow: hidden;
+  }
+  .option:hover { background: rgba(255,149,0,0.04); border-color: rgba(255,149,0,0.2); }
+  .option.selected {
+    border-color: #FF9500;
+    background: linear-gradient(135deg, rgba(255,149,0,0.06), rgba(255,59,48,0.03));
+    box-shadow: 0 2px 12px rgba(255,149,0,0.15);
+  }
+  .option-icon {
+    font-size: 20px; width: 38px; height: 38px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 14px; flex-shrink: 0;
+    background: #fff; transition: all 0.3s;
+  }
+  .option.selected .option-icon {
+    background: linear-gradient(135deg, #FF9500, #FF3B30);
+    box-shadow: 0 4px 12px rgba(255,149,0,0.3);
+  }
+  .option-letter { font-size: 13px; font-weight: 700; color: #86868b; transition: all 0.3s; }
+  .option.selected .option-letter { color: #fff; }
+  .option-text { flex: 1; }
+  .option-check {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid #d1d1d6; flex-shrink: 0; transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .option.selected .option-check { border-color: #FF9500; background: #FF9500; }
+  .option.selected .option-check::after {
+    content: '✓'; color: #fff; font-size: 12px; font-weight: 700;
+  }
+  .quiz-nav { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
+  .btn-back {
+    background: rgba(0,0,0,0.03); border: none; color: #86868b;
+    padding: 12px 22px; border-radius: 22px; font-size: 14px;
+    cursor: pointer; font-weight: 500; transition: all 0.2s;
+    visibility: hidden;
+  }
+  .btn-back.visible { visibility: visible; }
+  .btn-back:hover { background: rgba(0,0,0,0.06); }
+  .btn-next {
+    background: linear-gradient(135deg, #FF9500, #FF6B00);
+    color: #fff; border: none; padding: 12px 28px;
+    border-radius: 22px; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    flex: 1; opacity: 0.35; pointer-events: none; box-shadow: none;
+  }
+  .btn-next.active {
+    opacity: 1; pointer-events: auto;
+    box-shadow: 0 4px 14px rgba(255,149,0,0.35);
+  }
+  .btn-next.active:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,149,0,0.45); }
+  .btn-next.active:active { transform: scale(0.97); }
+
+  /* ====== RESULT PAGE ====== */
+  .result { display: none; text-align: center; background: #fff; }
+  .result-hero {
+    background: linear-gradient(180deg, rgba(255,149,0,0.08) 0%, rgba(255,255,255,0) 60%);
+    padding: 40px 24px 32px; text-align: center;
+  }
+  .result-icon-wrap {
+    width: 88px; height: 88px;
+    border-radius: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 42px; margin-bottom: 18px;
+    box-shadow: 0 10px 30px rgba(255,149,0,0.3);
+  }
+  .result-type-tag {
+    display: inline-block; background: rgba(255,149,0,0.1);
+    color: #FF9500; font-size: 12px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 10px; letter-spacing: 0.5px;
+  }
+  .result h2 {
+    font-size: 26px; font-weight: 700; margin-bottom: 6px;
+    line-height: 1.3; letter-spacing: -0.3px;
+  }
+  .result .result-subtitle {
+    font-size: 14px; color: #86868b; line-height: 1.5;
+    max-width: 280px; margin: 0 auto;
+  }
+  .result-stars {
+    font-size: 24px; letter-spacing: 4px;
+    margin: 12px 0;
+  }
+  .score-section { padding: 0 24px; margin-bottom: 8px; }
+  .score-section h3 {
+    font-size: 14px; font-weight: 600; margin-bottom: 16px;
+    color: #1d1d1f; text-align: left;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .score-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .score-card {
+    background: #f8f8fa; border-radius: 14px;
+    padding: 14px 12px; text-align: center;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .score-card.top {
+    background: linear-gradient(135deg, rgba(255,149,0,0.1), rgba(255,59,48,0.04));
+    border: 1.5px solid rgba(255,149,0,0.25);
+  }
+  .score-card .sc-emoji { font-size: 22px; margin-bottom: 6px; }
+  .score-card .sc-name { font-size: 12px; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
+  .score-card .sc-bar-bg {
+    height: 4px; background: rgba(0,0,0,0.06);
+    border-radius: 2px; overflow: hidden; margin: 6px 0;
+  }
+  .score-card .sc-bar {
+    height: 100%; border-radius: 2px;
+    transition: width 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .score-card .sc-pct {
+    font-size: 18px; font-weight: 700; color: #1d1d1f;
+  }
+  .result-detail { padding: 0 24px; margin-bottom: 24px; }
+  .detail-card {
+    background: #f8f8fa; border-radius: 18px;
+    padding: 20px; text-align: left;
+  }
+  .detail-card h3 {
+    font-size: 15px; font-weight: 700; margin-bottom: 10px;
+    margin-top: 18px; color: #1d1d1f;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .detail-card h3:first-child { margin-top: 0; }
+  .detail-card p { font-size: 13.5px; color: #515154; line-height: 1.65; margin-bottom: 6px; }
+  .detail-card ul {
+    padding-left: 18px; font-size: 13.5px; color: #515154;
+    line-height: 1.9; list-style: none;
+  }
+  .detail-card ul li::before {
+    content: '•'; color: #FF9500; font-weight: 700; margin-right: 8px;
+  }
+  .result-cta {
+    padding: 0 24px; display: flex; flex-direction: column;
+    gap: 8px; margin-bottom: 20px;
+  }
+  .btn-share {
+    background: linear-gradient(135deg, #FF9500, #FF6B00);
+    color: #fff; border: none; padding: 14px;
+    border-radius: 26px; font-size: 16px; font-weight: 600;
+    cursor: pointer; width: 100%; transition: all 0.3s;
+    box-shadow: 0 6px 20px rgba(255,149,0,0.3);
+    letter-spacing: 0.2px;
+  }
+  .btn-share:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(255,149,0,0.4); }
+  .btn-retry {
+    background: none; border: 1.5px solid #e5e5ea;
+    color: #1d1d1f; padding: 12px; border-radius: 26px;
+    font-size: 14px; cursor: pointer; width: 100%;
+    font-weight: 500; transition: all 0.2s;
+  }
+  .disclaimer {
+    font-size: 11px; color: #aeaeb2;
+    text-align: center; line-height: 1.5;
+    padding: 0 24px 28px;
+  }
+
+  /* ====== SHARE OVERLAY ====== */
+  .share-overlay {
+    display: none; position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 100;
+    justify-content: center; align-items: center;
+    padding: 24px;
+  }
+  .share-overlay.show { display: flex; }
+  .share-card {
+    background: #fff; border-radius: 24px;
+    padding: 36px 28px 28px; text-align: center;
+    max-width: 340px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    position: relative;
+  }
+  .share-card .close-btn {
+    background: rgba(0,0,0,0.04); border: none;
+    width: 32px; height: 32px; border-radius: 16px;
+    font-size: 18px; cursor: pointer; color: #86868b;
+    position: absolute; top: 14px; right: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .share-label { font-size: 13px; color: #86868b; margin-bottom: 12px; }
+  .share-result-preview {
+    background: linear-gradient(135deg, #f8f8fa, #f0f2f5);
+    border-radius: 16px; padding: 24px;
+    margin: 8px 0 16px;
+  }
+  .share-result-preview .sr-emoji { font-size: 40px; margin-bottom: 8px; }
+  .share-result-preview .sr-title { font-size: 20px; font-weight: 700; line-height: 1.4; }
+  .share-result-preview .sr-sub { font-size: 13px; color: #86868b; margin-top: 4px; }
+  .share-cta { font-size: 13px; color: #515154; margin-bottom: 4px; }
+  .share-tip { font-size: 11px; color: #aeaeb2; margin-top: 8px; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .option-anim {
+    opacity: 0;
+    animation: fadeInUp 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+</style>
+</head>
+<body>
+<div class="container" id="app">
+
+  <!-- ============ 封面页 ============ -->
+  <div class="cover" id="coverPage">
+    <div class="cover-icon">😰</div>
+    <div class="cover-badge"><span class="dot"></span>10题 · 2分钟</div>
+    <h1>你的<span class="hl">AI焦虑</span>有几级？</h1>
+    <p class="subtitle">10道情景题，测出你面对AI浪潮的真实心态</p>
+    <div class="features">
+      <div class="feat"><div class="feat-icon">🧠</div><span class="feat-label">10道情景题</span></div>
+      <div class="feat"><div class="feat-icon">⚡</div><span class="feat-label">2分钟出结果</span></div>
+      <div class="feat"><div class="feat-icon">🎯</div><span class="feat-label">5种焦虑等级</span></div>
+    </div>
+    <div class="stats">已有 <strong>2,847</strong> 人完成测试</div>
+    <button class="btn-start" onclick="startQuiz()">开始测试 →</button>
+  </div>
+
+  <!-- ============ 答题页 ============ -->
+  <div class="quiz" id="quizPage">
+    <div class="quiz-meta">
+      <span class="quiz-category">AI焦虑评估</span>
+      <span class="quiz-count"><span id="qNum">1</span> / 10</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="question" id="questionText"></div>
+    <div class="options" id="optionsContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-back" id="btnBack" onclick="prevQuestion()">← 上一题</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()">下一题 →</button>
+    </div>
+  </div>
+
+  <!-- ============ 结果页 ============ -->
+  <div class="result" id="resultPage">
+    <div class="result-hero">
+      <div class="result-icon-wrap" id="resultEmojiWrap"></div>
+      <div class="result-type-tag" id="resultTag"></div>
+      <h2 id="resultTitle"></h2>
+      <div class="result-stars" id="resultStars"></div>
+      <p class="result-subtitle" id="resultSubtitle"></p>
+    </div>
+    <div class="score-section">
+      <h3>📊 焦虑维度分布</h3>
+      <div class="score-grid" id="scoreGrid"></div>
+    </div>
+    <div class="result-detail">
+      <div class="detail-card" id="resultDetail"></div>
+    </div>
+    <div class="result-cta">
+      <button class="btn-share" onclick="showShare()">📤 分享我的结果</button>
+      <button class="btn-retry" onclick="retryQuiz()">🔄 重新测试</button>
+    </div>
+    <p class="disclaimer">* 本测试仅供娱乐参考，不构成心理健康诊断</p>
+  </div>
+
+  <!-- ============ 分享弹窗 ============ -->
+  <div class="share-overlay" id="shareOverlay" onclick="hideShare(event)">
+    <div class="share-card" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="hideShare()">✕</button>
+      <p class="share-label">我的AI焦虑等级是——</p>
+      <div class="share-result-preview">
+        <div class="sr-emoji" id="shareEmoji"></div>
+        <div class="sr-title" id="shareTitle"></div>
+        <div class="sr-sub" id="shareSub"></div>
+        <div class="sr-stars" id="shareStars" style="font-size:18px;letter-spacing:3px;margin-top:8px;"></div>
+      </div>
+      <p class="share-cta">你也来测测？👉</p>
+      <p class="share-tip">长按截图分享给朋友</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ 题目数据 ============
+const questions = [
+  {
+    q: "深夜刷到「AI取代XX岗位」的新闻，你第一反应是？",
+    options: [
+      { text: "关掉手机睡觉，明天太阳照样升起", scores: { zen: 3 } },
+      { text: "点进去看完，转发给朋友讨论一下", scores: { mild: 2, moderate: 1 } },
+      { text: "越看越睡不着，开始想自己会不会受影响", scores: { severe: 2, doomsday: 1 } },
+      { text: "立刻打开招聘软件看有没有备选方案", scores: { doomsday: 2, severe: 1 } }
+    ]
+  },
+  {
+    q: "公司宣布引入AI工具辅助办公，你的心情是？",
+    options: [
+      { text: "太好了，终于不用做重复劳动了", scores: { zen: 3 } },
+      { text: "有点好奇，先看看别人怎么用再说", scores: { mild: 3 } },
+      { text: "隐隐担忧，这工具会不会慢慢替代我的工作？", scores: { moderate: 3 } },
+      { text: "完蛋了，这就是裁员的开始", scores: { doomsday: 3 } }
+    ]
+  },
+  {
+    q: "朋友说他用AI一天干完了一周的活，你听了之后？",
+    options: [
+      { text: "那挺好的，说明他可以早点下班多休息", scores: { zen: 3 } },
+      { text: "挺好奇的，问问他用的是什么工具", scores: { mild: 2, zen: 1 } },
+      { text: "心里咯噔一下，感觉自己落后了", scores: { moderate: 2, severe: 1 } },
+      { text: "立刻下载同款工具开始学，不能掉队", scores: { severe: 2, moderate: 1 } }
+    ]
+  },
+  {
+    q: "看到「ChatGPT通过了律师/医师资格考试」这种新闻，你觉得？",
+    options: [
+      { text: "AI再强也是工具，人才是最终决策者", scores: { zen: 3 } },
+      { text: "说明AI确实在进步，但专业人士不会消失", scores: { mild: 3 } },
+      { text: "连这种考试都能过，还有什么职业是安全的？", scores: { severe: 2, doomsday: 1 } },
+      { text: "所有白领工作都会被AI取代，只是时间问题", scores: { doomsday: 3 } }
+    ]
+  },
+  {
+    q: "你用AI工具生成了一段文字，比你自己写的还好，你什么感受？",
+    options: [
+      { text: "有工具帮忙真好，省时省力效率翻倍", scores: { zen: 3 } },
+      { text: "有点失落，但工具终究是工具，人是主人", scores: { mild: 2, zen: 1 } },
+      { text: "我学了这么多年，比不上AI几秒钟的输出……", scores: { moderate: 2, severe: 1 } },
+      { text: "写东西都没意义了，人类创造力已经贬值", scores: { doomsday: 3 } }
+    ]
+  },
+  {
+    q: "晚辈说以后想学编程当程序员，你的建议是？",
+    options: [
+      { text: "喜欢就学，编程锻炼逻辑思维，终身受用", scores: { zen: 3 } },
+      { text: "可以学，但也要多培养AI工具协作能力", scores: { mild: 3 } },
+      { text: "学吧……但不知道等毕业了这行还在不在", scores: { moderate: 2, severe: 1 } },
+      { text: "别学了，等他们毕业AI早就能自己写代码了", scores: { doomsday: 3 } }
+    ]
+  },
+  {
+    q: "朋友圈有人发了「我用AI副业月入3万」，你什么反应？",
+    options: [
+      { text: "恭喜他，每个人都有自己的生财之道", scores: { zen: 3 } },
+      { text: "点个赞，了解一下是怎么做到的", scores: { mild: 3 } },
+      { text: "羡慕又焦虑，我怎么就没办法做到这样", scores: { moderate: 2, severe: 1 } },
+      { text: "这世界越来越卷了，普通人越来越没活路", scores: { doomsday: 2, severe: 1 } }
+    ]
+  },
+  {
+    q: "老板让你用AI工具提高效率，但你对这些不熟，你会？",
+    options: [
+      { text: "花点时间学一下，新工具而已没什么大不了的", scores: { zen: 2, mild: 1 } },
+      { text: "有点慌，但也只能硬着头皮开始学", scores: { moderate: 2, mild: 1 } },
+      { text: "压力很大，感觉不学会就要被淘汰了", scores: { severe: 3 } },
+      { text: "这摆明了是让我把自己的替代品训练出来", scores: { doomsday: 3 } }
+    ]
+  },
+  {
+    q: "看科幻电影里AI反噬人类的剧情，你的反应是？",
+    options: [
+      { text: "电影而已别当真，该吃吃该喝喝", scores: { zen: 3 } },
+      { text: "有点意思，但现实中的AI远没到这个程度", scores: { mild: 3 } },
+      { text: "细思极恐……越想越觉得不是完全没可能", scores: { moderate: 2, severe: 1 } },
+      { text: "这根本不是科幻，这就是几年后我们的未来", scores: { doomsday: 3 } }
+    ]
+  },
+  {
+    q: "想到「5年后的世界和你的工作」，你的感受更接近？",
+    options: [
+      { text: "充满期待，AI会让生活变得更美好", scores: { zen: 3 } },
+      { text: "有变化也有不变的东西，顺其自然就好", scores: { mild: 3 } },
+      { text: "变化太快了，总感觉自己跟不上节奏", scores: { moderate: 3 } },
+      { text: "不敢想，越想越焦虑，越焦虑越停不下来", scores: { doomsday: 2, severe: 1 } }
+    ]
+  }
+];
+
+// ============ 结果类型 ============
+const resultTypes = {
+  zen: {
+    id: "zen",
+    name: "🧘 佛系淡定型",
+    tag: "淡定从容",
+    emoji: "🧘",
+    color: "#34C759",
+    grad: "linear-gradient(135deg, #34C759, #30B350)",
+    stars: "★☆☆☆☆",
+    subtitle: "AI？跟我有什么关系。该吃吃该喝喝，太阳明天照常升起。",
+    detail: `
+      <h3>🧬 你的画像</h3>
+      <p>你对AI的态度是「工具而已，能用就用，不能用拉倒」。不焦虑、不恐慌、不跟风。别人在担心被AI取代的时候，你在安心做自己的事。这种心态在AI时代反而是稀缺资源——不是每个人都能在信息轰炸中保持内心平静。</p>
+      <h3>💡 焦虑来源分析</h3>
+      <p>你的焦虑指数极低。这可能源于两个原因：要么你对自己的能力足够自信，要么你目前的工作和生活与AI交集较小。无论是哪种，保持淡定都没问题。</p>
+      <h3>⚠️ 唯一的小提醒</h3>
+      <ul>
+        <li>淡定≠无视。偶尔了解一下AI能做什么，万一哪天它真的影响到你的领域，你至少有个心理准备</li>
+        <li>你的心态是优势，保持住——但别让它变成「信息盲区」</li>
+      </ul>
+    `,
+    advice: "你的心态是优势，保持住。偶尔看一眼AI动态即可，不用焦虑。"
+  },
+  mild: {
+    id: "mild",
+    name: "🤔 轻度关注型",
+    tag: "理性关注",
+    emoji: "🤔",
+    color: "#0071E3",
+    grad: "linear-gradient(135deg, #0071E3, #5E5CE6)",
+    stars: "★★☆☆☆",
+    subtitle: "有点在意AI的发展，但不影响日常生活。好奇心大于焦虑感。",
+    detail: `
+      <h3>🧬 你的画像</h3>
+      <p>你对AI保持「理性关注」——会看看新闻、了解新工具，但不会半夜睡不着觉。你的态度是「保持关注，适度学习，不盲目恐慌」。这是目前最健康的AI心态——既不无视变化，也不被变化吞噬。</p>
+      <h3>💡 焦虑来源分析</h3>
+      <p>你的焦虑是健康的「警觉性焦虑」——像看到天气预报说要下雨，你会带把伞，但不会因此取消所有户外计划。这种适度的关切让你保持学习动力，又不会影响生活质量。</p>
+      <h3>🛠️ 保持节奏的建议</h3>
+      <ul>
+        <li>每周花30分钟了解AI动态就够了，不需要每天刷</li>
+        <li>选1-2个跟自己工作相关的AI工具深入使用，不要追求「全都懂」</li>
+        <li>你现在的节奏是对的——继续保持</li>
+      </ul>
+    `,
+    advice: "你是AI时代心态最健康的那批人。保持好奇，适度学习。"
+  },
+  moderate: {
+    id: "moderate",
+    name: "😰 中度焦虑型",
+    tag: "隐隐不安",
+    emoji: "😰",
+    color: "#FF9500",
+    grad: "linear-gradient(135deg, #FF9500, #FF6B00)",
+    stars: "★★★☆☆",
+    subtitle: "每天刷AI新闻，越刷越焦虑，但又停不下来。总感觉自己要被时代抛弃了。",
+    detail: `
+      <h3>🧬 你的画像</h3>
+      <p>你处于「信息过载型焦虑」——不是AI本身让你焦虑，而是关于AI的海量信息让你焦虑。你关注了很多AI博主、读了很多AI文章、知道很多AI概念，但知道得越多反而越不安。这不是你的问题，是信息环境的问题。</p>
+      <h3>💡 焦虑来源分析</h3>
+      <p>你的焦虑核心是「不确定性」——不知道AI会怎么改变你的行业，不知道现在学什么才「不白学」，不知道自己会不会成为被替代的那一个。这种不确定性被社交媒体放大，形成了「越刷越焦虑」的恶性循环。</p>
+      <h3>🛠️ 缓解方案</h3>
+      <ul>
+        <li><strong>信息节食</strong>：每天只看1-2篇AI相关内容，取关贩卖焦虑的账号</li>
+        <li><strong>行动替代焦虑</strong>：与其担心「会不会被取代」，不如找个AI工具实战一下</li>
+        <li><strong>聚焦可控圈</strong>：把注意力从「AI能做什么」转向「我能用AI做什么」</li>
+        <li>你的焦虑不是弱点——它说明你在认真思考未来。把这份焦虑变成行动燃料</li>
+      </ul>
+    `,
+    advice: "你的焦虑不是弱点——它说明你在认真思考未来。把焦虑变成行动。"
+  },
+  severe: {
+    id: "severe",
+    name: "🔥 重度恐慌型",
+    tag: "寝食难安",
+    emoji: "🔥",
+    color: "#FF3B30",
+    grad: "linear-gradient(135deg, #FF3B30, #E03020)",
+    stars: "★★★★☆",
+    subtitle: "感觉AI随时会取代自己。每天活在「是不是该转行」「现在学什么有用」的纠结中。",
+    detail: `
+      <h3>🧬 你的画像</h3>
+      <p>你对AI的焦虑已经影响到了日常生活和职业决策。你可能正在经历「技能焦虑」——不知道自己现有的能力还能「保值」多久，也不确定现在学什么才值得投入时间。这种感觉很真实，也很折磨人。</p>
+      <h3>💡 焦虑来源分析</h3>
+      <p>你的焦虑通常来自对「AI能力」的高估和对「人类能力」的低估。你看到的都是AI的突破——它又通过了什么考试、又能做什么工作了——但你忽略了它不能做的事：理解语境、建立信任、做复杂判断、真正创造新东西。</p>
+      <h3>🛠️ 缓解方案</h3>
+      <ul>
+        <li><strong>重新评估自己的不可替代性</strong>：列出你工作中AI绝对做不了的3件事（人际关系、复杂判断、创意整合……一定有）</li>
+        <li><strong>从「学技能」转向「用AI」</strong>：与其学新技能跟AI竞争，不如学会「指挥AI做事」</li>
+        <li><strong>建立AI实践正反馈</strong>：选一个小任务，用AI完成它。看到自己能用好AI，焦虑自然会降</li>
+        <li>如果焦虑持续影响睡眠和情绪，建议找信任的人聊一聊</li>
+      </ul>
+    `,
+    advice: "你可能低估了自己的价值，高估了AI的能力。试试真的用AI做一件事，你会发现它没那么可怕。"
+  },
+  doomsday: {
+    id: "doomsday",
+    name: "💀 末日危机型",
+    tag: "末日将至",
+    emoji: "💀",
+    color: "#8E44AD",
+    grad: "linear-gradient(135deg, #8E44AD, #6C3483)",
+    stars: "★★★★★",
+    subtitle: "人类要完了。所有工作都会被AI取代，学什么都没用，不如躺平。",
+    detail: `
+      <h3>🧬 你的画像</h3>
+      <p>你的AI焦虑已经到了「存在主义危机」的级别——不是担心某一份工作，而是对人类未来的整体悲观。你可能是科幻爱好者，也可能被太多「AI取代人类」的新闻轰炸过。这种感受虽然极端，但你不是一个人——很多人在AI浪潮中都有过类似的恐惧。</p>
+      <h3>💡 焦虑来源分析</h3>
+      <p>你的焦虑往往来自「全有或全无」的思维模式——要么AI完全取代人类，要么完全无害。但现实很少是非黑即白的。历史上每一次技术革命（蒸汽机、电力、互联网）都曾引发「人类要完了」的恐慌，但最终人的角色变了，不是消失了。</p>
+      <h3>🛠️ 缓解方案</h3>
+      <ul>
+        <li><strong>减少末日叙事摄入</strong>：少看科幻灾难片和贩卖焦虑的自媒体，它们会强化你的灾难化思维</li>
+        <li><strong>找到你的「控制点」</strong>：在你能掌控的小范围里用AI做一些实际的事——哪怕只是让AI帮你写个购物清单</li>
+        <li><strong>关注正在变好的事</strong>：AI也在帮助医疗诊断、气候预测、教育资源平等——它不只有「取代人类」这一面</li>
+        <li><strong>给自己设个「焦虑闹钟」</strong>：每天只允许自己焦虑15分钟，时间到了就去做别的事</li>
+        <li>如果这种焦虑严重影响了你的生活，考虑和专业心理咨询师聊聊</li>
+      </ul>
+    `,
+    advice: "每一次技术革命都有人说「人类要完了」，但人类一直在。你的恐惧是真实的，但不必让它主宰你的生活。"
+  }
+};
+
+const resultIcons = {
+  zen: "🧘", mild: "🤔", moderate: "😰", severe: "🔥", doomsday: "💀"
+};
+const resultNames = {
+  zen: "佛系淡定", mild: "轻度关注", moderate: "中度焦虑", severe: "重度恐慌", doomsday: "末日危机"
+};
+const resultOrder = ["zen", "mild", "moderate", "severe", "doomsday"];
+
+// ============ 状态 ============
+let currentQuestion = 0;
+let answers = [];
+const totalQuestions = questions.length;
+
+// ============ 渲染函数 ============
+function startQuiz() {
+  document.getElementById('coverPage').style.display = 'none';
+  document.getElementById('quizPage').style.display = 'block';
+  document.getElementById('resultPage').style.display = 'none';
+  currentQuestion = 0;
+  answers = new Array(totalQuestions).fill(null);
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQuestion];
+  const letters = ['A','B','C','D'];
+  document.getElementById('qNum').textContent = currentQuestion + 1;
+  document.getElementById('progressFill').style.width = ((currentQuestion+1)/totalQuestions*100)+'%';
+  document.getElementById('questionText').textContent = q.q;
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option option-anim' + (answers[currentQuestion]===i?' selected':'');
+    div.style.animationDelay = (i*0.06)+'s';
+    div.innerHTML = `
+      <div class="option-icon"><span class="option-letter">${letters[i]}</span></div>
+      <span class="option-text">${opt.text}</span>
+      <div class="option-check"></div>`;
+    div.onclick = () => selectOption(i);
+    container.appendChild(div);
+  });
+
+  const btnBack = document.getElementById('btnBack');
+  currentQuestion===0 ? btnBack.classList.remove('visible') : btnBack.classList.add('visible');
+  updateNextButton();
+}
+
+function selectOption(i) {
+  answers[currentQuestion] = i;
+  document.querySelectorAll('.option').forEach((o,idx) => o.classList.toggle('selected',idx===i));
+  updateNextButton();
+  setTimeout(() => {
+    if (answers[currentQuestion]===i && currentQuestion < totalQuestions-1) nextQuestion();
+  }, 500);
+}
+
+function updateNextButton() {
+  const btn = document.getElementById('btnNext');
+  if (answers[currentQuestion]!==null) {
+    btn.classList.add('active');
+    btn.textContent = currentQuestion===totalQuestions-1 ? '查看结果 →' : '下一题 →';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '下一题 →';
+  }
+}
+
+function nextQuestion() {
+  if (answers[currentQuestion]===null) return;
+  if (currentQuestion < totalQuestions-1) { currentQuestion++; renderQuestion(); }
+  else showResult();
+}
+function prevQuestion() { if (currentQuestion>0) { currentQuestion--; renderQuestion(); }}
+
+function calculateScores() {
+  const scores = {};
+  answers.forEach((ansIdx, qIdx) => {
+    if (ansIdx!==null) {
+      for (const [k,v] of Object.entries(questions[qIdx].options[ansIdx].scores))
+        scores[k] = (scores[k]||0) + v;
+    }
+  });
+  return scores;
+}
+
+function showResult() {
+  document.getElementById('quizPage').style.display = 'none';
+  document.getElementById('resultPage').style.display = 'block';
+  const scores = calculateScores();
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const topType = sorted[0][0];
+  const r = resultTypes[topType];
+  const maxScore = Math.max(...Object.values(scores),1);
+
+  document.getElementById('resultEmojiWrap').textContent = r.emoji;
+  document.getElementById('resultEmojiWrap').style.background = r.grad;
+  document.getElementById('resultTag').textContent = r.tag;
+  document.getElementById('resultTitle').textContent = r.name;
+  document.getElementById('resultSubtitle').textContent = r.subtitle;
+  document.getElementById('resultStars').textContent = r.stars;
+
+  document.getElementById('scoreGrid').innerHTML = resultOrder.map(k => {
+    const v = scores[k] || 0;
+    const pct = Math.round(v/maxScore*100);
+    return `<div class="score-card${k===topType?' top':''}">
+      <div class="sc-emoji">${resultIcons[k]}</div>
+      <div class="sc-name">${resultNames[k]}</div>
+      <div class="sc-bar-bg"><div class="sc-bar" style="width:0;background:${resultTypes[k].color}"></div></div>
+      <div class="sc-pct">${pct}<span style="font-size:11px;font-weight:400;color:#86868b">%</span></div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('resultDetail').innerHTML = r.detail;
+
+  setTimeout(() => {
+    document.querySelectorAll('.sc-bar').forEach((el,i) => {
+      const k = resultOrder[i];
+      const v = scores[k] || 0;
+      el.style.width = Math.round(v/maxScore*100)+'%';
+    });
+  }, 200);
+}
+
+function retryQuiz() {
+  document.getElementById('resultPage').style.display = 'none';
+  document.getElementById('coverPage').style.display = 'flex';
+  answers = new Array(totalQuestions).fill(null);
+  currentQuestion = 0;
+}
+
+function showShare() {
+  const scores = calculateScores();
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const r = resultTypes[sorted[0][0]];
+  document.getElementById('shareEmoji').textContent = r.emoji;
+  document.getElementById('shareTitle').textContent = r.name;
+  document.getElementById('shareSub').textContent = r.subtitle;
+  document.getElementById('shareStars').textContent = r.stars;
+  document.getElementById('shareOverlay').classList.add('show');
+}
+function hideShare(e) {
+  if (!e || e.target===document.getElementById('shareOverlay'))
+    document.getElementById('shareOverlay').classList.remove('show');
+}
+</script>
+</body>
+</html>
